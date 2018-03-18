@@ -10,11 +10,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val Welcome = Intent(this@MainActivity, Welcome_page::class.java);
+        startActivity(Welcome);
         setContentView(R.layout.activity_main)
-        var SlideAdapter = slideAdapter(this);
-        var viewpager: ViewPager = findViewById(R.id.viewPager);
-        viewpager.adapter = SlideAdapter;
-
+        var gui = GUI(this);
+        GUI.changeTypeFace(this.findViewById(R.id.Logo));
     }
 
     fun btnSignUpClick(view: View) {

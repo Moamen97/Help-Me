@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Help Me</string>
-    <string name="app_description"></string>
+    <string name="app_description">
+        There will be logo photo here.
+    </string>
 </resources>
