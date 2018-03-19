@@ -1,8 +1,11 @@
 package com.helpme
 
+import Model.users
 import android.media.tv.TvContract
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import com.google.firebase.firestore.FirebaseFirestore
 
 class sign_in : AppCompatActivity() {
 
@@ -11,5 +14,12 @@ class sign_in : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in);
         val gui = GUI(this);
         GUI.changeTypeFace(this.findViewById(R.id.Logo));
+        var db: FirebaseFirestore = FirebaseFirestore.getInstance();
+
+
+    }
+
+    fun btnSignInClick(view: View) {
+
     }
 }
