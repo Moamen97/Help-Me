@@ -5,10 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 public class workshop {
-    private Map<String, Object> location;
-    private String workshopPhoneNum;
+    private Map<String, Object> location = null;
+    private String workshopPhoneNum = "";
     private Integer workshopRate = 0;
-    private List<Object> workingHours;
+    private List<Object> workingHours = null;
+
+    public String getWorkshopPhoneNum() {
+        return workshopPhoneNum;
+    }
+
+    public void setWorkshopPhoneNum(String workshopPhoneNum) {
+        this.workshopPhoneNum = workshopPhoneNum;
+    }
 
     public workshop(Object locationInfo) {
         location = new HashMap<>();

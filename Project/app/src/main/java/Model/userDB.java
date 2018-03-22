@@ -96,9 +96,26 @@ public class userDB implements userQueries {
                                 // set notifications
                                 if (newUser.getUserProfession() != null) {
                                     DocumentReference professionRef = collectionReference.document();
-                                    
+                                    String myId = professionRef.getId();
+                                    Map<String, Object> professionData = new HashMap<>();
+                                    professionData.put("isProfessional", newUser.getUserProfession().getProfessional());
+                                    professionData.put("professionCategory", newUser.getUserProfession().getProfessionCategory());
+                                    professionData.put("professionalRate", newUser.getUserProfession().getProfessionalRate());
+                                    professionRef.set(professionData);
+                                    CollectionReference workShopRef = db.collection("user").document(newUser.getUserName()).
+                                            collection("profession").document(myId).collection("workshop");
+                                    DocumentReference workshopRef = collectionReference.document();
+                                    String workShopID = workShopRef.getId();
+                                    if (newUser.getUserProfession().getWorkshopsList() != null) {
+                                        for (int i = 0; i < newUser.getUserProfession().getWorkshopsList().size(); ++i) {
+                                            Map<String, Object> workshopData = new HashMap<>();
+                                            workshopData.put("workingHours", newUser.getUserProfession().getWorkshopsList().get(i).getWorkingHours());
+                                            workshopData.put("workshopRate", newUser.getUserProfession().getWorkshopsList().get(i).getWorkshopRate());
+                                            workshopData.put("workshopPhoneNum", newUser.getUserProfession().getWorkshopsList().get(i).getWorkshopPhoneNum());
+                                            workShopRef.document().set(workshopData);
+                                        }
+                                    }
                                 }
-
                                 Toast.makeText(context, "Sign up successfully", Toast.LENGTH_SHORT).show();
                             }
                         } else {
