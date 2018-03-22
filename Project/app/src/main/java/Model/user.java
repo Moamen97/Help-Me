@@ -1,25 +1,46 @@
 package Model;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import java.security.Timestamp;
 
-public class users {
+public class user {
 
-    String eMail, firstName, midName, lastName, gender, image, password, phoneNum, user_name;
+    private String eMail = "", firstName = "", midName = "", lastName = "", gender = "", image = "", password = "", phoneNum = "", userName = "";
+    private Integer behav_rate = 0;
+    private String birthDate = "";
 
-    public users(String eMail, String firstName, String midName, String lastName, String gender, String image, String password, String phoneNum, String user_name) {
+    public user() {
+
+    }
+
+    public user(user User) {
+        this.eMail = User.eMail;
+        this.firstName = User.firstName;
+        this.midName = User.midName;
+        this.lastName = User.lastName;
+        this.gender = User.gender;
+        this.image = User.image;
+        this.password = User.password;
+        this.phoneNum = User.phoneNum;
+        this.userName = User.userName;
+        this.behav_rate = User.behav_rate;
+        this.birthDate = User.birthDate;
+    }
+
+    public user(String eMail, String firstName, String midName,
+                String lastName, String gender, String image, String password,
+                String phoneNum, String userName, Integer behav_rate) {
         this.eMail = eMail;
         this.firstName = firstName;
         this.midName = midName;
         this.lastName = lastName;
+        this.behav_rate = behav_rate;
         this.gender = gender;
         this.image = image;
         this.password = password;
         this.phoneNum = phoneNum;
-        this.user_name = user_name;
+        this.userName = userName;
     }
 
-    public users() {
-    }
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
@@ -54,8 +75,8 @@ public class users {
         this.phoneNum = phoneNum;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setuserName(String userName) {
+        this.userName = userName;
     }
 
     public String geteMail() {
@@ -90,7 +111,7 @@ public class users {
         return phoneNum;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return this.userName;
     }
 }

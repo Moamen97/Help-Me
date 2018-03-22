@@ -73,12 +73,12 @@
                     android:drawableLeft="@drawable/ic_user_icon"
                     android:drawablePadding="5dp"
                     android:hint="User Name"
-                    android:inputType="phone"
+                    android:inputType="text"
                     android:paddingStart="10dp"
                     android:textSize="14sp" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/userEmail"
+                    android:id="@+id/eMail"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
@@ -92,7 +92,7 @@
                     android:textSize="14sp" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/userPassword"
+                    android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
@@ -124,7 +124,7 @@
                     android:textSize="14sp" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/MidName"
+                    android:id="@+id/midName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
@@ -139,7 +139,7 @@
                     android:textSize="14sp" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/LastName"
+                    android:id="@+id/lastName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
@@ -177,6 +177,7 @@
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="@color/signIn"
+                    android:onClick="btnRegisterClicked"
                     android:text="Register"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"

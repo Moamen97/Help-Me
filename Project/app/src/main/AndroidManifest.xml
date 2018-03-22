@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.helpme">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -19,7 +20,7 @@
         </activity>
         <activity android:name=".sign_in" />
         <activity android:name=".sign_up" />
-        <activity android:name=".Welcome_page"></activity>
+        <activity android:name=".Welcome_page" />
     </application>
 
 </manifest>
