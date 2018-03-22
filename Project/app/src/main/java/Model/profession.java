@@ -8,6 +8,10 @@ public class profession {
     private Integer professionalRate = 0;
     private List<workshop> workshopsList = null;
 
+    public profession() {
+
+    }
+
     public profession(String professionCategory, Boolean isProfessional, Integer professionalRate, List<workshop> workshopsList) {
 
         this.professionCategory = professionCategory;
@@ -15,6 +19,7 @@ public class profession {
         this.professionalRate = professionalRate;
         this.workshopsList = workshopsList;
     }
+
     public List<workshop> getWorkshopsList() {
         return workshopsList;
     }

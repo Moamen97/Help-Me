@@ -1,6 +1,7 @@
 package Model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,7 +13,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.helpme.home;
 
+import Common.Common;
 import Interface.userQueries;
 
 import static android.content.ContentValues.TAG;
@@ -77,7 +80,10 @@ public class userDB implements userQueries {
                             if (!task.getResult().isEmpty()) {
                                 System.out.println(String.valueOf(task.getResult().getDocuments().get(0).getData()));
                                 if (task.getResult().getDocuments().get(0).get("password").equals(password)) {
-                                    Toast.makeText(context, "Sign In Successfully ", Toast.LENGTH_SHORT).show();
+                                    Common.currentUser = task.getResult().getDocuments().get(0).toObject(user.class);
+                                    Toast.makeText(context, "Sign In Successfully " + Common.currentUser.getFirstName() + " " + Common.currentUser.getMidName() + " " + Common.currentUser.getLastName() + " ", Toast.LENGTH_LONG).show();
+                                    Intent homeIntent = new Intent(context, home.class);
+                                    context.startActivity(homeIntent);
                                 } else {
                                     Toast.makeText(context, "Wrong user name of password", Toast.LENGTH_SHORT).show();
                                 }

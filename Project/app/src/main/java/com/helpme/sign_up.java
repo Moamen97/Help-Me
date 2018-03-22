@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import Model.profession;
 import Model.user;
 import Model.userDB;
 
@@ -36,7 +37,11 @@ public class sign_up extends AppCompatActivity {
                         ((AutoCompleteTextView) findViewById(R.id.password)).getText().toString(),
                         ((AutoCompleteTextView) findViewById(R.id.phoneNumber)).getText().toString(),
                         ((AutoCompleteTextView) findViewById(R.id.userName)).getText().toString(),
-                        10
+                        10,
+                        null,
+                        null,
+                        null,
+                        new profession()
                 );
                 userDB dbUser = new userDB(sign_up.this);
                 dbUser.addUser(newUser);

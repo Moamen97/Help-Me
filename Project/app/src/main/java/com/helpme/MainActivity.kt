@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var gui = GUI(this);
         GUI.changeTypeFace(this.findViewById(R.id.Logo));
-
-
     }
 
     fun btnSignUpClick(view: View) {

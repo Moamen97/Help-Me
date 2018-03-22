@@ -30,8 +30,7 @@ public class home extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Menu");
-
+        toolbar.setTitle("Posts");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,14 +49,6 @@ public class home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // initialize database to get posts
-        Typeface face = Typeface.createFromAsset(getAssets(), "Fonts/mvboli.ttf");
-
-        // setting the name of he user
-        View headerView = navigationView.getHeaderView(0);
-        userName = (headerView).findViewById(R.id.nameUser);
-        userName.setText(Common.currentUser.getFirstName() + " " + Common.currentUser.getMidName() + " " + Common.currentUser.getLastName());
-        
     }
 
     @Override
