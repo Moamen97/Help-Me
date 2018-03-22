@@ -15,6 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.helpme.home;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import Common.Common;
 import Interface.userQueries;
 
@@ -47,7 +50,55 @@ public class userDB implements userQueries {
                                 Toast.makeText(context, "Sign up is not success user name is already exist", Toast.LENGTH_SHORT).show();
                             } else {
                                 System.out.println(String.valueOf("No Document Data"));
-                                db.collection("user").document(newUser.getUserName()).set(newUser);
+                                Map<String, Object> userData = new HashMap<>();
+                                userData.put("userName", newUser.getUserName());
+                                userData.put("image", newUser.getImage());
+                                userData.put("password", newUser.getPassword());
+                                userData.put("eMail", newUser.geteMail());
+                                userData.put("firstName", newUser.getFirstName());
+                                userData.put("midName", newUser.getMidName());
+                                userData.put("lastName", newUser.getLastName());
+                                userData.put("gender", newUser.getGender());
+                                userData.put("phoneNum", newUser.getPhoneNum());
+                                userData.put("behav_rate", newUser.getBehav_rate());
+                                userData.put("birthDate", newUser.getBirthDate());
+                                // put the values of user to their document
+                                db.collection("user").document(newUser.getUserName()).set(userData);
+                                // try to put their collections
+                                CollectionReference collectionReference = db.collection("user").document(newUser.getUserName()).collection("notifications");
+                                // set notifications
+                                if (newUser.getNotificationsList() != null) {
+                                    for (int i = 0; i < newUser.getNotificationsList().size(); ++i) {
+                                        DocumentReference notificationReference = collectionReference.document();
+                                        String myId = notificationReference.getId();
+                                        Map<String, Object> notificationData = new HashMap<>();
+                                        notificationData.put("notificationData", newUser.getNotificationsList().get(i).getNotificationData());
+                                        notificationData.put("notificationTime", newUser.getNotificationsList().get(i).getNotificationTime());
+                                        notificationReference.set(notificationData);
+                                    }
+                                }
+                                collectionReference = db.collection("user").document(newUser.getUserName()).collection("posts");
+                                // set notifications
+                                if (newUser.getPostsList() != null) {
+                                    for (int i = 0; i < newUser.getPostsList().size(); ++i) {
+                                        DocumentReference postReference = collectionReference.document();
+                                        String myId = postReference.getId();
+                                        Map<String, Object> postData = new HashMap<>();
+                                        postData.put("comments", newUser.getPostsList().get(i).getCommentList());
+                                        postData.put("followers", newUser.getPostsList().get(i).getFollowerList());
+                                        postData.put("image", newUser.getPostsList().get(i).getImage());
+                                        postData.put("postContent", newUser.getPostsList().get(i).getPostContent());
+                                        postData.put("postTime", newUser.getPostsList().get(i).getPostTime());
+                                        postReference.set(postData);
+                                    }
+                                }
+                                collectionReference = db.collection("user").document(newUser.getUserName()).collection("profession");
+                                // set notifications
+                                if (newUser.getUserProfession() != null) {
+                                    DocumentReference professionRef = collectionReference.document();
+                                    
+                                }
+
                                 Toast.makeText(context, "Sign up successfully", Toast.LENGTH_SHORT).show();
                             }
                         } else {
