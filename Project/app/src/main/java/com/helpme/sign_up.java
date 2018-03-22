@@ -1,6 +1,7 @@
 package com.helpme;
 
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,14 +14,14 @@ import Model.user;
 import Model.userDB;
 
 public class sign_up extends AppCompatActivity {
-
-    TextView logo;
     Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        Typeface face = Typeface.createFromAsset(getAssets(), "Fonts/Nabila.ttf");
+        ((TextView) findViewById(R.id.Logo)).setTypeface(face);
         registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
