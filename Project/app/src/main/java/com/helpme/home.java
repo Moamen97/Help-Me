@@ -75,6 +75,7 @@ public class home extends AppCompatActivity
         adapter.addFragments(new PlumberFragment(), "Plumber");
         adapter.addFragments(new MechanicFragment(), "Mechanic");
 
+        // viewPager adapter set
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
