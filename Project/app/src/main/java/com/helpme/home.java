@@ -1,6 +1,6 @@
 package com.helpme;
 
-import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -118,15 +118,23 @@ public class home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.MyProfile) {
-            // Handle the camera action
+           Intent intent = new Intent(this, MyProfile.class);
+           startActivity(intent);
         } else if (id == R.id.EditMyInfo) {
+
+            Intent intent = new Intent(this, EditProfile.class);
+            startActivity(intent);
 
         } else if (id == R.id.MyPosts) {
 
         } else if (id == R.id.AddProfession) {
+            Intent intent = new Intent(this,AddProfession.class);
+            startActivity(intent);
 
         } else if (id == R.id.Logout) {
 
+            Intent intent = new Intent(this,SignIn.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

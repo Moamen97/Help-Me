@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
-
+    android:background="@drawable/gradient"
+    tools:context="com.helpme.SignUp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,85 +13,43 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="400dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="105dp"
-                    android:background="@color/fbutton_color_wet_asphalt"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="177dp"
-                        android:layout_height="215dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="45dp"
-                        android:src="@drawable/carpenter" /><![CDATA[
-
-                    />
-                ]]>
-                </LinearLayout>
-
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/Logo_AddProfession"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="Add Profession"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
             <LinearLayout
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="45dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/trans_white_rectangle"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
 
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_person_midnight_24dp" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Name"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/ProfessionForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_email_black_24dp" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Email"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    tools:text="Profession Form" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -104,35 +61,15 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/ic_phone_android_black_24dp" />
+                        android:src="@drawable/ic_person_black_24dp" />
 
                     <EditText
+                        android:id="@+id/ProfessionEdtitText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:hint="Profession"
                         android:paddingLeft="20dp"
-                        android:text="Mobile Number"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_date_range_black_24dp" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Birth date"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -149,23 +86,47 @@
                         android:src="@drawable/ic_work_black_24dp" />
 
                     <EditText
+                        android:id="@+id/WorkShopNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
-                        android:text="Work Shop"
+                        android:hint="Work Shop Name"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_location_on_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/WorkshopLocationEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:hint="Work Shop Location"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
                 <info.hoang8f.widget.FButton
-                    android:id="@+id/SaveInfoChanges"
+                    android:id="@+id/AddProfessionBtn"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:background="@color/signIn"
-                    android:onClick="btnSaveInfoChanges"
-                    android:text="Save"
+                    android:onClick="btnAddProfessionClicked"
+                    android:text="Add"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     app:cornerRadius="8dp"
@@ -173,9 +134,8 @@
                     app:shadowColor="@android:color/black"
                     app:shadowEnabled="true"
                     app:shadowHeight="2dp" />
-            </LinearLayout>
 
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-</LinearLayout>
+</RelativeLayout>

@@ -26,7 +26,11 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".SignIn" />
         <activity android:name=".SignUp" />
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".EditProfile" />
+        <activity android:name=".MyProfile" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".Logout" />
+        <activity android:name=".AddProfession"></activity>
     </application>
 
 </manifest>

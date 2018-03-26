@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         (this.findViewById<TextView>(R.id.Logo)).typeface = face;
 
         //var myDialog = Dialog(this);
-        //myDialog.setContentView(R.layout.activity_edit_profile);
+        //myDialog.setContentView(R.layout.EditProfile);
 
         //myDialog.window.setBackgroundDrawable(object : ColorDrawable(Color.TRANSPARENT) {});
         //myDialog.show();
