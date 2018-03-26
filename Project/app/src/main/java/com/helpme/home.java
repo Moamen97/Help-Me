@@ -1,28 +1,32 @@
 package com.helpme;
 
-import android.graphics.Typeface;
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
-
-import Common.Common;
 
 public class home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView userName;
     RecyclerView recycleMenu;
     RecyclerView.LayoutManager layoutManager;
+    private TabLayout tabLayout;
+    private AppBarLayout appBarLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,29 @@ public class home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        // Here is the power
+        tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
+        viewPager = (ViewPager) findViewById(R.id.viewPagerId);
+        // adding fragments;
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        adapter.addFragments(new FragmentQuiz(), "Moamen");
+        adapter.addFragments(new FragmentExplore(), "Hassan");
+        adapter.addFragments(new FragmentStore(), "Attia");
+        adapter.addFragments(new FragmentQuiz(), "Moamen");
+        adapter.addFragments(new FragmentExplore(), "Hassan");
+        adapter.addFragments(new FragmentStore(), "Attia");
+        adapter.addFragments(new FragmentQuiz(), "Moamen");
+        adapter.addFragments(new FragmentExplore(), "Hassan");
+        adapter.addFragments(new FragmentStore(), "Attia");
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setElevation(0);
 
     }
 
@@ -82,6 +109,7 @@ public class home extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

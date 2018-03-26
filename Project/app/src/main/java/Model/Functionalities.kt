@@ -1,44 +1,21 @@
-package Model;
+package Model
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
+import android.content.Context
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import Common.Common
+import android.app.AlertDialog
+import android.content.Intent
+import android.widget.Toast
+import com.helpme.home
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.helpme.home;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import Common.Common;
-import Interface.userQueries;
-
-import static android.content.ContentValues.TAG;
-
-
-public class userDB implements userQueries {
-
-    public static Boolean status = false;
-    private FirebaseFirestore db;
-    private user ourUser = null;
-    private Context context;
-
-    public userDB(Context context) {
-        this.context = context;
-        db = FirebaseFirestore.getInstance();
-    }
-
-    @Override
-    public void addUser(final user newUser) {
-        db.collection("user")
+class Functionalities(var context: Context) {
+    private var dataBaseInstance = FirebaseFirestore.getInstance();
+    fun signUp(newUser: user) {
+        /* db.collection("user")
                 .whereEqualTo("userName", newUser.getUserName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -122,52 +99,69 @@ public class userDB implements userQueries {
                             System.out.println(String.valueOf(task.getException()));
                         }
                     }
-                });
+                });*/
+        dataBaseInstance.collection("user")
+                .whereEqualTo("userName", newUser.getUserName())
+                .get()
+                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        println("Entered Complete Listener");
+                        if (p0.isSuccessful) {
+                            if (p0.result.isEmpty) {
+                                // getting empty documents ; here we should push our user to db :V
+                                println("No Document Data");
+                                var userData = HashMap<String, Any>();
+                                userData.put("userName", newUser.userName);
+                                userData.put("image", newUser.image);
+                                userData.put("password", newUser.password);
+                                userData.put("eMail", newUser.geteMail());
+                                userData.put("firstName", newUser.firstName);
+                                userData.put("midName", newUser.midName);
+                                userData.put("lastName", newUser.lastName);
+                                userData.put("gender", newUser.gender);
+                                userData.put("phoneNum", newUser.phoneNum);
+                                userData.put("behav_rate", newUser.behav_rate);
+                                userData.put("birthDate", newUser.birthDate);
+                                dataBaseInstance.collection("user").document(newUser.userName).set(userData);
+                                Toast.makeText(context, "Sign up successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // here i found someone has the same userName :V so i can't add this user
+                                println(p0.result.documents[0].data.toString());
+                                Toast.makeText(context, "Sign up is not success user name is already exist", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            // Task is not Successfull ,, should be throw an exception
+                            println(p0.exception.toString());
+                        }
+                    }
+                })
     }
 
-    @Override
-    public user getUserByName(String Name) {
-        return null;
-    }
-
-    @Override
-    public user getUserByUserName(String userName) {
-
-        return null;
-    }
-
-    @Override
-    public void getUserByUserNameAndChecksPassword(String userName, final String password) {
-        db.collection("user")
+    fun signIn(userName: String, password: String) {
+        dataBaseInstance.collection("user")
                 .whereEqualTo("userName", userName)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if (!task.getResult().isEmpty()) {
-                                System.out.println(String.valueOf(task.getResult().getDocuments().get(0).getData()));
-                                if (task.getResult().getDocuments().get(0).get("password").equals(password)) {
-                                    Common.currentUser = task.getResult().getDocuments().get(0).toObject(user.class);
+                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        if (p0.isSuccessful) {
+                            if (!p0.result.isEmpty) {
+                                println(p0.result.documents[0].data.toString())
+                                if (p0.result.documents[0].get("password").equals(password)) {
+                                    Common.currentUser = p0.result.documents[0].toObject(user::class.java);
                                     Toast.makeText(context, "Sign In Successfully " + Common.currentUser.getFirstName() + " " + Common.currentUser.getMidName() + " " + Common.currentUser.getLastName() + " ", Toast.LENGTH_LONG).show();
-                                    Intent homeIntent = new Intent(context, home.class);
+                                    val homeIntent = Intent(context, home::class.java);
                                     context.startActivity(homeIntent);
                                 } else {
                                     Toast.makeText(context, "Wrong user name of password", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                System.out.println(String.valueOf("No Document Data"));
+                                println("No Document Data");
                                 Toast.makeText(context, "Wrong user name of password", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            System.out.println(String.valueOf(task.getException()));
+                            println(p0.exception.toString());
                         }
                     }
-                });
-    }
-
-    @Override
-    public user getUserByEmail(String Email) {
-        return null;
+                })
     }
 }

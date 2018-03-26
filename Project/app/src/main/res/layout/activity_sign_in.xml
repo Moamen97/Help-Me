@@ -5,19 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context="com.helpme.sign_in">
+    tools:context="com.helpme.SignIn">
 
     <TextView
         android:id="@+id/Logo"
         android:layout_width="200dp"
-        android:textAlignment="center"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="40sp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        />
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
 
 
     <LinearLayout
@@ -27,20 +26,19 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="170dp"
         android:background="@drawable/trans_white_rectangle"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/sign_upText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:gravity="center"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:text="Get Started"
-            android:id="@+id/sign_upText"
             android:textColor="@color/white"
-            android:gravity="center"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -52,8 +50,7 @@
             android:paddingStart="10dp"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <AutoCompleteTextView
             android:id="@+id/userName"
@@ -82,59 +79,56 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingStart="10dp"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
 
 
         <info.hoang8f.widget.FButton
             android:id="@+id/signInBtn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
             android:layout_margin="8dp"
             android:background="@color/signIn"
-            android:layout_alignParentBottom="true"
+            android:onClick="btnSignInClick"
             android:text="Sign In"
             android:textAlignment="center"
             android:textColor="@android:color/white"
+            app:cornerRadius="10dp"
             app:fButtonColor="@color/fbutton_color_belize_hole"
             app:shadowColor="@android:color/black"
             app:shadowEnabled="true"
-            app:shadowHeight="2dp"
-            android:layout_gravity="center"
-            app:cornerRadius="10dp"
-            />
+            app:shadowHeight="2dp" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:gravity="center"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:text="you have not an email ?"
             android:textColor="@android:color/black"
-            android:gravity="center"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
 
         <info.hoang8f.widget.FButton
             android:id="@+id/signUpBtn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
             android:layout_alignParentBottom="true"
+
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
             android:text="Sign Up"
             android:textAlignment="center"
             android:textColor="@android:color/white"
+            app:cornerRadius="10dp"
             app:fButtonColor="@color/fbutton_color_midnight_blue"
             app:shadowColor="@android:color/black"
             app:shadowEnabled="true"
-            app:shadowHeight="2dp"
-            android:layout_gravity="center"
-            app:cornerRadius="10dp"
-            />
+            app:shadowHeight="2dp" />
 
     </LinearLayout>
 </RelativeLayout>

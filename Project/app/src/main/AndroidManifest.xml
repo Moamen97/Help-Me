@@ -19,12 +19,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".sign_in" />
-        <activity android:name=".sign_up" />
         <activity android:name=".Welcome_page" />
         <activity
             android:name=".home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".SignIn" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".EditProfile"></activity>
     </application>
 
 </manifest>
