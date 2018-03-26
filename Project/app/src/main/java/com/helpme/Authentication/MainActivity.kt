@@ -1,15 +1,12 @@
-package com.helpme
+package com.helpme.Authentication
 
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import com.google.firebase.firestore.FirebaseFirestore
+import com.helpme.R
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package Model
+package Model.postData
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.helpme.R
 
-class postAdapter(var mContext: Context, var postList: ArrayList<post>) : RecyclerView.Adapter<Model.postViewHolder>() {
+class postAdapter(var mContext: Context, var postList: ArrayList<post>, var postType: Int) : RecyclerView.Adapter<postViewHolder>() {
 
     override fun getItemCount(): Int {
         return postList.size;
@@ -21,6 +21,8 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>) : Recycl
     override fun onBindViewHolder(holder: postViewHolder?, position: Int) {
         var postToBind: post = postList[position];
         holder?.postContent?.text = postToBind.postContent;
+        holder?.postType?.setImageResource(postType);
+
         // dh by3mel load ll post cover using Glide library gamed f45
         Glide.with(mContext).load(postToBind.postImage).into(holder?.postImage);
     }

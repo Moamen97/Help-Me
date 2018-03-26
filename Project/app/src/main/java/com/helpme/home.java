@@ -19,6 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.helpme.Authentication.SignIn;
+import com.helpme.Fragments.CarpenterFragment;
+import com.helpme.Fragments.CookingFragment;
+import com.helpme.Fragments.DoctorFragment;
+import com.helpme.Fragments.EngineerFragment;
+import com.helpme.Fragments.MechanicFragment;
+import com.helpme.Fragments.PlumberFragment;
+
 public class home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView userName;
@@ -53,14 +61,20 @@ public class home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         // Here is the power
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
         viewPager = (ViewPager) findViewById(R.id.viewPagerId);
+
         // adding fragments;
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragments(new DoctorFragment(),"Doctor");
+        adapter.addFragments(new DoctorFragment(), "Doctor");
+        adapter.addFragments(new EngineerFragment(), "Engineer");
+        adapter.addFragments(new CarpenterFragment(), "Carpenter");
+        adapter.addFragments(new CookingFragment(), "Cooking");
+        adapter.addFragments(new PlumberFragment(), "Plumber");
+        adapter.addFragments(new MechanicFragment(), "Mechanic");
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -101,7 +115,6 @@ public class home extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -109,8 +122,8 @@ public class home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.MyProfile) {
-           Intent intent = new Intent(this, MyProfile.class);
-           startActivity(intent);
+            Intent intent = new Intent(this, MyProfile.class);
+            startActivity(intent);
         } else if (id == R.id.EditMyInfo) {
 
             Intent intent = new Intent(this, EditProfile.class);
@@ -119,12 +132,12 @@ public class home extends AppCompatActivity
         } else if (id == R.id.MyPosts) {
 
         } else if (id == R.id.AddProfession) {
-            Intent intent = new Intent(this,AddProfession.class);
+            Intent intent = new Intent(this, AddProfession.class);
             startActivity(intent);
 
         } else if (id == R.id.Logout) {
 
-            Intent intent = new Intent(this,SignIn.class);
+            Intent intent = new Intent(this, SignIn.class);
             startActivity(intent);
         }
 

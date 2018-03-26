@@ -2,12 +2,11 @@ package Model
 
 import android.content.Context
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import Common.Common
-import android.app.AlertDialog
+import Model.postData.*
 import android.content.Intent
 import android.widget.Toast
 import com.helpme.home

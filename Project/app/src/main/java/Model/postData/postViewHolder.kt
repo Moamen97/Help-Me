@@ -1,4 +1,4 @@
-package Model
+package Model.postData
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

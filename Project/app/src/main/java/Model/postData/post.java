@@ -1,4 +1,4 @@
-package Model;
+package Model.postData;
 
 import java.util.List;
 

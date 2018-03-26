@@ -1,4 +1,4 @@
-package com.helpme
+package com.helpme.Authentication
 
 import Model.Functionalities
 import Model.profession
@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
+import com.helpme.R
 
 class SignUp : AppCompatActivity() {
     private var controller = Functionalities(this);

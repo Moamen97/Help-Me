@@ -5,6 +5,7 @@ package Model;
  */
 
 public class locationData {
+
     private Integer apartmentNum = 1, floorNum = 0;
     // gpsLocation
     private String streetName = "", state = "", district = "";

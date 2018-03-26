@@ -1,8 +1,8 @@
 package Model;
 
-import java.security.Timestamp;
 import java.util.List;
-import java.util.Map;
+
+import Model.postData.*;
 
 public class user {
 
