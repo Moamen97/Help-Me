@@ -11,5 +11,7 @@ class AddProfession : AppCompatActivity() {
         setContentView(R.layout.activity_add_profession)
     }
 
-    fun btnAddProfessionClicked(view: View) {}
+    fun btnAddProfessionClicked(view: View) {
+
+    }
 }
