@@ -149,7 +149,7 @@
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="Work Shop"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"  />
                 </LinearLayout>
             </LinearLayout>
 
