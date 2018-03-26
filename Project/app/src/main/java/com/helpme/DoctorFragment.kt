@@ -1,10 +1,12 @@
 package com.helpme
 
+import Model.MyDividerItemDecoration
 import Model.post
 import Model.postAdapter
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,7 @@ class DoctorFragment : android.support.v4.app.Fragment() {
         var mLayoutManager = GridLayoutManager(this.context, 1)
         recyclerView?.layoutManager = mLayoutManager
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView?.addItemDecoration(object : MyDividerItemDecoration(this.context, LinearLayoutManager.VERTICAL, 16){})
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
         preparePosts(postList, adapter);
         recyclerView?.adapter = adapter;
@@ -34,10 +37,10 @@ class DoctorFragment : android.support.v4.app.Fragment() {
     }
 
     private fun preparePosts(postList: ArrayList<post>, adapter: postAdapter) {
-        val covers = arrayListOf(R.drawable.carpenter, R.drawable.carpenter,
-                R.drawable.mechanic, R.drawable.mechanic, R.drawable.mechanic,
-                R.drawable.mechanic, R.drawable.plumber, R.drawable.plumber,
-                R.drawable.plumber, R.drawable.carpenter, R.drawable.carpenter
+        val covers = arrayListOf(R.drawable.welcombackgroung, R.drawable.welcombackgroung,
+                R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung,
+                R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung,
+                R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
         postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "A7la 7aga fe el donya", "August", covers[0]))
         postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "A7la 7aga fe el donya", "August", covers[1]))

@@ -9,7 +9,6 @@ import com.helpme.R
 
 class postAdapter(var mContext: Context, var postList: ArrayList<post>) : RecyclerView.Adapter<Model.postViewHolder>() {
 
-
     override fun getItemCount(): Int {
         return postList.size;
     }
