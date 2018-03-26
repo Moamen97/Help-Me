@@ -21,15 +21,15 @@ class SignUp : AppCompatActivity() {
 
     fun btnRegisterClicked(view: View) {
         val newUser = user(
-                (view.findViewById<(AutoCompleteTextView)>(R.id.eMail)).text.toString(),
-                (view.findViewById<(AutoCompleteTextView)>(R.id.firstName)).text.toString(),
-                (view.findViewById<(AutoCompleteTextView)>(R.id.midName)).text.toString(),
-                (view.findViewById<(AutoCompleteTextView)>(R.id.lastName)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.eMail)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.firstName)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.midName)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.lastName)).text.toString(),
                 "Male",
                 "",
-                (view.findViewById<(AutoCompleteTextView)>(R.id.password)).text.toString(),
-                (view.findViewById<(AutoCompleteTextView)>(R.id.phoneNumber)).text.toString(),
-                (view.findViewById<(AutoCompleteTextView)>(R.id.userName)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.password)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.phoneNumber)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.userName)).text.toString(),
                 10,
                 null,
                 null,

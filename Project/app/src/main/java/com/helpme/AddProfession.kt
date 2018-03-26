@@ -10,9 +10,6 @@ class AddProfession : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_profession)
     }
-    fun btnAddProfessionClicked(view:View)
-    {
-        //Add Profession Info to Data Base and Update User Info
 
-    }
+    fun btnAddProfessionClicked(view: View) {}
 }

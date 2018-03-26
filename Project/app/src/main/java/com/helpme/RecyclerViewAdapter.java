@@ -12,10 +12,6 @@ import java.util.List;
 
 import Model.Contact;
 
-/**
- * Created by marshal on 3/26/18.
- */
-
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     Context mContext;
@@ -38,7 +34,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tv_name.setText(mData.get(position).getName());
         holder.tv_phone.setText(mData.get(position).getPhone());
         holder.img.setImageResource(mData.get(position).getImage());
-
     }
 
     @Override
@@ -47,12 +42,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
-
         public TextView tv_name;
         public TextView tv_phone;
         public ImageView img;
-
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_name = (TextView) itemView.findViewById(R.id.name_contact);

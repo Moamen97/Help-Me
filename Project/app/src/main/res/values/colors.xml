@@ -10,7 +10,8 @@
     <color name="overlayBackGround">#7f333639</color>
     <color name="overlayActionBar">#0e0d0e</color>
 
-
+    <color name="viewbg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
     <color name="fbutton_default_color">#3eadeb</color>
     <color name="fbutton_default_shadow_color">#ff3493c8</color>
     <color name="fbutton_color_turquoise">#1abc9c</color>
@@ -34,7 +35,6 @@
     <color name="fbutton_color_concrete">#95a5a6</color>
     <color name="fbutton_color_asbestos">#7f8c8d</color>
     <color name="fbutton_color_transparent">@android:color/transparent</color>
-
 
 
 </resources>

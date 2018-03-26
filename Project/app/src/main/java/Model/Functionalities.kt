@@ -164,4 +164,8 @@ class Functionalities(var context: Context) {
                     }
                 })
     }
+
+    fun addPost(Post: post) {
+
+    }
 }

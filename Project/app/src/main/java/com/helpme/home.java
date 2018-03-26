@@ -60,16 +60,7 @@ public class home extends AppCompatActivity
         // adding fragments;
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragments(new FragmentQuiz(), "Moamen");
-        adapter.addFragments(new FragmentExplore(), "Hassan");
-        adapter.addFragments(new FragmentStore(), "Attia");
-        adapter.addFragments(new FragmentQuiz(), "Moamen");
-        adapter.addFragments(new FragmentExplore(), "Hassan");
-        adapter.addFragments(new FragmentStore(), "Attia");
-        adapter.addFragments(new FragmentQuiz(), "Moamen");
-        adapter.addFragments(new FragmentExplore(), "Hassan");
-        adapter.addFragments(new FragmentStore(), "Attia");
-
+        adapter.addFragments(new DoctorFragment(),"Doctor");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
