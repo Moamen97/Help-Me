@@ -138,6 +138,7 @@ public class home extends AppCompatActivity
 
         } else if (id == R.id.Logout) {
 
+            finish();
             Intent intent = new Intent(this, SignIn.class);
             startActivity(intent);
         }
