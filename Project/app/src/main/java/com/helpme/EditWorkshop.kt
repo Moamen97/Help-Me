@@ -23,26 +23,9 @@ class EditWorkshop : AppCompatActivity() {
         recyclerView = findViewById(R.id.ListOfWorkShops)
         LayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = LayoutManager
-
-
         Adapter = workshopAdapter(this, ListOFWorkshops)
-
-
-
         ListOfWorkShops.adapter = Adapter
 
-
-
-
-        /*recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-
-                if (LayoutManager.findLastCompletelyVisibleItemPosition() == ListOFWorkshops.count() - 1) {
-                    loadWorkshopsEditForms(movies[movies.count() - 1].id)
-                }
-
-            }
-        })*/
     }
 
     private  fun loadWorkshopsEditForms() {
