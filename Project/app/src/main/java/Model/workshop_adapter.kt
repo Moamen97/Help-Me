@@ -19,8 +19,7 @@ class workshopAdapter(var mContext: Context, var workshopList: ArrayList<Worksho
         holder?.WorkShopLocation?.setText(workshopToBind.location);
         holder?.WorkShopPhoneNumber?.setText(workshopToBind.workshopPhoneNum) ;
         holder?.WorkShopWorkingHours?.setText(workshopToBind.workingHours);
-        // dh by3mel load ll post cover using Glide library gamed f45
-        //Glide.with(mContext).load(workshopToBind.postImage).into(holder?.postImage);
+
     }
 
 
@@ -32,6 +31,13 @@ class workshopAdapter(var mContext: Context, var workshopList: ArrayList<Worksho
         val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.workshop_card, parent, false)
         return workshopViewHolder(itemView)
     }
+
+
+
+
+
+
+
 
 
 }

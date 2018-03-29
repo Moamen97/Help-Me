@@ -144,7 +144,6 @@ tools:context="com.helpme.EditProfile">
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:background="@color/signIn"
-                android:onClick="btnSaveInfoChanges"
                 android:text="Save"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"

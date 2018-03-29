@@ -2,11 +2,13 @@ package com.helpme
 
 import Model.WorkshopTestingVersion
 import Model.workshopAdapter
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import kotlinx.android.synthetic.main.activity_edit_workshop.*
 
 class EditWorkshop : AppCompatActivity() {
@@ -25,15 +27,28 @@ class EditWorkshop : AppCompatActivity() {
 
         Adapter = workshopAdapter(this, ListOFWorkshops)
 
+
+
         ListOfWorkShops.adapter = Adapter
+
+
+
+
+        /*recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+
+                if (LayoutManager.findLastCompletelyVisibleItemPosition() == ListOFWorkshops.count() - 1) {
+                    loadWorkshopsEditForms(movies[movies.count() - 1].id)
+                }
+
+            }
+        })*/
     }
 
     private  fun loadWorkshopsEditForms() {
-        ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
-        ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
 
         ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
-
+        ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
         ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
 
     }
