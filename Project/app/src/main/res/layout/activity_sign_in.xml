@@ -121,6 +121,7 @@
 
             android:layout_gravity="center"
             android:layout_margin="8dp"
+            android:onClick="btnSignUpClick"
             android:text="Sign Up"
             android:textAlignment="center"
             android:textColor="@android:color/white"

@@ -7,9 +7,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import Common.Common
 import Model.postData.*
+import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
 import com.helpme.home
+import kotlinx.android.synthetic.main.activity_main.view.*
+
 
 class Functionalities(var context: Context) {
     private var dataBaseInstance = FirebaseFirestore.getInstance();
@@ -137,10 +140,11 @@ class Functionalities(var context: Context) {
     }
 
     fun signIn(userName: String, password: String) {
+        var e:Exception?=null
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", userName)
                 .get()
-                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                .addOnCompleteListener(object: OnCompleteListener<QuerySnapshot> {
                     override fun onComplete(p0: Task<QuerySnapshot>) {
                         if (p0.isSuccessful) {
                             if (!p0.result.isEmpty) {
@@ -150,12 +154,14 @@ class Functionalities(var context: Context) {
                                     Toast.makeText(context, "Sign In Successfully " + Common.currentUser.getFirstName() + " " + Common.currentUser.getMidName() + " " + Common.currentUser.getLastName() + " ", Toast.LENGTH_LONG).show();
                                     val homeIntent = Intent(context, home::class.java);
                                     context.startActivity(homeIntent);
+
                                 } else {
-                                    Toast.makeText(context, "Wrong user name of password", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "login failed:wrong username or password", Toast.LENGTH_SHORT).show()
+
                                 }
                             } else {
                                 println("No Document Data");
-                                Toast.makeText(context, "Wrong user name of password", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "login failed:you are offline", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             println(p0.exception.toString());
