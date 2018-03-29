@@ -64,6 +64,7 @@ tools:context="com.helpme.EditProfile">
                     android:src="@drawable/ic_person_midnight_24dp" />
 
                 <EditText
+                    android:id="@+id/editusernametext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -86,6 +87,7 @@ tools:context="com.helpme.EditProfile">
                     android:src="@drawable/ic_email_black_24dp" />
 
                 <EditText
+                    android:id="@+id/editemailtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -107,6 +109,7 @@ tools:context="com.helpme.EditProfile">
                     android:src="@drawable/ic_phone_android_black_24dp" />
 
                 <EditText
+                    android:id="@+id/editphonetext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -128,6 +131,7 @@ tools:context="com.helpme.EditProfile">
                     android:src="@drawable/ic_date_range_black_24dp" />
 
                 <EditText
+                    android:id="@+id/editbdatetext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -144,7 +148,7 @@ tools:context="com.helpme.EditProfile">
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:background="@color/signIn"
-                android:onClick="btnSaveInfoChanges"
+                android:onClick="btnSaveChanges"
                 android:text="Save"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
