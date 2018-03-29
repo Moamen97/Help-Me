@@ -1,3 +1,4 @@
+/*
 package Model
 
 import android.content.Context
@@ -5,19 +6,17 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import Common.Common
 import Model.postData.*
-import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
 import com.helpme.home
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class Functionalities(var context: Context) {
     private var dataBaseInstance = FirebaseFirestore.getInstance();
     fun signUp(newUser: user) {
-        /* db.collection("user")
+        */
+/* db.collection("user")
                 .whereEqualTo("userName", newUser.getUserName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -101,7 +100,8 @@ class Functionalities(var context: Context) {
                             System.out.println(String.valueOf(task.getException()));
                         }
                     }
-                });*/
+                });*//*
+
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", newUser.getUserName())
                 .get()
@@ -114,15 +114,15 @@ class Functionalities(var context: Context) {
                                 println("No Document Data");
                                 var userData = HashMap<String, Any>();
                                 userData.put("userName", newUser.userName);
-                                userData.put("image", newUser.image);
+                                userData.put("image", newUser.imageID);
                                 userData.put("password", newUser.password);
-                                userData.put("eMail", newUser.geteMail());
+                                userData.put("eMail", newUser.email);
                                 userData.put("firstName", newUser.firstName);
                                 userData.put("midName", newUser.midName);
                                 userData.put("lastName", newUser.lastName);
                                 userData.put("gender", newUser.gender);
                                 userData.put("phoneNum", newUser.phoneNum);
-                                userData.put("behav_rate", newUser.behav_rate);
+                                userData.put("behav_rate", newUser.behaveRate);
                                 userData.put("birthDate", newUser.birthDate);
                                 dataBaseInstance.collection("user").document(newUser.userName).set(userData);
                                 Toast.makeText(context, "Sign up successfully", Toast.LENGTH_SHORT).show();
@@ -173,4 +173,4 @@ class Functionalities(var context: Context) {
     fun addPost(Post: post) {
 
     }
-}
+}*/

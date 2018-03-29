@@ -2,17 +2,18 @@ package Control
 /**
  * Created by Mohamed Aaziz on 25/03/2018.
  */
-
+import FireBase.fireStore
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import Common.Common
+import Common.mySelf
+import Model.user
 import com.helpme.home
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
-import Model.user
 import com.helpme.EditProfile
+import java.util.*
 
 
 class UserControl private constructor() {
@@ -21,13 +22,12 @@ class UserControl private constructor() {
     private var SignUp_View: SignUp? = null
     private var Home_View: home? = null
     private var EditProfile_View:EditProfile? =null
-    private var dataBaseInstance = FirebaseFirestore.getInstance()
+    private var dataBaseInstance = fireStore.fireStoreHandler
     private var toasmsg:String = ""
 
 
     companion object {
         private var instance : UserControl? = null
-
         fun  getInstance(SignIn_View: SignIn? = null , SignUp_View: SignUp? = null
                          , Home_View: home? = null,EditProfile_View: EditProfile? = null): UserControl {
             if (instance == null)
@@ -47,7 +47,6 @@ class UserControl private constructor() {
     }
 
 
-
     fun Login(userName: String, password: String) {
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", userName)
@@ -58,12 +57,12 @@ class UserControl private constructor() {
                             if (!p0.result.isEmpty) {
                                 println(p0.result.documents[0].data.toString())
                                 if (p0.result.documents[0].get("password").equals(password)) {
-                                    Common.currentUser = p0.result.documents[0].toObject(user::class.java);
-                                    User_Model = Common.currentUser
+                                    User_Model=mySelf
+                                    mySelf.uPath=userName
                                     toasmsg = "Sign In Successfully " +
-                                            Common.currentUser.getFirstName() + " " +
-                                            Common.currentUser.getMidName() +
-                                            " " + Common.currentUser.getLastName() + " "
+                                           mySelf.firstName + " " +
+                                            mySelf.midName +
+                                            " " +mySelf.lastName + " "
                                     SignIn_View!!.ShowToast(toasmsg)
                                     SignIn_View!!.LogIn()
                                 } else {
@@ -83,7 +82,7 @@ class UserControl private constructor() {
     }
     fun signUp(newUser: user) {
         dataBaseInstance.collection("user")
-                .whereEqualTo("userName", newUser.getUserName())
+                .whereEqualTo("userName", newUser.userName)
                 .get()
                 .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
                     override fun onComplete(p0: Task<QuerySnapshot>) {
@@ -93,17 +92,17 @@ class UserControl private constructor() {
                                 // getting empty documents ; here we should push our user to db :V
                                 println("No Document Data");
                                 var userData = HashMap<String, Any>();
-                                userData.put("userName", newUser.userName);
-                                userData.put("image", newUser.image);
-                                userData.put("password", newUser.password);
-                                userData.put("eMail", newUser.geteMail());
-                                userData.put("firstName", newUser.firstName);
-                                userData.put("midName", newUser.midName);
-                                userData.put("lastName", newUser.lastName);
-                                userData.put("gender", newUser.gender);
-                                userData.put("phoneNum", newUser.phoneNum);
-                                userData.put("behav_rate", newUser.behav_rate);
-                                userData.put("birthDate", newUser.birthDate);
+                                userData.put(user.userNameKey, newUser.userName);
+                                userData.put(user.imageKey, newUser.imageID);
+                                userData.put(user.passwordKey, newUser.password);
+                                userData.put(user.emailKey, newUser.email);
+                                userData.put(user.firstNameKey, newUser.firstName);
+                                userData.put(user.midNameKey, newUser.midName);
+                                userData.put(user.lastNameKey, newUser.lastName);
+                                userData.put(user.genderKey, newUser.gender);
+                                userData.put(user.phoneNumKey, newUser.phoneNum);
+                                userData.put(user.behaveRateKey, newUser.behaveRate);
+                                userData.put(user.birthDateKey, newUser.birthDate);
                                 dataBaseInstance.collection("user").document(newUser.userName).set(userData);
                                 toasmsg = "Sign up successfully"
                                 SignUp_View!!.ShowToast(toasmsg)
@@ -141,7 +140,7 @@ class UserControl private constructor() {
         }
         if (NewEmail == null)
         {
-            newemail = User_Model!!.geteMail()
+            newemail = User_Model!!.email
         }
         if (NewMobile == null)
         {
@@ -171,7 +170,7 @@ class UserControl private constructor() {
                         }
                     })
         }
-        if(User_Model!!.geteMail() != newemail)
+        if(User_Model!!.email != newemail)
         {
             // checks if the new Email exists
             dataBaseInstance.collection("user")
@@ -183,7 +182,7 @@ class UserControl private constructor() {
                             if (p0.isSuccessful) {
                                 if (!p0.result.isEmpty){
                                     toasmsg += "Email Error, "
-                                    newemail = User_Model!!.geteMail()
+                                    newemail = User_Model!!.email
                                 }
                             }
                             else
@@ -219,8 +218,8 @@ class UserControl private constructor() {
                                 userData.put("birthDate", newbirthdate!!);
                                 dataBaseInstance.collection("user").document(User_Model!!.userName).
                                         set(userData);
-                                User_Model!!.userName = newusername
-                                User_Model!!.seteMail(newemail)
+                                User_Model!!.userName = newusername as String
+                                User_Model!!.email = newemail as String
                                 User_Model!!.phoneNum = newmobile
                                 User_Model!!.birthDate = newbirthdate
                                 EditProfile_View!!.ShowToast(toasmsg)

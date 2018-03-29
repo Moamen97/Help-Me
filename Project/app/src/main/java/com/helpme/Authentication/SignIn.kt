@@ -1,7 +1,7 @@
 package com.helpme.Authentication
 
 import Control.UserControl
-import Model.Functionalities
+//import Model.Functionalities
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity

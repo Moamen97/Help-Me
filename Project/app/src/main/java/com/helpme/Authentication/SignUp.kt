@@ -1,9 +1,7 @@
 package com.helpme.Authentication
 
 import Control.UserControl
-import Model.Functionalities
 import Model.profession
-import Model.user
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +11,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import com.helpme.R
+import Model.user
 
 class SignUp : AppCompatActivity() {
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +28,7 @@ class SignUp : AppCompatActivity() {
     }
 
     fun btnRegisterClicked(view: View) {
-        val newUser = user(
+     /*   val newUser = user(
                 (findViewById<(AutoCompleteTextView)>(R.id.eMail)).text.toString(),
                 (findViewById<(AutoCompleteTextView)>(R.id.firstName)).text.toString(),
                 (findViewById<(AutoCompleteTextView)>(R.id.midName)).text.toString(),
@@ -45,7 +44,9 @@ class SignUp : AppCompatActivity() {
                 null,
                 profession()
         );
+
         UserController.signUp(newUser)
+        */
     }
     // added by mohamed
     fun Signup()
