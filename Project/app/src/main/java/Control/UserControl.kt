@@ -46,19 +46,18 @@ class UserControl private constructor() {
         this.EditProfile_View = EditProfile_View
     }
 
-
     fun Login(userName: String, password: String) {
-        dataBaseInstance.collection("user")
-                .whereEqualTo("userName", userName)
+        dataBaseInstance.collection(user.usersCollectionName)
+                .whereEqualTo(user.userNameKey, userName)
                 .get()
                 .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
                     override fun onComplete(p0: Task<QuerySnapshot>) {
                         if (p0.isSuccessful) {
                             if (!p0.result.isEmpty) {
                                 println(p0.result.documents[0].data.toString())
-                                if (p0.result.documents[0].get("password").equals(password)) {
-                                    User_Model=mySelf
-                                    mySelf.uPath=userName
+                                if (p0.result.documents[0].get(user.passwordKey).equals(password)) {
+                                    //mySelf.uPath=userName
+                                    //User_Model=mySelf
                                     toasmsg = "Sign In Successfully " +
                                            mySelf.firstName + " " +
                                             mySelf.midName +

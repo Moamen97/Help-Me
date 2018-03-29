@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import Model.postData.*
 import android.content.Intent
+import android.support.annotation.NonNull
 import android.widget.Toast
 import com.helpme.home
 
@@ -15,8 +16,8 @@ import com.helpme.home
 class Functionalities(var context: Context) {
     private var dataBaseInstance = FirebaseFirestore.getInstance();
     fun signUp(newUser: user) {
-        */
-/* db.collection("user")
+
+ db.collection("user")
                 .whereEqualTo("userName", newUser.getUserName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -100,7 +101,7 @@ class Functionalities(var context: Context) {
                             System.out.println(String.valueOf(task.getException()));
                         }
                     }
-                });*//*
+                });
 
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", newUser.getUserName())
@@ -138,9 +139,7 @@ class Functionalities(var context: Context) {
                     }
                 })
     }
-
     fun signIn(userName: String, password: String) {
-        var e:Exception?=null
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", userName)
                 .get()
