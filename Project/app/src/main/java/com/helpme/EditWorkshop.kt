@@ -2,13 +2,11 @@ package com.helpme
 
 import Model.WorkshopTestingVersion
 import Model.workshopAdapter
-import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import kotlinx.android.synthetic.main.activity_edit_workshop.*
 
 class EditWorkshop : AppCompatActivity() {
@@ -23,15 +21,19 @@ class EditWorkshop : AppCompatActivity() {
         recyclerView = findViewById(R.id.ListOfWorkShops)
         LayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = LayoutManager
-        Adapter = workshopAdapter(this, ListOFWorkshops)
-        ListOfWorkShops.adapter = Adapter
 
+
+        Adapter = workshopAdapter(this, ListOFWorkshops)
+
+        ListOfWorkShops.adapter = Adapter
     }
 
     private  fun loadWorkshopsEditForms() {
+        ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
+        ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
 
         ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
-        ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
+
         ListOFWorkshops.add(WorkshopTestingVersion("", "", "", 10, ""))
 
     }

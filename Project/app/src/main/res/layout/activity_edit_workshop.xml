@@ -13,7 +13,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="6dp"
-        android:descendantFocusability="beforeDescendants"
         android:scrollbars="vertical"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="4dp"
