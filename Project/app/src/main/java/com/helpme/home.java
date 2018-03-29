@@ -130,6 +130,7 @@ public class home extends AppCompatActivity
             Intent intent = new Intent(this, EditProfile.class);
             startActivity(intent);
 
+
         } else if (id == R.id.MyPosts) {
 
         } else if (id == R.id.AddProfession) {

@@ -30,7 +30,8 @@
         <activity android:name=".MyProfile" />
         <activity android:name=".EditProfile" />
         <activity android:name=".Logout" />
-        <activity android:name=".AddProfession"></activity>
+        <activity android:name=".AddProfession" />
+        <activity android:name=".EditWorkshop" />
     </application>
 
 </manifest>
