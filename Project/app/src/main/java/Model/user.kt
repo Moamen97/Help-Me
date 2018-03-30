@@ -7,10 +7,10 @@ import java.util.*
 
     open class user() {
         constructor(uname:String, psswd:String, mail:String, phone:String,
-                    fName:String, lName:String, bdate:String, gender:Char, bhvRate:Int,
+                    fName:String,mName:String, lName:String, bdate:String, gender:Char, bhvRate:Int,
                     imgid:String) : this() {
             userName=uname;password=psswd;email=mail;phoneNum=phone
-            firstName=fName;lastName=lName;birthDate=bdate;this.gender=gender
+            firstName=fName;midName=mName;lastName=lName;birthDate=bdate;this.gender=gender
             behaveRate=bhvRate;imageID=imgid
         }
         var userName: String = ""
@@ -52,10 +52,10 @@ import java.util.*
             }
         var behaveRate: Int = 5
             set(value) {
-                if (value > 10) field = 10
-                else if (value < 0) field = 0
-                else
-                    field = value
+                field = when {
+                    value > 10 -> 10
+                    value < 0 -> 0
+                    else -> value }
             }
         var imageID: String = ""
         companion object {
@@ -65,15 +65,15 @@ import java.util.*
             val midNameKey: String = "midName"
             val lastNameKey: String = "lastName"
             val birthDateKey: String = "birthDate"
-            val emailKey: String = "e-mail"
+            val emailKey: String = "eMail"
             val genderKey: String = "gender"
             val imageKey: String = "image"
             val behaveRateKey: String = "behaveRate"
             val phoneNumKey: String = "phoneNumber"
             val professionCollectionKey: String = "profession"
             val notificationsCollectionKey: String = "notifications"
-            val postsCollectionKey: String = "posts"
-            val usersCollectionName = "user"
+            val postsCollectionKey:String = "posts"
+            val usersCollectionName:String = "user"
         }
     }
 

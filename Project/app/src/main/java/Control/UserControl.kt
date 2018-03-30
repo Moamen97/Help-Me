@@ -25,7 +25,6 @@ class UserControl private constructor() {
     private var dataBaseInstance = fireStore.fireStoreHandler
     private var toasmsg:String = ""
 
-
     companion object {
         private var instance : UserControl? = null
         fun  getInstance(SignIn_View: SignIn? = null , SignUp_View: SignUp? = null
@@ -38,8 +37,7 @@ class UserControl private constructor() {
     } //Singleton
 
     private fun setcurrentview(SignIn_View: SignIn?, SignUp_View: SignUp?, Home_View: home?,
-                               EditProfile_View :EditProfile?)
-    {
+                               EditProfile_View :EditProfile?) {
         this.SignIn_View = SignIn_View
         this.SignUp_View = SignUp_View
         this.Home_View = Home_View
@@ -56,21 +54,24 @@ class UserControl private constructor() {
                             if (!p0.result.isEmpty) {
                                 println(p0.result.documents[0].data.toString())
                                 if (p0.result.documents[0].get(user.passwordKey).equals(password)) {
-                                    //mySelf.uPath=userName
-                                    //User_Model=mySelf
-                                    toasmsg = "Sign In Successfully " +
-                                           mySelf.firstName + " " +
-                                            mySelf.midName +
-                                            " " +mySelf.lastName + " "
-                                    SignIn_View!!.ShowToast(toasmsg)
-                                    SignIn_View!!.LogIn()
+                                    if(mySelf.loadMyself(userName)) {
+                                        User_Model = mySelf
+                                        toasmsg = "Sign In Successfully " +
+                                                User_Model!!.firstName + " " +
+                                                User_Model!!.midName +
+                                                " " + User_Model!!.lastName + " "
+                                        SignIn_View!!.ShowToast(toasmsg)
+                                        SignIn_View!!.LogIn()
+                                    }
+                                    else{
+                                        SignIn_View!!.ShowToast("Loginfalied:check your internet connection")
+                                    }
                                 } else {
                                     toasmsg = "Wrong user name of password"
                                     SignIn_View!!.ShowToast(toasmsg)
                                 }
                             } else {
-                                println("No Document Data")
-                                toasmsg = "Wrong user name of password"
+                                toasmsg = "Wrong user name of password or you are offline"
                                 SignIn_View!!.ShowToast(toasmsg)
                             }
                         } else {
@@ -96,7 +97,7 @@ class UserControl private constructor() {
                                 userData.put(user.passwordKey, newUser.password);
                                 userData.put(user.emailKey, newUser.email);
                                 userData.put(user.firstNameKey, newUser.firstName);
-                                userData.put(user.midNameKey, newUser.midName);
+                                userData.put(user   .midNameKey, newUser.midName);
                                 userData.put(user.lastNameKey, newUser.lastName);
                                 userData.put(user.genderKey, newUser.gender);
                                 userData.put(user.phoneNumKey, newUser.phoneNum);
