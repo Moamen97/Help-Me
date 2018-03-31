@@ -1,4 +1,4 @@
-package com.helpme
+package com.helpme.Authentication
 
 import android.content.Context
 import android.graphics.Color
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.helpme.R
 
 
 class SlideAdapter(var context: Context) : PagerAdapter() {
@@ -21,7 +22,7 @@ class SlideAdapter(var context: Context) : PagerAdapter() {
     private val imgs = arrayListOf<Int>(R.drawable.carpenter, R.drawable.plumber, R.drawable.mechanic)
     private val Titles = arrayListOf<String>("Carpenter", "Plumber", "Mechanic")
     private val Description = arrayListOf<String>(CarpenterDescription, PlumberDescription, MechanicDescription)
-    private val bkgnd = arrayListOf<Int>(R.drawable.gradient, R.drawable.gradient, R.drawable.gradient)
+    private val bkgnd = arrayListOf<Int>(R.drawable.img1, R.drawable.img2, R.drawable.img3)
 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {

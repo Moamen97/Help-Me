@@ -1,4 +1,4 @@
-package com.helpme;
+package com.helpme.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +20,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.helpme.Authentication.SignIn;
+import com.helpme.EditProfile.AddProfession;
+import com.helpme.EditProfile.EditProfile;
+import com.helpme.EditProfile.MyProfile;
 import com.helpme.Fragments.CarpenterFragment;
 import com.helpme.Fragments.CookingFragment;
 import com.helpme.Fragments.DoctorFragment;
 import com.helpme.Fragments.EngineerFragment;
 import com.helpme.Fragments.MechanicFragment;
 import com.helpme.Fragments.PlumberFragment;
+import com.helpme.Fragments.ViewPagerAdapter;
+import com.helpme.R;
 
 public class home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,6 +69,8 @@ public class home extends AppCompatActivity
         // Here is the power
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
         viewPager = (ViewPager) findViewById(R.id.viewPagerId);
+
+
 
         // adding fragments;
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -126,19 +133,14 @@ public class home extends AppCompatActivity
             Intent intent = new Intent(this, MyProfile.class);
             startActivity(intent);
         } else if (id == R.id.EditMyInfo) {
-
             Intent intent = new Intent(this, EditProfile.class);
             startActivity(intent);
-
-
         } else if (id == R.id.MyPosts) {
 
         } else if (id == R.id.AddProfession) {
             Intent intent = new Intent(this, AddProfession.class);
             startActivity(intent);
-
         } else if (id == R.id.Logout) {
-
             finish();
             Intent intent = new Intent(this, SignIn.class);
             startActivity(intent);

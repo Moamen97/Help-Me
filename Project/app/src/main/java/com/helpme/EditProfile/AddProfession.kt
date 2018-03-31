@@ -1,8 +1,9 @@
-package com.helpme
+package com.helpme.EditProfile
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.helpme.R
 
 class AddProfession : AppCompatActivity() {
 

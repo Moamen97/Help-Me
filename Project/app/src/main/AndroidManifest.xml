@@ -21,17 +21,17 @@
         <activity android:name=".sign_in" />
         <activity android:name=".Authentication.Welcome_page" />
         <activity
-            android:name=".home"
+            android:name=".Home.home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity android:name=".Authentication.SignIn" />
         <activity android:name=".Authentication.SignUp" />
-        <activity android:name=".EditProfile" />
-        <activity android:name=".MyProfile" />
-        <activity android:name=".EditProfile" />
+        <activity android:name=".EditProfile.EditProfile" />
+        <activity android:name=".EditProfile.MyProfile" />
+        <activity android:name=".EditProfile.EditProfile" />
         <activity android:name=".Logout" />
-        <activity android:name=".AddProfession" />
-        <activity android:name=".EditWorkshop" />
+        <activity android:name=".EditProfile.AddProfession" />
+        <activity android:name=".EditProfile.EditWorkshop" />
     </application>
 
 </manifest>

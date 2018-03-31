@@ -1,12 +1,12 @@
-package com.helpme
+package com.helpme.EditProfile
 
 import Model.WorkshopTestingVersion
 import Model.workshopAdapter
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.helpme.R
 import kotlinx.android.synthetic.main.activity_edit_workshop.*
 
 class EditWorkshop : AppCompatActivity() {
