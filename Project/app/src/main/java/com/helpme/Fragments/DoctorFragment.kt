@@ -1,7 +1,9 @@
 package com.helpme.Fragments
 
+import Control.UserControl
 import Model.MyDividerItemDecoration
-import Model.postData.*;
+import Model.postData.post
+import Model.postData.postAdapter
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.os.Bundle
@@ -18,6 +20,8 @@ import com.helpme.R
 class DoctorFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.doctor;
+    private var postList = arrayListOf<post>()
+    val UserController: UserControl = UserControl.getInstance(null, null, null, null)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.doctor_fragment, container, false)
@@ -30,7 +34,7 @@ class DoctorFragment : android.support.v4.app.Fragment() {
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView?.addItemDecoration(object : MyDividerItemDecoration(this.context, LinearLayoutManager.VERTICAL, 16) {})
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
-        preparePosts(postList, adapter);
+        preparePosts(adapter);
         recyclerView?.adapter = adapter;
         return view
     }
@@ -49,7 +53,7 @@ class DoctorFragment : android.support.v4.app.Fragment() {
 
     private fun random(from: Int, to: Int) = (Math.random() * (to - from) + from).toInt()
 
-    private fun preparePosts(postList: ArrayList<post>, adapter: postAdapter) {
+    private fun preparePosts(adapter: postAdapter) {
 
         val covers = arrayListOf(
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung,
@@ -57,17 +61,7 @@ class DoctorFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung,
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[0]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[1]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[2]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[3]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[4]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[5]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[6]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[7]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[8]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[9]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Doctor Posts", "August", covers[10]))
+        postList = UserController.getDoctorPosts()
         adapter.notifyDataSetChanged()
     }
 }

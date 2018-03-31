@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.helpme.Authentication.SignIn;
 import com.helpme.EditProfile.AddProfession;
@@ -69,7 +70,6 @@ public class home extends AppCompatActivity
         // Here is the power
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
         viewPager = (ViewPager) findViewById(R.id.viewPagerId);
-
 
 
         // adding fragments;
@@ -149,5 +149,9 @@ public class home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void ShowToast(String toastMsg) {
+        Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();
     }
 }

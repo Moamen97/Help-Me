@@ -56,17 +56,7 @@ class CookingFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung,
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[0]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[1]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[2]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[3]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[4]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[5]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[6]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[7]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[8]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[9]))
-        postList.add(post(arrayListOf("Moamen", "Hassan", "Attia"), "Cooking Posts", "August", covers[10]))
+
         adapter.notifyDataSetChanged()
     }
 }
