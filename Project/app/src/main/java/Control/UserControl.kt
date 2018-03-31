@@ -347,7 +347,7 @@ class UserControl private constructor() {
                 set(Post).addOnSuccessListener { println("DocumentSnapshot successfully written!"); }.addOnFailureListener { p0 -> println(p0.toString()) }
     }
 
-    
+
 /*
     fun UpdatePassword(NewPassword:String ,Oldpassword: String /*check*/)
     {

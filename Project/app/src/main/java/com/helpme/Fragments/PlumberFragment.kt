@@ -1,7 +1,9 @@
 package com.helpme.Fragments
 
+import Control.UserControl
 import Model.MyDividerItemDecoration
-import Model.postData.*;
+import Model.postData.post
+import Model.postData.postAdapter
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.os.Bundle
@@ -18,14 +20,15 @@ import com.helpme.R
 class PlumberFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.plumber;
+    private var postList = arrayListOf<post>()
 
+    val UserController: UserControl = UserControl.getInstance(null, null, null, null)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.plumber_fragment, container, false)
-
         var postList = arrayListOf<post>();
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
         var adapter = postAdapter(this.context, postList, POST_TYPE)
@@ -34,7 +37,7 @@ class PlumberFragment : android.support.v4.app.Fragment() {
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView?.addItemDecoration(object : MyDividerItemDecoration(this.context, LinearLayoutManager.VERTICAL, 16) {})
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
-        preparePosts(postList, adapter);
+        preparePosts(adapter);
         recyclerView?.adapter = adapter;
         return view
     }
@@ -53,7 +56,7 @@ class PlumberFragment : android.support.v4.app.Fragment() {
 
     fun random(from: Int, to: Int) = (Math.random() * (to - from) + from).toInt()
 
-    private fun preparePosts(postList: ArrayList<post>, adapter: postAdapter) {
+    private fun preparePosts(adapter: postAdapter) {
 
         val covers = arrayListOf(
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung,
@@ -62,6 +65,7 @@ class PlumberFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
 
+        postList = UserController.getPlumberPosts()
         adapter.notifyDataSetChanged()
     }
 }

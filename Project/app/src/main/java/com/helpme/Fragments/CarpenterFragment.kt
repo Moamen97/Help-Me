@@ -1,5 +1,6 @@
 package com.helpme.Fragments
 
+import Control.UserControl
 import Model.MyDividerItemDecoration
 import Model.postData.post
 import Model.postData.postAdapter
@@ -19,7 +20,9 @@ import com.helpme.R
 class CarpenterFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.carpenter;
+    private var postList = arrayListOf<post>()
 
+    val UserController: UserControl = UserControl.getInstance(null, null, null, null)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -35,7 +38,7 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView?.addItemDecoration(object : MyDividerItemDecoration(this.context, LinearLayoutManager.VERTICAL, 16) {})
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
-        preparePosts(postList, adapter);
+        preparePosts(adapter);
         recyclerView?.adapter = adapter;
         return view
     }
@@ -54,7 +57,7 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
 
     fun random(from: Int, to: Int) = (Math.random() * (to - from) + from).toInt()
 
-    private fun preparePosts(postList: ArrayList<post>, adapter: postAdapter) {
+    private fun preparePosts(adapter: postAdapter) {
 
         val covers = arrayListOf(
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung,
@@ -63,6 +66,7 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
 
+        postList = UserController.getCarpenterPosts()
         adapter.notifyDataSetChanged()
     }
 }
