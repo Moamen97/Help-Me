@@ -1,7 +1,7 @@
 package com.helpme.Fragments
 
 import Control.UserControl
-import Model.MyDividerItemDecoration
+import Model.Magic.MyDividerItemDecoration;
 import Model.postData.*;
 import android.content.res.TypedArray
 import android.graphics.Color

@@ -29,11 +29,7 @@ class SignIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-    //    val linearLayoutPanel: LinearLayout = findViewById(R.id.singInPanel)
-     //   val logo: TextView = findViewById(R.id.Logo)
-      //  val face = Typeface.createFromAsset(assets, "Fonts/Nabila.ttf")
-      //  logo.typeface = face
-      //  startMagic()
+        startMagic()
     }
 
 
@@ -71,7 +67,7 @@ class SignIn : AppCompatActivity() {
 
     fun startMagic() {
         val face = Typeface.createFromAsset(assets, "Fonts/Nabila.ttf");
-        val linearLayoutPanel = findViewById<LinearLayout>(R.id.signUpLinearLayout)
+        val linearLayoutPanel = findViewById<LinearLayout>(R.id.singInPanel)
         val logo = findViewById<TextView>(R.id.Logo)
         logo.typeface = face;
 
