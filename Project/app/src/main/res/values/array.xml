@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <array name="mdcolor_400">
-        <!--reds-->
+    <array name="shuffle">
         <item name="md_red_50">#FFEBEE</item>
         <item name="md_red_100">#FFCDD2</item>
         <item name="md_red_200">#EF9A9A</item>
@@ -17,8 +16,7 @@
         <item name="md_red_A200">#FF5252</item>
         <item name="md_red_A400">#FF1744</item>
         <item name="md_red_A700">#D50000</item>
-    </array>
-    <array name="mdcolor_600">
+
         <!-- pinks -->
         <item name="md_pink_50">#FCE4EC</item>
         <item name="md_pink_100">#F8BBD0</item>
@@ -34,8 +32,7 @@
         <item name="md_pink_A200">#FF4081</item>
         <item name="md_pink_A400">#F50057</item>
         <item name="md_pink_A700">#C51162</item>
-    </array>
-    <array name="mdcolor_700">
+
 
         <!-- purples -->
         <item name="md_purple_50">#F3E5F5</item>
@@ -52,8 +49,7 @@
         <item name="md_purple_A200">#E040FB</item>
         <item name="md_purple_A400">#D500F9</item>
         <item name="md_purple_A700">#AA00FF</item>
-    </array>
-    <array name="mdcolor_800">
+
 
         <!-- deep purples -->
         <item name="md_deep_purple_50">#EDE7F6</item>
@@ -70,8 +66,7 @@
         <item name="md_deep_purple_A200">#7C4DFF</item>
         <item name="md_deep_purple_A400">#651FFF</item>
         <item name="md_deep_purple_A700">#6200EA</item>
-    </array>
-    <array name="mdcolor_900">
+
 
         <!-- indigo -->
         <item name="md_indigo_50">#E8EAF6</item>
@@ -88,8 +83,7 @@
         <item name="md_indigo_A200">#536DFE</item>
         <item name="md_indigo_A400">#3D5AFE</item>
         <item name="md_indigo_A700">#304FFE</item>
-    </array>
-    <array name="mdcolor_100">
+
 
         <!--blue-->
         <item name="md_blue_50">#E3F2FD</item>
@@ -106,8 +100,7 @@
         <item name="md_blue_A200">#448AFF</item>
         <item name="md_blue_A400">#2979FF</item>
         <item name="md_blue_A700">#2962FF</item>
-    </array>
-    <array name="mdcolor_200">
+
 
         <!-- light blue-->
         <item name="md_light_blue_50">#E1F5FE</item>
@@ -124,8 +117,7 @@
         <item name="md_light_blue_A200">#40C4FF</item>
         <item name="md_light_blue_A400">#00B0FF</item>
         <item name="md_light_blue_A700">#0091EA</item>
-    </array>
-    <array name="mdcolor_300">
+
 
         <!-- cyan -->
         <item name="md_cyan_50">#E0F7FA</item>
@@ -142,8 +134,7 @@
         <item name="md_cyan_A200">#18FFFF</item>
         <item name="md_cyan_A400">#00E5FF</item>
         <item name="md_cyan_A700">#00B8D4</item>
-    </array>
-    <array name="mdcolor_10">
+
 
         <!-- teal -->
         <item name="md_teal_50">#E0F2F1</item>
@@ -160,8 +151,7 @@
         <item name="md_teal_A200">#64FFDA</item>
         <item name="md_teal_A400">#1DE9B6</item>
         <item name="md_teal_A700">#00BFA5</item>
-    </array>
-    <array name="mdcolor_20">
+
 
         <!-- green -->
         <item name="md_green_50">#E8F5E9</item>
@@ -178,8 +168,7 @@
         <item name="md_green_A200">#69F0AE</item>
         <item name="md_green_A400">#00E676</item>
         <item name="md_green_A700">#00C853</item>
-    </array>
-    <array name="mdcolor_30">
+
 
         <!--light green-->
         <item name="md_light_green_50">#F1F8E9</item>
@@ -196,8 +185,7 @@
         <item name="md_light_green_A200">#B2FF59</item>
         <item name="md_light_green_A400">#76FF03</item>
         <item name="md_light_green_A700">#64DD17</item>
-    </array>
-    <array name="mdcolor_40">
+
 
         <!-- lime-->
         <item name="md_lime_50">#F9FBE7</item>
@@ -214,8 +202,7 @@
         <item name="md_lime_A200">#EEFF41</item>
         <item name="md_lime_A400">#C6FF00</item>
         <item name="md_lime_A700">#AEEA00</item>
-    </array>
-    <array name="mdcolor_50">
+
 
         <!--yellow -->
         <item name="md_yellow_50">#FFFDE7</item>
@@ -232,8 +219,7 @@
         <item name="md_yellow_A200">#FFFF00</item>
         <item name="md_yellow_A400">#FFEA00</item>
         <item name="md_yellow_A700">#FFD600</item>
-    </array>
-    <array name="mdcolor_60">
+
 
         <!--amber-->
         <item name="md_amber_50">#FFF8E1</item>
@@ -250,8 +236,6 @@
         <item name="md_amber_A200">#FFD740</item>
         <item name="md_amber_A400">#FFC400</item>
         <item name="md_amber_A700">#FFAB00</item>
-    </array>
-    <array name="mdcolor_70">
 
         <!--orange-->
         <item name="md_orange_50">#FFF3E0</item>
@@ -268,8 +252,6 @@
         <item name="md_orange_A200">#FFAB40</item>
         <item name="md_orange_A400">#FF9100</item>
         <item name="md_orange_A700">#FF6D00</item>
-    </array>
-    <array name="mdcolor_80">
 
         <!--deep orange-->
         <item name="md_deep_orange_50">#FBE9A7</item>
@@ -286,8 +268,7 @@
         <item name="md_deep_orange_A200">#FF6E40</item>
         <item name="md_deep_orange_A400">#FF3D00</item>
         <item name="md_deep_orange_A700">#DD2600</item>
-    </array>
-    <array name="mdcolor_90">
+
 
         <!--brown -->
         <item name="md_brown_50">#EFEBE9</item>
@@ -300,8 +281,7 @@
         <item name="md_brown_700">#5D4037</item>
         <item name="md_brown_800">#4E342E</item>
         <item name="md_brown_900">#3E2723</item>
-    </array>
-    <array name="mdcolor_120">
+
 
         <!--grey-->
         <item name="md_grey_50">#FAFAFA</item>
@@ -316,8 +296,7 @@
         <item name="md_grey_900">#212121</item>
         <item name="md_black_1000">#000000</item>
         <item name="md_white_1000">#ffffff</item>
-    </array>
-    <array name="mdcolor_130">
+
 
         <!--blue grey-->
         <item name="md_blue_grey_50">#ECEFF1</item>
@@ -330,8 +309,8 @@
         <item name="md_blue_grey_700">#455A64</item>
         <item name="md_blue_grey_800">#37474F</item>
         <item name="md_blue_grey_900">#263238</item>
-    </array>
 
+    </array>
     <!-- google's material design colours from
     http://www.google.com/design/spec/style/item.html#item-ui-item-palette -->
 

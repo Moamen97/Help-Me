@@ -32,7 +32,8 @@
         <activity android:name=".Logout" />
         <activity android:name=".EditProfile.AddProfession" />
         <activity android:name=".EditProfile.EditWorkshop" />
-        <activity android:name=".AddPost"></activity>
+        <activity android:name=".AddPost" />
+        <activity android:name=".Comment.ShowComments"></activity>
     </application>
 
 </manifest>

@@ -52,6 +52,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_main_fragments" />
 
 </android.support.design.widget.CoordinatorLayout>
