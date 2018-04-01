@@ -1,4 +1,4 @@
-package Model.Comment;
+package Model.postData.Comment;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -49,7 +49,6 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
     @Override
     public commentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_list_row, parent, false);
-        itemView.setBackgroundColor(getRandomMaterialColor());
         return new commentViewHolder(itemView);
     }
 
@@ -189,10 +188,10 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
 
     private void applyImportant(commentViewHolder holder, comment Comment) {
         if (Comment.isImportant()) {
-            holder.getIconImp().setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_black_24dp));
-            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_selected));
+            holder.getIconImp().setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mood_black_24dp));
+            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.md_green_600));
         } else {
-            holder.getIconImp().setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_border_black_24dp));
+            holder.getIconImp().setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mood_black_24dp));
             holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
         }
     }

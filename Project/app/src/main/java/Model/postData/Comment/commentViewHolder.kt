@@ -1,4 +1,4 @@
-package Model.Comment
+package Model.postData.Comment
 
 import android.support.v7.widget.RecyclerView
 import android.view.HapticFeedbackConstants

@@ -23,8 +23,8 @@ import com.helpme.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Comment.comment;
-import Model.Comment.commentAdapter;
+import Model.postData.Comment.comment;
+import Model.postData.Comment.commentAdapter;
 
 public class ShowComments extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, commentAdapterListener {
     private ArrayList<comment> comments = new ArrayList<>();
@@ -69,7 +69,8 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
     private void prepareMessages() {
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
         for (int i = 0; i < 200; ++i) {
-            comments.add(new comment(1, false, link, "Moamen Hassan Attia", "Hello Salama", "A7la Mesa 3 el nas el kwaysa", "10:30 AM", false, getRandomMaterialColor()));
+            comments.add(new comment(1, false, link, "Moamen Hassan Attia",
+                    "Hello Salama ", "A7la Mesa 3 el nas el kwaysa", "10:30 AM", false, getRandomMaterialColor()));
         }
     }
 
