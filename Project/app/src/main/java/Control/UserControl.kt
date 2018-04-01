@@ -5,8 +5,6 @@ import FireBase.fireStore
 import Model.postData.post
 import Model.user
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
@@ -15,7 +13,6 @@ import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
 import com.helpme.EditProfile.EditProfile
 import com.helpme.Home.home
-import java.lang.Exception
 import java.util.*
 
 
@@ -226,7 +223,7 @@ class UserControl private constructor() {
     fun getDoctorPosts(): ArrayList<post> {
         val posts = arrayListOf<post>()
 
-        FirebaseFirestore.getInstance().collection("post_user_map").whereEqualTo("postType", "Doctor")
+        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Doctor")
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
@@ -246,7 +243,7 @@ class UserControl private constructor() {
     fun getCarpenterPosts(): ArrayList<post> {
         val posts = arrayListOf<post>()
 
-        FirebaseFirestore.getInstance().collection("post_user_map").whereEqualTo("postType", "Carpenter")
+        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Carpenter")
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
@@ -266,7 +263,7 @@ class UserControl private constructor() {
     fun getMechanicPosts(): ArrayList<post> {
         val posts = arrayListOf<post>()
 
-        FirebaseFirestore.getInstance().collection("post_user_map").whereEqualTo("postType", "Mechanic")
+        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Mechanic")
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
@@ -286,7 +283,7 @@ class UserControl private constructor() {
     fun getPlumberPosts(): ArrayList<post> {
         val posts = arrayListOf<post>()
 
-        FirebaseFirestore.getInstance().collection("post_user_map").whereEqualTo("postType", "Plumber")
+        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Plumber")
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
@@ -306,7 +303,7 @@ class UserControl private constructor() {
     fun getEngineerPosts(): ArrayList<post> {
         val posts = arrayListOf<post>()
 
-        FirebaseFirestore.getInstance().collection("post_user_map").whereEqualTo("postType", "Engineer")
+        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Engineer")
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
@@ -326,7 +323,7 @@ class UserControl private constructor() {
     fun getCookingPosts(): ArrayList<post> {
         val posts = arrayListOf<post>()
 
-        FirebaseFirestore.getInstance().collection("post_user_map").whereEqualTo("postType", "Cooking")
+        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Cooking")
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
@@ -343,8 +340,16 @@ class UserControl private constructor() {
     }
 
     fun addPost(Post: post) {
-        dataBaseInstance.collection("user_post_map").document().
-                set(Post).addOnSuccessListener { println("DocumentSnapshot successfully written!"); }.addOnFailureListener { p0 -> println(p0.toString()) }
+        dataBaseInstance.collection("posts_user_map").document().
+                set(Post).addOnSuccessListener {
+         //   toasmsg = "post has been added successfully";
+         //   Home_View!!.ShowToast(toasmsg)
+            println("DocumentSnapshot successfully written!");
+        }.addOnFailureListener { p0 ->
+          //  toasmsg = "error while posting check your internet connection";
+          //  Home_View!!.ShowToast(toasmsg)
+            println(p0.toString())
+        }
     }
 
 

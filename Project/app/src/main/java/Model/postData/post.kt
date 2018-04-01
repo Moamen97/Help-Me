@@ -9,7 +9,7 @@ class post {
 
     constructor()
 
-    constructor(comments: ArrayList<String>, postContent: String, postImage: String, postTime: String, postType: String) {
+    constructor(postContent: String, postImage: String, postTime: String, postType: String, comments: ArrayList<String>) {
         this.comments = comments
         this.postContent = postContent
         this.postImage = postImage

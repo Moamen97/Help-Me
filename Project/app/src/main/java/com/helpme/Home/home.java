@@ -1,11 +1,14 @@
 package com.helpme.Home;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -17,6 +20,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +38,13 @@ import com.helpme.Fragments.PlumberFragment;
 import com.helpme.Fragments.ViewPagerAdapter;
 import com.helpme.R;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import Control.UserControl;
+import Model.postData.post;
+
 public class home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView userName;
@@ -41,6 +53,8 @@ public class home extends AppCompatActivity
     private TabLayout tabLayout;
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
+    private Dialog dialog;
+    private UserControl UserController = UserControl.Companion.getInstance(null, null, this, null);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +63,12 @@ public class home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Posts");
+        dialog = new Dialog(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                showAddPostFragment();
             }
         });
 
@@ -153,5 +167,147 @@ public class home extends AppCompatActivity
 
     public void ShowToast(String toastMsg) {
         Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showAddPostFragment() {
+        dialog.setContentView(R.layout.add_post);
+        EditText postContent = dialog.findViewById(R.id.postContent);
+        Button postButton = dialog.findViewById(R.id.postButton);
+        Button plumberButton = dialog.findViewById(R.id.plumberButton);
+        Button carpenterButton = dialog.findViewById(R.id.carpenterButton);
+        Button mechanicButton = dialog.findViewById(R.id.mechanicButton);
+        Button engineerButton = dialog.findViewById(R.id.engineerButton);
+        Button cookingButton = dialog.findViewById(R.id.cookingButton);
+        Button doctorButton = dialog.findViewById(R.id.doctorButton);
+        TextView postTypeTextView = dialog.findViewById(R.id.postTypeTextView);
+        TextView postContentTextView = dialog.findViewById(R.id.postContentTextView);
+        postTypeTextView.setTypeface(Typeface.createFromAsset(getAssets(), "Fonts/Nabila.ttf"));
+        postContentTextView.setTypeface(Typeface.createFromAsset(getAssets(), "Fonts/Nabila.ttf"));
+        buttonsEffect(cookingButton, plumberButton, carpenterButton, mechanicButton, engineerButton, doctorButton, postButton, postContent, dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    public void buttonsEffect(final Button cookingButton, final Button plumberButton, final Button carpenterButton,
+                              final Button mechanicButton, final Button engineerButton, final Button doctorButton,
+                              final Button postButton, final EditText postContent, final Dialog dialog) {
+        final StringBuilder selectedButton = new StringBuilder();
+        selectedButton.append("");
+        cookingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookingButton.setEnabled(false);
+                plumberButton.setEnabled(true);
+                carpenterButton.setEnabled(true);
+                mechanicButton.setEnabled(true);
+                engineerButton.setEnabled(true);
+                doctorButton.setEnabled(true);
+                selectedButton.append("Cooking");
+            }
+        });
+        plumberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookingButton.setEnabled(true);
+                plumberButton.setEnabled(false);
+                carpenterButton.setEnabled(true);
+                mechanicButton.setEnabled(true);
+                engineerButton.setEnabled(true);
+                doctorButton.setEnabled(true);
+                selectedButton.delete(0, selectedButton.length());
+                selectedButton.append("Plumber");
+            }
+        });
+        carpenterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookingButton.setEnabled(true);
+                plumberButton.setEnabled(true);
+                carpenterButton.setEnabled(false);
+                mechanicButton.setEnabled(true);
+                engineerButton.setEnabled(true);
+                doctorButton.setEnabled(true);
+                selectedButton.delete(0, selectedButton.length());
+                selectedButton.append("Carpenter");
+
+            }
+        });
+        mechanicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookingButton.setEnabled(true);
+                plumberButton.setEnabled(true);
+                carpenterButton.setEnabled(true);
+                mechanicButton.setEnabled(false);
+                engineerButton.setEnabled(true);
+                doctorButton.setEnabled(true);
+                selectedButton.delete(0, selectedButton.length());
+                selectedButton.append("Mechanic");
+
+            }
+        });
+        engineerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookingButton.setEnabled(true);
+                plumberButton.setEnabled(true);
+                carpenterButton.setEnabled(true);
+                mechanicButton.setEnabled(true);
+                engineerButton.setEnabled(false);
+                doctorButton.setEnabled(true);
+                selectedButton.delete(0, selectedButton.length());
+                selectedButton.append("Engineer");
+
+            }
+        });
+        doctorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cookingButton.setEnabled(true);
+                plumberButton.setEnabled(true);
+                carpenterButton.setEnabled(true);
+                mechanicButton.setEnabled(true);
+                engineerButton.setEnabled(true);
+                doctorButton.setEnabled(false);
+                selectedButton.delete(0, selectedButton.length());
+                selectedButton.append("Doctor");
+            }
+        });
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = selectedButton.toString();
+                ArrayList<String> comments = new ArrayList<>();
+                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+                switch (s) {
+                    case "Carpenter":
+                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Carpenter", comments));
+                        dialog.dismiss();
+                        break;
+                    case "Doctor":
+                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Doctor", comments));
+                        dialog.dismiss();
+                        break;
+                    case "Mechanic":
+                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Mechanic", comments));
+                        dialog.dismiss();
+                        break;
+                    case "Plumber":
+                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Plumber", comments));
+                        dialog.dismiss();
+                        break;
+                    case "Engineer":
+                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Engineer", comments));
+                        dialog.dismiss();
+                        break;
+                    case "Cooking":
+                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Cooking", comments));
+                        dialog.dismiss();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }

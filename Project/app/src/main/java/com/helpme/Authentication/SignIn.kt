@@ -1,15 +1,11 @@
 package com.helpme.Authentication
 
-import Control.UserControl
 //import Model.Functionalities
+import Control.UserControl
 import android.content.Intent
 import android.graphics.Typeface
-import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.transition.Slide
-import android.transition.TransitionInflater
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -17,10 +13,10 @@ import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.helpme.Home.home
 import com.helpme.R
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import com.helpme.Home.home
 
 class SignIn : AppCompatActivity() {
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,28 +25,15 @@ class SignIn : AppCompatActivity() {
     */                                                                                        //
     val UserController: UserControl = UserControl.getInstance(this)                //
 
-    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////add_post////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-        val linearLayoutPanel: LinearLayout = findViewById(R.id.singInPanel)
-        val logo: TextView = findViewById(R.id.Logo)
-        val face = Typeface.createFromAsset(assets, "Fonts/Nabila.ttf")
-        logo.typeface = face
-
-        val textViewAnimation: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.sequential)
-        val linearLayoutAnimation: Animation = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_down)
-        linearLayoutPanel.animation = linearLayoutAnimation
-        linearLayoutPanel.visibility = View.GONE
-        logo.startAnimation(textViewAnimation)
-        textViewAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationRepeat(p0: Animation?) {}
-            override fun onAnimationStart(p0: Animation?) {}
-            override fun onAnimationEnd(p0: Animation?) {
-                linearLayoutPanel.visibility = View.VISIBLE
-                linearLayoutPanel.startAnimation(linearLayoutAnimation)
-            }
-        })
+    //    val linearLayoutPanel: LinearLayout = findViewById(R.id.singInPanel)
+     //   val logo: TextView = findViewById(R.id.Logo)
+      //  val face = Typeface.createFromAsset(assets, "Fonts/Nabila.ttf")
+      //  logo.typeface = face
+      //  startMagic()
     }
 
 
