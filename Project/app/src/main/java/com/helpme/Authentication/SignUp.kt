@@ -12,6 +12,9 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import com.helpme.R
+import Model.user
+import Model.profession
+import android.widget.AutoCompleteTextView
 
 import android.widget.LinearLayout
 
@@ -31,25 +34,21 @@ class SignUp : AppCompatActivity() {
     }
 
     fun btnRegisterClicked(view: View) {
-        /*   val newUser = user(
-                   (findViewById<(AutoCompleteTextView)>(R.id.eMail)).text.toString(),
-                   (findViewById<(AutoCompleteTextView)>(R.id.firstName)).text.toString(),
-                   (findViewById<(AutoCompleteTextView)>(R.id.midName)).text.toString(),
-                   (findViewById<(AutoCompleteTextView)>(R.id.lastName)).text.toString(),
-                   "Male",
-                   "",
-                   (findViewById<(AutoCompleteTextView)>(R.id.password)).text.toString(),
-                   (findViewById<(AutoCompleteTextView)>(R.id.phoneNumber)).text.toString(),
-                   (findViewById<(AutoCompleteTextView)>(R.id.userName)).text.toString(),
-                   10,
-                   null,
-                   null,
-                   null,
-                   profession()
-           );
-
-           UserController.signUp(newUser)
-           */
+        val newUser = user(
+                (findViewById<(AutoCompleteTextView)>(R.id.eMail)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.firstName)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.midName)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.lastName)).text.toString(),
+                "Male",
+                "",
+                (findViewById<(AutoCompleteTextView)>(R.id.password)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.phoneNumber)).text.toString(),
+                (findViewById<(AutoCompleteTextView)>(R.id.userName)).text.toString(),
+                5,
+                "",
+                ""
+        );
+        UserController.signUp(newUser)
     }
 
     // added by mohamed

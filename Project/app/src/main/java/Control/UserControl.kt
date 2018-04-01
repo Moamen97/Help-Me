@@ -92,17 +92,17 @@ class UserControl private constructor() {
                                 // getting empty documents ; here we should push our user to db :V
                                 println("No Document Data");
                                 var userData = HashMap<String, Any>();
-                                userData.put(user.userNameKey, newUser.userName);
-                                userData.put(user.imageKey, newUser.imageID);
-                                userData.put(user.passwordKey, newUser.password);
-                                userData.put(user.emailKey, newUser.email);
-                                userData.put(user.firstNameKey, newUser.firstName);
-                                userData.put(user.midNameKey, newUser.midName);
-                                userData.put(user.lastNameKey, newUser.lastName);
-                                userData.put(user.genderKey, newUser.gender);
-                                userData.put(user.phoneNumKey, newUser.phoneNum);
-                                userData.put(user.behaveRateKey, newUser.behaveRate);
-                                userData.put(user.birthDateKey, newUser.birthDate);
+                                userData.put("userName", newUser.userName);
+                                userData.put("image", newUser.imageID);
+                                userData.put("password", newUser.password);
+                                userData.put("eMail", newUser.email);
+                                userData.put("firstName", newUser.firstName);
+                                userData.put("midName", newUser.midName);
+                                userData.put("lastName", newUser.lastName);
+                                userData.put("gender", newUser.gender);
+                                userData.put("phoneNum", newUser.phoneNum);
+                                userData.put("behav_rate", newUser.behaveRate);
+                                userData.put("birthDate", newUser.birthDate);
                                 dataBaseInstance.collection("user").document(newUser.userName).set(userData);
                                 toasmsg = "Sign up successfully"
                                 SignUp_View!!.ShowToast(toasmsg)
@@ -123,17 +123,13 @@ class UserControl private constructor() {
     }
 
     // todo update values in current model
-    fun UpdateUserInfo(NewUserName: String?, NewEmail: String?, NewMobile: String?, NewBirthdate: String?) {
+    fun UpdateUserInfo(NewEmail: String?, NewMobile: String?, NewBirthdate: String?) {
         //config of inputs//////////////////////////////////////
-        var newusername = NewUserName
         var newemail = NewEmail
         var newbirthdate = NewBirthdate
         var newmobile = NewMobile
         if (NewBirthdate == null) {
             newbirthdate = User_Model!!.birthDate
-        }
-        if (NewUserName == null) {
-            newusername = User_Model!!.userName
         }
         if (NewEmail == null) {
             newemail = User_Model!!.email
@@ -143,25 +139,6 @@ class UserControl private constructor() {
         }
         ////////////////////////////////////////////////////
         toasmsg = ""
-        if (User_Model!!.userName != newusername) {
-            // checks if the new user name exists
-            dataBaseInstance.collection("user")
-                    .whereEqualTo("userName", newusername)
-                    .get()
-                    .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                        override fun onComplete(p0: Task<QuerySnapshot>) {
-                            println("Entered Complete Listener");
-                            if (p0.isSuccessful) {
-                                if (!p0.result.isEmpty) {
-                                    toasmsg = "UserName Error, "
-                                    newusername = User_Model!!.userName
-                                }
-                            } else {
-                                toasmsg = "UserName Changed, "
-                            }
-                        }
-                    })
-        }
         if (User_Model!!.email != newemail) {
             // checks if the new Email exists
             dataBaseInstance.collection("user")
@@ -199,13 +176,19 @@ class UserControl private constructor() {
                                 // getting non empty documents ; here we should update our user to db :V
                                 println("Found Document Data");
                                 var userData = HashMap<String, Any>();
-                                userData.put("userName", newusername!!);
+                                userData.put("userName", User_Model!!.userName);
+                                userData.put("image", User_Model!!.imageID);
+                                userData.put("password", User_Model!!.password);
                                 userData.put("eMail", newemail!!);
+                                userData.put("firstName", User_Model!!.firstName);
+                                userData.put("midName", User_Model!!.midName);
+                                userData.put("lastName", User_Model!!.lastName);
+                                userData.put("gender", User_Model!!.gender);
                                 userData.put("phoneNum", newmobile!!);
+                                userData.put("behav_rate", User_Model!!.behaveRate);
                                 userData.put("birthDate", newbirthdate!!);
                                 dataBaseInstance.collection("user").document(User_Model!!.userName).
-                                        set(userData);
-                                User_Model!!.userName = newusername as String
+                                        update(userData);
                                 User_Model!!.email = newemail as String
                                 User_Model!!.phoneNum = newmobile
                                 User_Model!!.birthDate = newbirthdate
@@ -219,7 +202,30 @@ class UserControl private constructor() {
                 })
     }
 
+    fun GetCurrentUserProfile():user
+    {
+        return  this.User_Model!!
+    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     fun getDoctorPosts(): ArrayList<post> {
         val posts = arrayListOf<post>()
 

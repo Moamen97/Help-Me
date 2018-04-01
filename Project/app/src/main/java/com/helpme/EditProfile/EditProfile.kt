@@ -29,13 +29,10 @@ class EditProfile : AppCompatActivity() {
     //added functions by mohamed start here
     fun btnSaveChanges(view:View)
     {
-        var newname:String? = (findViewById<(EditText)>(R.id.editusernametext)).text.toString();
         var newemail:String? = (findViewById<(EditText)>(R.id.editemailtext)).text.toString();
         var newmobile:String?= (findViewById<(EditText)>(R.id.editphonetext)).text.toString();
         var newbdate:String? = (findViewById<(EditText)>(R.id.editbdatetext)).text.toString();
 
-        if (newname == ""||newname == "Name")
-            newname = null
         if (newemail == ""||newemail == "Email")
             newemail = null
         if (newmobile == ""||newmobile == "Mobile Number")
@@ -43,7 +40,7 @@ class EditProfile : AppCompatActivity() {
         if (newbdate == ""||newbdate == "Birth date")
             newbdate = null
 
-        UserController.UpdateUserInfo(newname,newemail,newmobile,newbdate)
+        UserController.UpdateUserInfo(newemail,newmobile,newbdate)
     }
     fun ShowToast(Msg:String)
     {

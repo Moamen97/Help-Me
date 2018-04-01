@@ -6,12 +6,15 @@ import java.util.*
  */
 
     open class user() {
-        constructor(uname:String, psswd:String, mail:String, phone:String,
-                    fName:String,mName:String, lName:String, bdate:String, gender:Char, bhvRate:Int,
-                    imgid:String) : this() {
-            userName=uname;password=psswd;email=mail;phoneNum=phone
-            firstName=fName;midName=mName;lastName=lName;birthDate=bdate;this.gender=gender
-            behaveRate=bhvRate;imageID=imgid
+
+        constructor(eMail:String, firstName:String, midName:String ,
+                    lastName:String ,gender :String ,image:String ,password: String ,
+                    phoneNum:String , userName:String , behav_rate:Int, birthDate:String ,
+                    imageID:String) : this() {
+            this.userName=userName;this.password=password;this.email=eMail;this.phoneNum=phoneNum
+            this.firstName=firstName;this.midName=midName;this.lastName=lastName;this.birthDate=birthDate
+            this.gender=gender
+            this.behaveRate=behaveRate;this.imageID=imageID
         }
         var userName: String = ""
             set(value) {
@@ -46,7 +49,7 @@ import java.util.*
                 field = value
             }
 
-        var gender: Char = ' '
+        var gender: String = ""
             set(value) {
                 field = value
             }
