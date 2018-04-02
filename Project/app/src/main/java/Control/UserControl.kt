@@ -122,27 +122,14 @@ class UserControl private constructor() {
                 })
     }
 
-    // todo update values in current model
-    fun UpdateUserInfo(NewEmail: String?, NewMobile: String?, NewBirthdate: String?) {
-        //config of inputs//////////////////////////////////////
-        var newemail = NewEmail
-        var newbirthdate = NewBirthdate
-        var newmobile = NewMobile
-        if (NewBirthdate == null) {
-            newbirthdate = User_Model!!.birthDate
-        }
-        if (NewEmail == null) {
-            newemail = User_Model!!.email
-        }
-        if (NewMobile == null) {
-            newmobile = User_Model!!.phoneNum
-        }
-        ////////////////////////////////////////////////////
+    fun UpdateUserInfo(NewEmail: String, NewMobile: String,NewImageID:String,NewPassword:String)
+    {
         toasmsg = ""
-        if (User_Model!!.email != newemail) {
+        var newemail:String = NewEmail //To Config.
+        if (User_Model!!.email != NewEmail) {
             // checks if the new Email exists
             dataBaseInstance.collection("user")
-                    .whereEqualTo("eMail", newemail)
+                    .whereEqualTo("eMail", NewEmail)
                     .get()
                     .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
                         override fun onComplete(p0: Task<QuerySnapshot>) {
@@ -152,17 +139,21 @@ class UserControl private constructor() {
                                     toasmsg += "Email Error, "
                                     newemail = User_Model!!.email
                                 }
-                            } else {
-                                toasmsg += "Email Changed, "
+                                else {
+                                    toasmsg += "Email Changed, "
+                                }
                             }
                         }
                     })
         }
-        if (newmobile != User_Model!!.phoneNum) {
+        if (NewMobile != User_Model!!.phoneNum) {
             toasmsg += "Phone Changed, "
         }
-        if (newbirthdate != User_Model!!.birthDate) {
-            toasmsg += "Bdate Changed"
+        if (NewImageID != User_Model!!.imageID) {
+            toasmsg += "Image Changed, "
+        }
+        if (NewPassword != User_Model!!.password) {
+            toasmsg += "Password Changed. "
         }
 
         dataBaseInstance.collection("user")
@@ -177,21 +168,22 @@ class UserControl private constructor() {
                                 println("Found Document Data");
                                 var userData = HashMap<String, Any>();
                                 userData.put("userName", User_Model!!.userName);
-                                userData.put("image", User_Model!!.imageID);
-                                userData.put("password", User_Model!!.password);
-                                userData.put("eMail", newemail!!);
+                                userData.put("image", NewImageID);
+                                userData.put("password", NewPassword);
+                                userData.put("eMail", newemail);
                                 userData.put("firstName", User_Model!!.firstName);
                                 userData.put("midName", User_Model!!.midName);
                                 userData.put("lastName", User_Model!!.lastName);
                                 userData.put("gender", User_Model!!.gender);
-                                userData.put("phoneNum", newmobile!!);
+                                userData.put("phoneNum", NewMobile);
                                 userData.put("behav_rate", User_Model!!.behaveRate);
-                                userData.put("birthDate", newbirthdate!!);
+                                userData.put("birthDate", User_Model!!.birthDate);
                                 dataBaseInstance.collection("user").document(User_Model!!.userName).
                                         update(userData);
                                 User_Model!!.email = newemail as String
-                                User_Model!!.phoneNum = newmobile
-                                User_Model!!.birthDate = newbirthdate
+                                User_Model!!.phoneNum = NewMobile
+                                User_Model!!.imageID = NewImageID
+                                User_Model!!.password = NewPassword
                                 EditProfile_View!!.ShowToast(toasmsg)
                             }
                         } else {
@@ -225,138 +217,8 @@ class UserControl private constructor() {
 
 
 
+
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    fun getDoctorPosts(): ArrayList<post> {
-        val posts = arrayListOf<post>()
-
-        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Doctor")
-                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        posts.add(document.toObject(post::class.java))
-                    }
-                } else {
-                    println(p0.exception.toString())
-                }
-            }
-        })
-        return posts
-    }
-
-
-    fun getCarpenterPosts(): ArrayList<post> {
-        val posts = arrayListOf<post>()
-
-        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Carpenter")
-                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        posts.add(document.toObject(post::class.java))
-                    }
-                } else {
-                    println(p0.exception.toString())
-                }
-            }
-        })
-        return posts
-    }
-
-
-    fun getMechanicPosts(): ArrayList<post> {
-        val posts = arrayListOf<post>()
-
-        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Mechanic")
-                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        posts.add(document.toObject(post::class.java))
-                    }
-                } else {
-                    println(p0.exception.toString())
-                }
-            }
-        })
-        return posts
-    }
-
-
-    fun getPlumberPosts(): ArrayList<post> {
-        val posts = arrayListOf<post>()
-
-        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Plumber")
-                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        posts.add(document.toObject(post::class.java))
-                    }
-                } else {
-                    println(p0.exception.toString())
-                }
-            }
-        })
-        return posts
-    }
-
-
-    fun getEngineerPosts(): ArrayList<post> {
-        val posts = arrayListOf<post>()
-
-        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Engineer")
-                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        posts.add(document.toObject(post::class.java))
-                    }
-                } else {
-                    println(p0.exception.toString())
-                }
-            }
-        })
-        return posts
-    }
-
-
-    fun getCookingPosts(): ArrayList<post> {
-        val posts = arrayListOf<post>()
-
-        FirebaseFirestore.getInstance().collection("posts_user_map").whereEqualTo("postType", "Cooking")
-                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        posts.add(document.toObject(post::class.java))
-                    }
-                } else {
-                    println(p0.exception.toString())
-                }
-            }
-        })
-        return posts
-    }
-
-    fun addPost(Post: post) {
-        dataBaseInstance.collection("posts_user_map").document().
-                set(Post).addOnSuccessListener {
-         //   toasmsg = "post has been added successfully";
-         //   Home_View!!.ShowToast(toasmsg)
-            println("DocumentSnapshot successfully written!");
-        }.addOnFailureListener { p0 ->
-          //  toasmsg = "error while posting check your internet connection";
-          //  Home_View!!.ShowToast(toasmsg)
-            println(p0.toString())
-        }
-    }
 
 
 /*
