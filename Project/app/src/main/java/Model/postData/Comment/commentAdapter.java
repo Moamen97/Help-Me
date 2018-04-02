@@ -80,10 +80,10 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
         // change the row state to activated
         holder.itemView.setActivated(selectedItems.get(position, false));
 
-        // change the font style depending on message read status
-        applyReadStatus(holder, message);
+        // apply click events
+        applyClickEvents(holder, position, message);
 
-        // handle message star
+        // handle comment mood
         applyImportant(holder, message);
 
         // handle icon animation
@@ -91,12 +91,9 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
 
         // display profile image
         applyProfilePicture(holder, message);
-
-        // apply click events
-        applyClickEvents(holder, position);
     }
 
-    private void applyClickEvents(commentViewHolder holder, final int position) {
+    private void applyClickEvents(commentViewHolder holder, final int position, final comment message) {
         holder.getIconContainer().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +108,13 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
             }
         });
 
+        holder.getMoodSad().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onIconMoodSadClicked(position);
+            }
+        });
+
         holder.getMessageContainer().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,14 +122,16 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
             }
         });
 
-        holder.getMessageContainer().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                listener.onRowLongClicked(position);
-                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                return true;
-            }
-        });
+        holder.getMessageContainer().
+
+                setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        listener.onRowLongClicked(position);
+                        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                        return true;
+                    }
+                });
     }
 
     private void applyProfilePicture(commentViewHolder holder, comment Comment) {
@@ -187,28 +193,18 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
     }
 
     private void applyImportant(commentViewHolder holder, comment Comment) {
-        if (Comment.isImportant()) {
-            holder.getIconImp().setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mood_black_24dp));
-            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.md_green_600));
-        } else {
-            holder.getIconImp().setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mood_black_24dp));
+        if (!Comment.isImportant() && !Comment.isRead()) {
             holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+        } else if (Comment.isImportant()) {
+            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.md_green_600));
+            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+        } else {
+            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.md_red_500));
         }
     }
 
-    private void applyReadStatus(commentViewHolder holder, comment Comment) {
-        if (Comment.isRead()) {
-            holder.getFrom().setTypeface(null, Typeface.NORMAL);
-            holder.getSubject().setTypeface(null, Typeface.NORMAL);
-            holder.getFrom().setTextColor(ContextCompat.getColor(mContext, R.color.subject));
-            holder.getSubject().setTextColor(ContextCompat.getColor(mContext, R.color.message));
-        } else {
-            holder.getFrom().setTypeface(null, Typeface.BOLD);
-            holder.getSubject().setTypeface(null, Typeface.BOLD);
-            holder.getFrom().setTextColor(ContextCompat.getColor(mContext, R.color.from));
-            holder.getSubject().setTextColor(ContextCompat.getColor(mContext, R.color.subject));
-        }
-    }
 
     @Override
     public int getItemCount() {
@@ -255,13 +251,5 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
         currentSelectedIndex = -1;
     }
 
-    public interface MessageAdapterListener {
-        void onIconClicked(int position);
 
-        void onIconImportantClicked(int position);
-
-        void onMessageRowClicked(int position);
-
-        void onRowLongClicked(int position);
-    }
 }

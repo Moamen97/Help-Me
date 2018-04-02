@@ -25,6 +25,7 @@ class commentViewHolder(var view: View) : RecyclerView.ViewHolder(view), View.On
     var iconBack: RelativeLayout? = null
     var iconFront: RelativeLayout? = null
     var listener: commentAdapterListener? = null
+    var moodSad: ImageView? = null
 
     init {
         from = view.findViewById(R.id.from)
@@ -37,6 +38,7 @@ class commentViewHolder(var view: View) : RecyclerView.ViewHolder(view), View.On
         imgProfile = view.findViewById(R.id.icon_profile)
         messageContainer = view.findViewById(R.id.message_container)
         iconContainer = view.findViewById(R.id.icon_container)
+        moodSad = view.findViewById(R.id.icon_bad_mood)
         view.setOnLongClickListener(this)
     }
 

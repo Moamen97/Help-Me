@@ -5,6 +5,9 @@ interface commentAdapterListener {
 
     fun onIconImportantClicked(position: Int)
 
+    fun onIconMoodSadClicked(position: Int)
+
+
     fun onMessageRowClicked(position: Int)
 
     fun onRowLongClicked(position: Int)

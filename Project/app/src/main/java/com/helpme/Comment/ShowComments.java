@@ -1,7 +1,10 @@
 package com.helpme.Comment;
 
+import android.app.Dialog;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.helpme.R;
@@ -33,6 +40,7 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
     private SwipeRefreshLayout swipeRefreshLayout;
     private ActionModeCallback actionModeCallback;
     private ActionMode actionMode;
+    private Dialog addCommentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,30 +48,34 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.comments_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        addCommentDialog = new Dialog(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                showAddCommentFragment();
             }
         });
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-
         mAdapter = new commentAdapter(this, comments, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
-
         actionModeCallback = new ActionModeCallback();
-
         prepareMessages();
+    }
+
+    public void showAddCommentFragment() {
+        addCommentDialog.setContentView(R.layout.add_comment);
+        LinearLayout addCommentPanel = addCommentDialog.findViewById(R.id.addCommentPanel);
+        EditText commentContent = addCommentDialog.findViewById(R.id.commentContent);
+        addCommentPanel.setBackgroundColor(getRandomMaterialColor());
+        addCommentDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        addCommentDialog.show();
     }
 
     private void prepareMessages() {
@@ -129,8 +141,32 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
     public void onIconImportantClicked(int position) {
         // Star icon is clicked,
         // mark the message as important
+
         comment message = comments.get(position);
-        message.setImportant(!message.isImportant());
+        if (message.isImportant()) {
+            message.setImportant(false);
+        } else if (message.isRead()) {
+            message.setRead(false);
+            message.setImportant(true);
+        } else {
+            message.setImportant(true);
+        }
+        comments.set(position, message);
+        mAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onIconMoodSadClicked(int position) {
+        comment message = comments.get(position);
+        if (message.isRead()) {
+            message.setRead(false);
+        } else if (message.isImportant()) {
+            message.setImportant(false);
+            message.setRead(true);
+        } else {
+            message.setRead(true);
+        }
         comments.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -147,7 +183,6 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
             message.setRead(true);
             comments.set(position, message);
             mAdapter.notifyDataSetChanged();
-
             Toast.makeText(getApplicationContext(), "Read: " + message.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -176,6 +211,7 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
             actionMode.invalidate();
         }
     }
+
 
     private class ActionModeCallback implements ActionMode.Callback {
         @Override

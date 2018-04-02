@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/addCommentPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/md_blue_400"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/commentContentText"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/trans_white_rectangle"
+            android:padding="5dp"
+            android:text="Comment Content"
+            android:textAlignment="center"
+            android:textColor="@color/fbutton_color_midnight_blue"
+            android:textSize="18sp" />
+
+
+        <EditText
+            android:id="@+id/commentContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:gravity="top|left"
+            android:hint="  What do you think  ..... "
+            android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:minLines="3"
+            android:padding="5dp"
+            android:scrollbars="vertical"
+            android:textColor="@color/fbutton_color_midnight_blue"
+            android:textCursorDrawable="@color/fbutton_color_midnight_blue" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

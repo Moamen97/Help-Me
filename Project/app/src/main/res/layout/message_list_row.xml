@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/viewbg"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:background="@color/viewbg"
     android:paddingBottom="@dimen/padding_list_row"
     android:paddingLeft="?listPreferredItemPaddingLeft"
     android:paddingRight="?listPreferredItemPaddingRight"
@@ -59,14 +59,14 @@
             <ImageView
                 android:layout_width="@dimen/icon_width_height"
                 android:layout_height="@dimen/icon_width_height"
-                android:src="@drawable/bg_circle"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/bg_circle" />
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:src="@drawable/ic_done_white_24dp" />
         </RelativeLayout>
 
@@ -114,8 +114,6 @@
             android:id="@+id/icon_star"
             android:layout_width="@dimen/icon_star"
             android:layout_height="@dimen/icon_star"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:src="@drawable/ic_mood_black_24dp"
             android:tint="@color/icon_tint_normal" />
 
@@ -123,8 +121,7 @@
             android:id="@+id/icon_bad_mood"
             android:layout_width="@dimen/icon_star"
             android:layout_height="@dimen/icon_star"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_marginLeft="6dp"
             android:src="@drawable/ic_mood_bad_black_24dp"
             android:tint="@color/icon_tint_normal" />
     </LinearLayout>
