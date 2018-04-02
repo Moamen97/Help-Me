@@ -1,5 +1,6 @@
 package com.helpme.Fragments
 
+import Control.PostControl
 import Control.UserControl
 import Model.Magic.MyDividerItemDecoration;
 import Model.postData.*;
@@ -21,7 +22,6 @@ class CookingFragment : android.support.v4.app.Fragment() {
     private val POST_TYPE = R.drawable.pizza;
     private var postList = arrayListOf<post>()
 
-    val UserController: UserControl = UserControl.getInstance(null, null, null, null)
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.cooking_fragment, container, false)
 
@@ -60,7 +60,7 @@ class CookingFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
 
-        postList = UserController.getCookingPosts()
+        postList = PostControl.getPostsByType("Cooking")
         adapter.notifyDataSetChanged()
     }
 }

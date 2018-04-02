@@ -29,18 +29,22 @@ class EditProfile : AppCompatActivity() {
     //added functions by mohamed start here
     fun btnSaveChanges(view:View)
     {
-        var newemail:String? = (findViewById<(EditText)>(R.id.editemailtext)).text.toString();
-        var newmobile:String?= (findViewById<(EditText)>(R.id.editphonetext)).text.toString();
-        var newbdate:String? = (findViewById<(EditText)>(R.id.editbdatetext)).text.toString();
+        var newemail:String = (findViewById<(EditText)>(R.id.editemailtext)).text.toString();
+        var newmobile:String= (findViewById<(EditText)>(R.id.editmobiletextbox)).text.toString();
+        var newpassword:String = (findViewById<(EditText)>(R.id.editPasstextbox)).text.toString();
+        var newimageid:String = (findViewById<(EditText)>(R.id.editimageidtextbox)).text.toString();
 
-        if (newemail == ""||newemail == "Email")
-            newemail = null
+
+        if (newemail == "") {
+            this.ShowToast("Email Cannot Be Empty")
+            return
+        }
         if (newmobile == ""||newmobile == "Mobile Number")
-            newmobile = null
-        if (newbdate == ""||newbdate == "Birth date")
-            newbdate = null
-
-        UserController.UpdateUserInfo(newemail,newmobile,newbdate)
+        {
+            this.ShowToast("Mobile Cannot Be Empty")
+            return
+        }
+        UserController.UpdateUserInfo(newemail,newmobile,newimageid,newpassword)
     }
     fun ShowToast(Msg:String)
     {

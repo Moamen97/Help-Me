@@ -1,5 +1,6 @@
 package com.helpme.Fragments
 
+import Control.PostControl
 import Control.UserControl
 import Model.Magic.MyDividerItemDecoration;
 import Model.postData.post
@@ -21,7 +22,6 @@ class DoctorFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.doctor;
     private var postList = arrayListOf<post>()
-    val UserController: UserControl = UserControl.getInstance(null, null, null, null)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.doctor_fragment, container, false)
@@ -61,7 +61,7 @@ class DoctorFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung,
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
-        postList = UserController.getDoctorPosts()
+        postList = PostControl.getPostsByType("Doctor")
         adapter.notifyDataSetChanged()
     }
 }

@@ -1,5 +1,6 @@
 package com.helpme.Fragments
 
+import Control.PostControl
 import Control.UserControl
 import Model.Magic.MyDividerItemDecoration
 import Model.postData.post
@@ -22,7 +23,6 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
     private val POST_TYPE = R.drawable.carpenter;
     private var postList = arrayListOf<post>()
 
-    val UserController: UserControl = UserControl.getInstance(null, null, null, null)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -66,7 +66,7 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
 
-        postList = UserController.getCarpenterPosts()
+        postList = PostControl.getPostsByType("Carpenter")
         adapter.notifyDataSetChanged()
     }
 }

@@ -64,12 +64,12 @@ tools:context="com.helpme.EditProfile.EditProfile">
                     android:src="@drawable/ic_person_midnight_24dp" />
 
                 <EditText
-                    android:id="@+id/editusernametext"
+                    android:id="@+id/editmobiletextbox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Name"
+                    android:text="Mobile"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -109,12 +109,12 @@ tools:context="com.helpme.EditProfile.EditProfile">
                     android:src="@drawable/ic_phone_android_black_24dp" />
 
                 <EditText
-                    android:id="@+id/editphonetext"
+                    android:id="@+id/editimageidtextbox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Mobile Number"
+                    android:text="Image ID"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -131,12 +131,12 @@ tools:context="com.helpme.EditProfile.EditProfile">
                     android:src="@drawable/ic_date_range_black_24dp" />
 
                 <EditText
-                    android:id="@+id/editbdatetext"
+                    android:id="@+id/editPasstextbox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Birth date"
+                    android:text="New Password"
                     android:textStyle="bold" />
             </LinearLayout>
 

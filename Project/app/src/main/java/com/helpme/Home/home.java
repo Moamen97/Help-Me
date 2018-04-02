@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Control.PostControl;
 import Control.UserControl;
 import Model.postData.post;
 
@@ -55,6 +56,7 @@ public class home extends AppCompatActivity
     private ViewPager viewPager;
     private Dialog dialog;
     private UserControl UserController = UserControl.Companion.getInstance(null, null, this, null);
+    private PostControl PostController = PostControl.Companion.getInstance(0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -281,27 +283,27 @@ public class home extends AppCompatActivity
                 String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
                 switch (s) {
                     case "Carpenter":
-                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Carpenter", comments));
+                        PostControl.Companion.addPost (new post(postContent.getText().toString(), "", timeStamp, "Carpenter", comments));
                         dialog.dismiss();
                         break;
                     case "Doctor":
-                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Doctor", comments));
+                        PostControl.Companion.addPost(new post(postContent.getText().toString(), "", timeStamp, "Doctor", comments));
                         dialog.dismiss();
                         break;
                     case "Mechanic":
-                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Mechanic", comments));
+                        PostControl.Companion.addPost(new post(postContent.getText().toString(), "", timeStamp, "Mechanic", comments));
                         dialog.dismiss();
                         break;
                     case "Plumber":
-                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Plumber", comments));
+                        PostControl.Companion.addPost(new post(postContent.getText().toString(), "", timeStamp, "Plumber", comments));
                         dialog.dismiss();
                         break;
                     case "Engineer":
-                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Engineer", comments));
+                        PostControl.Companion.addPost(new post(postContent.getText().toString(), "", timeStamp, "Engineer", comments));
                         dialog.dismiss();
                         break;
                     case "Cooking":
-                        UserController.addPost(new post(postContent.getText().toString(), "", timeStamp, "Cooking", comments));
+                        PostControl.Companion.addPost(new post(postContent.getText().toString(), "", timeStamp, "Cooking", comments));
                         dialog.dismiss();
                         break;
                     default:
