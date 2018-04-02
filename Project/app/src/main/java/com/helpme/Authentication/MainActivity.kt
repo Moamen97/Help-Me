@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-       // val signIn = Intent(this@MainActivity, SignIn::class.java)
+        // val signIn = Intent(this@MainActivity, SignIn::class.java)
         //startActivity(signIn)
 
-         val signIn = Intent(this@MainActivity, ShowComments::class.java)
+        val signIn = Intent(this@MainActivity, SignIn::class.java)
         startActivity(signIn)
 
         //overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );

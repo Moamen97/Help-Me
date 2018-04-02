@@ -4,6 +4,8 @@ import Control.PostControl
 import Control.UserControl
 import Model.Magic.MyDividerItemDecoration;
 import Model.postData.*;
+import android.app.Dialog
+import android.content.Intent
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.os.Bundle
@@ -14,6 +16,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import com.helpme.Comment.ShowComments
 import com.helpme.R
 
 
@@ -21,6 +25,7 @@ class EngineerFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.engineer;
     private var postList = arrayListOf<post>()
+    private var dialog: Dialog? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +33,9 @@ class EngineerFragment : android.support.v4.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.engineer_fragment, container, false)
-
         var postList = arrayListOf<post>();
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
-        var adapter = postAdapter(this.context, postList,POST_TYPE)
+        var adapter = postAdapter(this.context, postList, POST_TYPE)
         var mLayoutManager = GridLayoutManager(this.context, 1)
         recyclerView?.layoutManager = mLayoutManager
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
@@ -39,6 +43,7 @@ class EngineerFragment : android.support.v4.app.Fragment() {
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
         preparePosts(adapter);
         recyclerView?.adapter = adapter;
+        dialog = Dialog(this.context);
         return view
     }
 
@@ -66,6 +71,11 @@ class EngineerFragment : android.support.v4.app.Fragment() {
         )
 
         postList = PostControl.getPostsByType("Engineer")
+        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf()))
         adapter.notifyDataSetChanged()
     }
 }

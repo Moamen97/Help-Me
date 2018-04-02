@@ -30,15 +30,23 @@ class MechanicFragment : android.support.v4.app.Fragment() {
         var view = inflater?.inflate(R.layout.mechanic_fragment, container, false)
 
         var postList = arrayListOf<post>();
+
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
-        var adapter = postAdapter(this.context, postList,POST_TYPE)
+
+        var adapter = postAdapter(this.context, postList, POST_TYPE)
+
         var mLayoutManager = GridLayoutManager(this.context, 1)
+
         recyclerView?.layoutManager = mLayoutManager
-        //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+
         recyclerView?.addItemDecoration(object : MyDividerItemDecoration(this.context, LinearLayoutManager.VERTICAL, 16) {})
+
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
+
         preparePosts(adapter);
+
         recyclerView?.adapter = adapter;
+
         return view
     }
 
@@ -65,7 +73,14 @@ class MechanicFragment : android.support.v4.app.Fragment() {
                 R.drawable.welcombackgroung, R.drawable.welcombackgroung, R.drawable.welcombackgroung
         )
 
-        postList = PostControl.getPostsByType("Mechanic")
+        //postList = PostControl.getPostsByType("Mechanic")
+        val link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF"
+
+        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
         adapter.notifyDataSetChanged()
     }
 }
