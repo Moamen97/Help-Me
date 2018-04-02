@@ -71,53 +71,39 @@
             android:layout_weight="3"
             android:orientation="horizontal">
 
-            <info.hoang8f.widget.FButton
+            <Button
                 android:id="@+id/carpenterButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@color/md_deep_purple_400"
                 android:text="Carpenter"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                app:cornerRadius="10dp"
-                app:fButtonColor="@color/md_deep_purple_400"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp" />
+                android:textColor="@android:color/white" />
 
-            <info.hoang8f.widget.FButton
+            <Button
                 android:id="@+id/mechanicButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@color/md_deep_orange_400"
                 android:text="Mechanic"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                app:cornerRadius="10dp"
-                app:fButtonColor="@color/md_deep_orange_400"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp"
-
-                />
+                android:textColor="@android:color/white" />
 
 
-            <info.hoang8f.widget.FButton
+            <Button
                 android:id="@+id/engineerButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@color/md_brown_400"
                 android:text="Engineer"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                app:cornerRadius="10dp"
-                app:fButtonColor="@color/md_brown_400"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp"
 
                 />
 
@@ -130,72 +116,61 @@
             android:layout_weight="3"
             android:orientation="horizontal">
 
-            <info.hoang8f.widget.FButton
+            <Button
                 android:id="@+id/plumberButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@color/md_pink_400"
                 android:text="Plumber"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                app:cornerRadius="10dp"
-                app:fButtonColor="@color/md_pink_400"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp" />
+                android:textColor="@android:color/white" />
 
-            <info.hoang8f.widget.FButton
+            <Button
                 android:id="@+id/cookingButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@color/md_green_500"
                 android:text="Cooking"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                app:cornerRadius="10dp"
-                app:fButtonColor="@color/md_green_500"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp" />
+                android:textColor="@android:color/white" />
 
             />
 
 
-            <info.hoang8f.widget.FButton
+            <Button
                 android:id="@+id/doctorButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@color/md_amber_400"
                 android:text="Doctor"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
-                app:cornerRadius="10dp"
-                app:fButtonColor="@color/md_amber_400"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp" />
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
-        <info.hoang8f.widget.FButton
-            android:id="@+id/postButton"
-            android:layout_width="130dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Post"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            app:cornerRadius="10dp"
-            app:fButtonColor="@color/fbutton_color_midnight_blue"
-            app:shadowColor="@android:color/black"
-            app:shadowEnabled="true"
-            app:shadowHeight="3dp" />
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
-
+            <Button
+                android:id="@+id/postButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginTop="50dp"
+                android:layout_weight="1"
+                android:background="@color/md_blue_400"
+                android:text="Add post"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
