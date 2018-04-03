@@ -26,16 +26,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.helpme.Authentication.SignIn;
+import com.helpme.CarpenterFragment;
+import com.helpme.CookingFragment;
 import com.helpme.DoctorFragment;
 import com.helpme.EditProfile.AddProfession;
 import com.helpme.EditProfile.EditProfile;
 import com.helpme.EditProfile.MyProfile;
-import com.helpme.Fragments.CarpenterFragment;
-import com.helpme.Fragments.CookingFragment;
-import com.helpme.Fragments.EngineerFragment;
-import com.helpme.Fragments.MechanicFragment;
-import com.helpme.Fragments.PlumberFragment;
+import com.helpme.EngineerFragment;
 import com.helpme.Fragments.ViewPagerAdapter;
+import com.helpme.MechanicFragment;
+import com.helpme.PlumberFragment;
 import com.helpme.R;
 
 import java.text.SimpleDateFormat;

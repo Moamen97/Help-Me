@@ -3,6 +3,7 @@ package Model.postData
 import Model.Magic.CircleTransform
 import Model.postData.Comment.comment
 import Model.postData.Comment.commentViewHolder
+import android.app.Dialog
 import android.support.design.widget.Snackbar;
 import android.content.Context
 import android.content.Intent
@@ -35,6 +36,9 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         holder?.postType?.setImageResource(postType);
         holder?.postOwnerUserName?.text = postToBind.postOwnerUserName
         holder?.showCommentsButton?.setOnClickListener {
+            //val dialog: Dialog = Dialog(mContext)
+            //dialog.setContentView(R.layout.activity_show_comments);
+            //dialog.show()
             val intent: Intent = Intent(mContext, ShowComments::class.java)
             mContext.startActivity(intent)
         }

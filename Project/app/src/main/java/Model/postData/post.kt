@@ -12,15 +12,15 @@ class post {
 
     constructor()
 
-    constructor(postContent: String, postImage: String, postTime: String, postType: String, comments: ArrayList<String>, postOwnerImage: String, postOwnerUserName: String, color: Int) {
+    constructor(postContent: String, postImage: String, postTime: String, postType: String, comments: ArrayList<String>, postOwnerImage: String = "", postOwnerUserName: String = "", color: Int = -1) {
         this.comments = comments
         this.postContent = postContent
         this.postImage = postImage
         this.postTime = postTime
         this.postType = postType
-        this.color=color
-        this.postOwnerImage=postOwnerImage
-        this.postOwnerUserName=postOwnerUserName
+        this.color = color
+        this.postOwnerImage = postOwnerImage
+        this.postOwnerUserName = postOwnerUserName
     }
 
     constructor(Post: post) {

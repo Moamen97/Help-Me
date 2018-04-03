@@ -33,7 +33,10 @@
         <activity android:name=".EditProfile.AddProfession" />
         <activity android:name=".EditProfile.EditWorkshop" />
         <activity android:name=".AddPost" />
-        <activity android:name=".Comment.ShowComments"></activity>
+        <activity
+            android:name=".Comment.ShowComments"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:label="My new title"/>
     </application>
-
 </manifest>
