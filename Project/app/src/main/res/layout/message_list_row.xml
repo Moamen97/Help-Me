@@ -35,11 +35,12 @@
             android:layout_width="206dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="6"
+            android:lines="10"
+            android:maxLines="10"
             android:minLines="3"
+
             android:textColor="@color/subject"
-            android:textSize="@dimen/msg_text_secondary" />
+            android:textSize="@dimen/msg_text_primary" />
 
     </LinearLayout>
 

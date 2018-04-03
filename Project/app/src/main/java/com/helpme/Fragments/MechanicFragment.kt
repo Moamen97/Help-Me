@@ -76,12 +76,23 @@ class MechanicFragment : android.support.v4.app.Fragment() {
         //postList = PostControl.getPostsByType("Mechanic")
         val link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF"
 
-        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
-        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
-        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
-        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
-        postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+     //   postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+      //  postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+       // postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+        //postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
+        //postList.add(post("Moamen Hassan", link, "", "Doctor", arrayListOf()))
         adapter.notifyDataSetChanged()
+    }
+    private fun getRandomMaterialColor(): Int {
+        var returnColor = Color.GRAY
+        val arrayId = resources.getIdentifier("shuffle", "array", context.packageName)
+        if (arrayId != 0) {
+            val colors = resources.obtainTypedArray(arrayId)
+            val index = (Math.random() * colors.length()).toInt()
+            returnColor = colors.getColor(index, Color.GRAY)
+            colors.recycle()
+        }
+        return returnColor
     }
 }
 

@@ -275,7 +275,7 @@ public class home extends AppCompatActivity
                 selectedButton.append("Doctor");
             }
         });
-        postButton.setOnClickListener(new View.OnClickListener() {
+      /*  postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String s = selectedButton.toString();
@@ -311,5 +311,6 @@ public class home extends AppCompatActivity
                 }
             }
         });
+        */
     }
 }

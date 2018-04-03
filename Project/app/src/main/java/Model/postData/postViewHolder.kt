@@ -13,6 +13,8 @@ class postViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
     var postImage: ImageView? = null
     var postType: ImageView? = null
     var showCommentsButton: Button? = null
+    var postOwnerImage: ImageView? = null
+    var postOwnerUserName: TextView? = null
 
     // Ta7ya Masr :V
     init {
@@ -20,5 +22,7 @@ class postViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         postImage = view.findViewById(R.id.post_image)
         postType = view.findViewById(R.id.post_type)
         showCommentsButton = view.findViewById(R.id.showComments)
+        postOwnerImage = view.findViewById(R.id.postOwnerImage)
+        postOwnerUserName = view.findViewById(R.id.postOwner)
     }
 }
