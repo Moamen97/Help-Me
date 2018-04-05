@@ -29,108 +29,119 @@
         android:background="@drawable/trans_white_rectangle"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/sign_upText"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:text="Get Started"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/sign_upText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Get Started"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-        <AutoCompleteTextView
-            android:id="@+id/userName"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/rounded_white"
-            android:drawableLeft="@drawable/ic_person_black_24dp"
-            android:drawablePadding="5dp"
-            android:hint="Email or User Name"
-            android:paddingStart="10dp"
-            android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
 
-        <AutoCompleteTextView
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/rounded_white"
-            android:drawableLeft="@drawable/ic_pass_icon"
-            android:drawablePadding="5dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingStart="10dp"
-            android:textSize="14sp" />
+                    <AutoCompleteTextView
+                        android:id="@+id/userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/rounded_white"
+                        android:drawableLeft="@drawable/ic_person_black_24dp"
+                        android:drawablePadding="5dp"
+                        android:hint="Email or User Name"
+                        android:paddingStart="10dp"
+                        android:textSize="14sp" />
 
-
-        <info.hoang8f.widget.FButton
-            android:id="@+id/signInBtn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:background="@color/signIn"
-            android:onClick="btnSignInClick"
-            android:text="Sign In"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            app:cornerRadius="10dp"
-            app:fButtonColor="@color/fbutton_color_belize_hole"
-            app:shadowColor="@android:color/black"
-            app:shadowEnabled="true"
-            app:shadowHeight="2dp" />
+                    <AutoCompleteTextView
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/rounded_white"
+                        android:drawableLeft="@drawable/ic_pass_icon"
+                        android:drawablePadding="5dp"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:paddingStart="10dp"
+                        android:textSize="14sp" />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:text="you have not an email ?"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+                    <info.hoang8f.widget.FButton
+                        android:id="@+id/signInBtn"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:background="@color/signIn"
+                        android:onClick="btnSignInClick"
+                        android:text="Sign In"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="10dp"
+                        app:fButtonColor="@color/fbutton_color_belize_hole"
+                        app:shadowColor="@android:color/black"
+                        app:shadowEnabled="true"
+                        app:shadowHeight="2dp" />
 
-        <info.hoang8f.widget.FButton
-            android:id="@+id/signUpBtn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
 
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:onClick="btnSignUpClick"
-            android:text="Sign Up"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            app:cornerRadius="10dp"
-            app:fButtonColor="@color/fbutton_color_midnight_blue"
-            app:shadowColor="@android:color/black"
-            app:shadowEnabled="true"
-            app:shadowHeight="2dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:text="you have not an email ?"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <info.hoang8f.widget.FButton
+                        android:id="@+id/signUpBtn"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:onClick="btnSignUpClick"
+                        android:text="Sign Up"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="10dp"
+                        app:fButtonColor="@color/fbutton_color_midnight_blue"
+                        app:shadowColor="@android:color/black"
+                        app:shadowEnabled="true"
+                        app:shadowHeight="2dp" />
+
+             </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 </RelativeLayout>

@@ -14,7 +14,7 @@ import java.util.*
             this.userName=userName;this.password=password;this.email=eMail;this.phoneNum=phoneNum
             this.firstName=firstName;this.midName=midName;this.lastName=lastName;this.birthDate=birthDate
             this.gender=gender
-            this.behaveRate=behaveRate;this.imageID=imageID
+            this.behaveRate=behav_rate;this.imageID=imageID
         }
         var userName: String = ""
             set(value) {
@@ -71,8 +71,8 @@ import java.util.*
             val emailKey: String = "eMail"
             val genderKey: String = "gender"
             val imageKey: String = "image"
-            val behaveRateKey: String = "behaveRate"
-            val phoneNumKey: String = "phoneNumber"
+            val behaveRateKey: String = "behav_rate"
+            val phoneNumKey: String = "phoneNum"
             val professionCollectionKey: String = "profession"
             val notificationsCollectionKey: String = "notifications"
             val postsCollectionKey:String = "posts"

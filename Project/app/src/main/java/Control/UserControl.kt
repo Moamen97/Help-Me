@@ -122,7 +122,7 @@ class UserControl private constructor() {
                 })
     }
 
-    fun UpdateUserInfo(NewEmail: String, NewMobile: String,NewImageID:String,NewPassword:String)
+    fun UpdateUserInfo(NewFistName:String,NewMidName:String,NewLastName:String,NewGender:String,NewEmail: String,NewPassword:String, NewMobile: String,NewBirthDate:String)
     {
         toasmsg = ""
         var newemail:String = NewEmail //To Config.
@@ -146,15 +146,6 @@ class UserControl private constructor() {
                         }
                     })
         }
-        if (NewMobile != User_Model!!.phoneNum) {
-            toasmsg += "Phone Changed, "
-        }
-        if (NewImageID != User_Model!!.imageID) {
-            toasmsg += "Image Changed, "
-        }
-        if (NewPassword != User_Model!!.password) {
-            toasmsg += "Password Changed. "
-        }
 
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", User_Model!!.userName)
@@ -168,22 +159,28 @@ class UserControl private constructor() {
                                 println("Found Document Data");
                                 var userData = HashMap<String, Any>();
                                 userData.put("userName", User_Model!!.userName);
-                                userData.put("image", NewImageID);
+                                userData.put("image", User_Model!!.imageID);
                                 userData.put("password", NewPassword);
                                 userData.put("eMail", newemail);
-                                userData.put("firstName", User_Model!!.firstName);
-                                userData.put("midName", User_Model!!.midName);
-                                userData.put("lastName", User_Model!!.lastName);
-                                userData.put("gender", User_Model!!.gender);
+                                userData.put("firstName", NewFistName);
+                                userData.put("midName", NewMidName);
+                                userData.put("lastName", NewLastName);
+                                userData.put("gender", NewGender);
                                 userData.put("phoneNum", NewMobile);
                                 userData.put("behav_rate", User_Model!!.behaveRate);
-                                userData.put("birthDate", User_Model!!.birthDate);
+                                userData.put("birthDate", NewBirthDate);
                                 dataBaseInstance.collection("user").document(User_Model!!.userName).
                                         update(userData);
+                                User_Model!!.firstName=NewFistName
+                                User_Model!!.midName=NewMidName
+                                User_Model!!.lastName=NewLastName
+                                User_Model!!.gender=NewGender
                                 User_Model!!.email = newemail as String
-                                User_Model!!.phoneNum = NewMobile
-                                User_Model!!.imageID = NewImageID
                                 User_Model!!.password = NewPassword
+                                User_Model!!.phoneNum = NewMobile
+                                User_Model!!.birthDate = NewBirthDate
+                                //User_Model!!.imageID = NewImageID
+                                toasmsg="Data Changed Successfully !"
                                 EditProfile_View!!.ShowToast(toasmsg)
                             }
                         } else {

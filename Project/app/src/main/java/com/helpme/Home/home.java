@@ -157,9 +157,12 @@ public class home extends AppCompatActivity
             Intent intent = new Intent(this, AddProfession.class);
             startActivity(intent);
         } else if (id == R.id.Logout) {
-            finish();
-            Intent intent = new Intent(this, SignIn.class);
+            Intent intent = new Intent(getApplicationContext(), SignIn.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            //finish();
+            //Intent intent2 = new Intent(this, SignIn.class);
+            //startActivity(intent2);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

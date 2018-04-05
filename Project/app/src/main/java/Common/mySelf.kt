@@ -20,10 +20,11 @@ object mySelf : Model.user() {
                     this@mySelf.email = docSnapshot.getString(user.emailKey)
                     this@mySelf.firstName = docSnapshot.getString(user.firstNameKey)
                     this@mySelf.lastName = docSnapshot.getString(user.lastNameKey)
-                    //this@mySelf.gender = docSnapshot.getString(user.genderKey)[0]
-                    //this@mySelf. phoneNum = docSnapshot.getString(user.phoneNumKey)
+                    this@mySelf.midName = docSnapshot.getString(user.midNameKey)
+                    this@mySelf.gender = docSnapshot.getString(user.genderKey)
+                    this@mySelf. phoneNum = docSnapshot.getString(user.phoneNumKey)
                     //this@mySelf.behaveRate = docSnapshot.getLong(user.behaveRateKey) as Int
-                    //this@mySelf.birthDate = docSnapshot.getDate(user.birthDateKey).toString()
+                    this@mySelf.birthDate = docSnapshot.getString(user.birthDateKey).toString()
                     return true
                 } else
                     return false

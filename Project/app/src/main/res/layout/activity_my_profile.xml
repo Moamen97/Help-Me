@@ -87,6 +87,7 @@
                                 android:textSize="20sp" />
 
                             <TextView
+                                android:id="@+id/personNoOfPosts"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
@@ -112,6 +113,7 @@
                                 android:textSize="20sp" />
 
                             <TextView
+                                android:id="@+id/personRate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
@@ -146,6 +148,7 @@
                         android:src="@drawable/ic_email_black_24dp" />
 
                     <TextView
+                        android:id="@+id/personEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -167,6 +170,7 @@
                         android:src="@drawable/ic_phone_android_black_24dp" />
 
                     <TextView
+                        android:id="@+id/personNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -188,6 +192,7 @@
                         android:src="@drawable/ic_person_midnight_24dp" />
 
                     <TextView
+                        android:id="@+id/personBirthDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -196,26 +201,6 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_work_black_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Work Shop"
-                        android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
