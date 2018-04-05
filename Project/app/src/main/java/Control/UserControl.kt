@@ -12,6 +12,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
 import com.helpme.EditProfile.EditProfile
+import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
 import java.util.*
 
@@ -21,14 +22,14 @@ class UserControl private constructor() {
     private var SignIn_View: SignIn? = null
     private var SignUp_View: SignUp? = null
     private var Home_View: home? = null
-    private var EditProfile_View: EditProfile? = null
+    private var EditProfile_View: MyProfile? = null
     private var dataBaseInstance = fireStore.fireStoreHandler
     private var toasmsg: String = ""
 
     companion object {
         private var instance: UserControl? = null
         fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null
-                        , Home_View: home? = null, EditProfile_View: EditProfile? = null): UserControl {
+                        , Home_View: home? = null, EditProfile_View: MyProfile? = null): UserControl {
             if (instance == null)
                 instance = UserControl()
             instance!!.setcurrentview(SignIn_View, SignUp_View, Home_View, EditProfile_View)
@@ -37,7 +38,7 @@ class UserControl private constructor() {
     } //Singleton
 
     private fun setcurrentview(SignIn_View: SignIn?, SignUp_View: SignUp?, Home_View: home?,
-                               EditProfile_View: EditProfile?) {
+                               EditProfile_View: MyProfile?) {
         this.SignIn_View = SignIn_View
         this.SignUp_View = SignUp_View
         this.Home_View = Home_View

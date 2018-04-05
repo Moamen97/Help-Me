@@ -17,8 +17,7 @@ class EditProfile : AppCompatActivity() {
     /*
     By Mohamed
     */
-    val UserController: UserControl = UserControl.getInstance(null,null,
-            null,this)
+  //  val UserController: UserControl = UserControl.getInstance(null,null, null,this)
     /////////////////////////////////////////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +82,7 @@ class EditProfile : AppCompatActivity() {
             this.ShowToast("Birth Date should be like dd/mm/yyyy")
             return
         }
-        UserController.UpdateUserInfo(newFirstName,newMidName,newLastName,newGender,newemail,newpassword,newmobile,newBirthDate)
+        //UserController.UpdateUserInfo(newFirstName,newMidName,newLastName,newGender,newemail,newpassword,newmobile,newBirthDate)
     }
     fun ShowToast(Msg:String)
     {

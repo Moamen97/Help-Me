@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="16dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/editFirstNametextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawablePadding="5dp"
+        android:hint="First Name"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editMidNametextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawablePadding="5dp"
+        android:hint="Middle Name"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editLastNametextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawablePadding="5dp"
+        android:hint="Last Name"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editGendertextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+
+        android:drawablePadding="5dp"
+        android:hint="Change Gender"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editEmailtextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawablePadding="5dp"
+        android:hint="Email Address"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editPassWordtextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawablePadding="5dp"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editPhonetextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawablePadding="5dp"
+        android:hint="Edit Phone"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/editBirthDatetextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawablePadding="5dp"
+        android:hint="Birth Date"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/SaveInfo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="10dp"
+        android:background="@color/md_amber_100"
+        android:onClick="btnSaveChanges"
+        android:text="Save"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textStyle="bold" />
+
+</LinearLayout>

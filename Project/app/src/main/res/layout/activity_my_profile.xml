@@ -2,9 +2,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/viewbg"
     android:orientation="vertical">
 
 
@@ -19,20 +20,53 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="430dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:background="@color/fbutton_color_wet_asphalt"
+                    android:layout_height="230dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="45dp"
-                        android:src="@drawable/carpenter" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginVertical="5dp"
+                            android:src="@drawable/bg_circle_white" />
+
+                        <ImageView
+                            android:id="@+id/userImage"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginVertical="5dp"
+                            android:src="@drawable/bg_circle" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="M"
+                            android:textColor="@color/md_blue_50"
+                            android:textSize="27sp" />
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/fab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="bottom|end"
+                            android:layout_margin="@dimen/fab_margin"
+                            app:backgroundTint="@color/md_blue_400"
+                            app:srcCompat="@drawable/ic_edit_white_24dp" />
+
+
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/personName"
@@ -42,7 +76,7 @@
                         android:layout_marginTop="10dp"
                         android:text="Name : Moamen Hassan"
                         android:textAlignment="center"
-                        android:textColor="#fff"
+                        android:textColor="@color/fbutton_color_midnight_blue"
                         android:textSize="21sp"
                         android:textStyle="bold" />
 
@@ -54,20 +88,25 @@
                         android:layout_marginTop="10dp"
                         android:text="Profession : Carpenter"
                         android:textAlignment="center"
-                        android:textColor="#fff"
+                        android:textColor="@color/fbutton_color_midnight_blue"
                         android:textSize="21sp"
                         android:textStyle="bold" />
+
                     />
                 </LinearLayout>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/card_view"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="295dp">
+                    android:layout_marginHorizontal="3dp"
+                    android:layout_marginTop="200dp"
+                    app:cardBackgroundColor="@color/md_amber_50"
+                    app:cardCornerRadius="12dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:weightSum="3">
@@ -82,9 +121,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Posts"
-                                android:textColor="@color/fbutton_color_orange"
-                                android:textSize="20sp" />
+                                android:text="POSTS"
+                                android:textColor="@color/fbutton_color_midnight_blue"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/personNoOfPosts"
@@ -92,7 +132,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
                                 android:text="10"
-                                android:textColor="@color/fbutton_color_wet_asphalt"
+                                android:textColor="@color/fbutton_color_midnight_blue"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
@@ -108,9 +148,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Rate"
-                                android:textColor="@color/fbutton_color_orange"
-                                android:textSize="20sp" />
+                                android:text="RATE"
+                                android:textColor="@color/fbutton_color_midnight_blue"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/personRate"
@@ -127,81 +168,22 @@
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
+
+                <Button
+                    android:id="@+id/WorkShops"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card_view"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginVertical="10dp"
+                    android:background="@color/md_amber_100"
+                    android:onClick="btnEditWorkshopInfo"
+                    android:text="My Workshops"
+                    android:textColor="@color/fbutton_color_midnight_blue"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="360dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="45dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_email_black_24dp" />
-
-                    <TextView
-                        android:id="@+id/personEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="xMoamen97@gmail.com"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_phone_android_black_24dp" />
-
-                    <TextView
-                        android:id="@+id/personNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="01200370750"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_person_midnight_24dp" />
-
-                    <TextView
-                        android:id="@+id/personBirthDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Birth date"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

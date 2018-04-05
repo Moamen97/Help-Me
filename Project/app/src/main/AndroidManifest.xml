@@ -37,6 +37,6 @@
             android:name=".Comment.ShowComments"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.AppCompat.Dialog"
-            android:label="My new title"/>
+            android:label=""/>
     </application>
 </manifest>

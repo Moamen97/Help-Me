@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/gradient"
+    android:background="@drawable/img2"
     tools:openDrawer="start">
 
     <include
@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/overlayBackGround"
+        android:background="@color/md_grey_700"
         app:itemTextColor="@android:color/white"
         app:itemIconTint="@android:color/white"
         app:headerLayout="@layout/nav_header_home"
