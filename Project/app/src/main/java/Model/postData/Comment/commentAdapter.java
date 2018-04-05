@@ -12,6 +12,8 @@ import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -29,7 +31,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
     private List<comment> comments;
     private commentAdapterListener listener;
     private SparseBooleanArray selectedItems;
-
+    private commentViewHolder mHolder;
     // array used to perform multiple animation at once
     private SparseBooleanArray animationItemsIndex;
     private boolean reverseAllAnimations = false;
@@ -67,6 +69,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
 
     @Override
     public void onBindViewHolder(commentViewHolder holder, int position) {
+        mHolder = holder;
         comment message = comments.get(position);
 
         // displaying text view data
@@ -240,6 +243,32 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
             items.add(selectedItems.keyAt(i));
         }
         return items;
+    }
+
+    public comment getSelectedItem(int position) {
+        return comments.get(position);
+    }
+
+    public void makeMagicSlideUp(final int position, Animation anim) {
+        if (getSelectedItem(position).getDeleteIt()) {
+            mHolder.getMessageContainer().startAnimation(anim);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    removeData(position);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
     }
 
     public void removeData(int position) {

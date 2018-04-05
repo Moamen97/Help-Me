@@ -3,147 +3,238 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="570dp"
-    android:background="@drawable/gradient"
-    >
+    android:layout_height="450dp"
+    android:background="@drawable/img2"
+    android:layout_margin="@dimen/card_margin"
+    android:elevation="3dp">
 
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    >
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_list_row"
+        android:paddingLeft="?listPreferredItemPaddingLeft"
+        android:paddingRight="?listPreferredItemPaddingRight"
+        android:paddingTop="@dimen/padding_list_row">
+
+        <TextView
+            android:id="@+id/WorkshopForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:background="@color/md_red_50"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:text="Workshop Form"
+            android:textAlignment="center"
+            android:textColor="@color/fbutton_color_midnight_blue"
+            android:textSize="30sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/WorkShopNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/WorkshopForm"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_white"
+            android:drawableLeft="@drawable/ic_work_black_24dp"
+            android:drawablePadding="5dp"
+            android:hint="  Work Shop Name"
+            android:paddingStart="10dp"
+            android:textSize="14sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/WorkshopLocationEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/WorkShopNameEditText"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/rounded_white"
+            android:drawableLeft="@drawable/ic_location_on_black_24dp"
+            android:drawablePadding="5dp"
+            android:hint="Work Shop Location"
+            android:paddingStart="10dp"
+            android:textSize="14sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/WorkshopPhoneNumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/WorkshopLocationEditText"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/rounded_white"
+            android:drawableLeft="@drawable/ic_phone_android_black_24dp"
+            android:drawablePadding="5dp"
+            android:hint="Work Shop Location"
+            android:paddingStart="10dp"
+            android:textSize="14sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/WorkshopWorkingHoursEditText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/WorkshopPhoneNumberEditText"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/rounded_white"
+            android:drawableLeft="@drawable/ic_date_range_black_24dp"
+            android:drawablePadding="5dp"
+            android:hint="Work Shop Working Hours"
+            android:paddingStart="10dp"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/SaveWorkShopInfo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/WorkshopWorkingHoursEditText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="10dp"
+            android:background="@color/md_amber_100"
+            android:text="Save"
+            android:textColor="@color/fbutton_color_midnight_blue"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/SaveWorkShopInfo"
+            android:orientation="vertical">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/md_blue_400"
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/img2">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/trans_white_rectangle"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/WorkshopForm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
-                android:text=""
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                tools:text="Workshop Form" />
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                android:id="@+id/workshopLinearLayoutID"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/trans_white_rectangle"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_work_black_24dp" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/WorkshopForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    tools:text="Workshop Form" />
+
+                <AutoCompleteTextView
                     android:id="@+id/WorkShopNameEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:hint="Work Shop Name"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/rounded_white"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:hint="Email or User Name"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_location_on_black_24dp" />
-
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/WorkshopLocationEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:hint="Work Shop Location"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/rounded_white"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:hint="Email or User Name"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_phone_android_black_24dp" />
-
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/WorkshopPhoneNumberEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:hint="Work Shop Phone Number"
-                    android:paddingLeft="20dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp">
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/rounded_white"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:hint="Email or User Name"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_date_range_black_24dp" />
-
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/WorkshopWorkingHoursEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:hint="Work Shop Working Hours"
-                    android:textStyle="bold" />
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/rounded_white"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:hint="Email or User Name"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp" />
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/SaveWorkShopInfo"
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@color/signIn"
+                    android:text="Save"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="8dp"
+                    app:fButtonColor="@color/fbutton_color_midnight_blue"
+                    app:shadowColor="@android:color/black"
+                    app:shadowEnabled="true"
+                    app:shadowHeight="2dp" />
+
             </LinearLayout>
-
-            <info.hoang8f.widget.FButton
-                android:id="@+id/SaveWorkShopInfo"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@color/signIn"
-                android:text="Save"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                app:cornerRadius="8dp"
-                app:fButtonColor="@color/fbutton_color_midnight_blue"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="2dp" />
-
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+-->
 </android.support.v7.widget.CardView>

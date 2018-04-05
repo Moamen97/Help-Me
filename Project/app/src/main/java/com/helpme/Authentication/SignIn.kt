@@ -70,7 +70,6 @@ class SignIn : AppCompatActivity() {
         val linearLayoutPanel = findViewById<LinearLayout>(R.id.singInPanel)
         val logo = findViewById<TextView>(R.id.Logo)
         logo.typeface = face;
-
         val textViewAnimation: Animation = AnimationUtils.loadAnimation(this.applicationContext, R.anim.sequential)
         val linearLayoutAnimation: Animation = AnimationUtils.loadAnimation(this.applicationContext, R.anim.slide_down)
         linearLayoutPanel.animation = linearLayoutAnimation

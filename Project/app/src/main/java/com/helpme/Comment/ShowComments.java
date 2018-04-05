@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -26,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.helpme.R;
+
+import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +88,7 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
         for (int i = 0; i < 200; ++i) {
             comments.add(new comment(1, false, link, "Moamen Hassan Attia",
-                    "Hello Salama ", "A7la Mesa 3 el nas el kwaysa", "10:30 AM", false, getRandomMaterialColor()));
+                    "Hello Salama ", "A7la Mesa 3 el nas el kwaysa", "10:30 AM", false, getRandomMaterialColor(), false));
         }
     }
 
@@ -135,7 +139,6 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
         if (actionMode == null) {
             actionMode = startSupportActionMode(actionModeCallback);
         }
-
         toggleSelection(position);
     }
 
@@ -261,9 +264,9 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
 
     // deleting the messages from recycler view
     private void deleteMessages() {
+        Animation animation = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.slide_up);
         mAdapter.resetAnimationIndex();
-        List<Integer> selectedItemPositions =
-                mAdapter.getSelectedItems();
+        List<Integer> selectedItemPositions = mAdapter.getSelectedItems();
         for (int i = selectedItemPositions.size() - 1; i >= 0; i--) {
             mAdapter.removeData(selectedItemPositions.get(i));
         }
