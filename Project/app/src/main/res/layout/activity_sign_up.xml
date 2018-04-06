@@ -14,8 +14,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
             <TextView
                 android:id="@+id/Logo"
                 android:layout_width="200dp"
@@ -106,7 +107,22 @@
                     android:inputType="textPassword"
                     android:paddingStart="10dp"
                     android:textSize="14sp"
+                    />
 
+                <AutoCompleteTextView
+                    android:id="@+id/passwordconfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/rounded_white"
+                    android:drawableLeft="@drawable/ic_pass_icon"
+                    android:drawablePadding="5dp"
+                    android:hint="PasswordConfirmation"
+                    android:inputType="textPassword"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp"
                     />
 
                 <AutoCompleteTextView
@@ -169,6 +185,40 @@
                     android:paddingStart="10dp"
                     android:textSize="14sp" />
 
+                <AutoCompleteTextView
+                    android:id="@+id/birthDatePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/rounded_white"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:hint="BirthDate"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp"
+                    android:editable="false"
+                    tools:ignore="Deprecated"
+                    />
+
+
+                <Switch
+                    android:id="@+id/genderSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/rounded_white"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
+                    android:drawablePadding="5dp"
+                    android:paddingStart="10dp"
+                    android:text="male"
+                    android:textOff="male"
+                    android:textOn="female"
+                    android:textSize="14sp"
+                     />
 
                 <info.hoang8f.widget.FButton
                     android:id="@+id/register"

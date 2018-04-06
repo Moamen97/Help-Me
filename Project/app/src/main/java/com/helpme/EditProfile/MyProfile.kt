@@ -25,14 +25,14 @@ class MyProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
 
-        val firstname = mySelf.firstName
-        val midname = mySelf.midName
-        val lastname = mySelf.lastName
-        val mail = mySelf.email
-        val Number = mySelf.phoneNum
-        val BirthDate = mySelf.birthDate
-        val gender = mySelf.gender
-        val pass = mySelf.password
+        val firstname = mySelf.get_firstName()
+        val midname = mySelf.get_midName()
+        val lastname = mySelf.get_lastName()
+        val mail = mySelf.get_email()
+        val Number = mySelf.get_phoneNum()
+        val BirthDate = mySelf.get_birthDate()
+        val gender = mySelf.get_gender()
+        val pass = mySelf.get_password()
 
 
         val editMyProfile = findViewById<FloatingActionButton>(R.id.fab)

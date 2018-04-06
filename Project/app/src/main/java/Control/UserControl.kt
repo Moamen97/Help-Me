@@ -2,23 +2,24 @@ package Control
 
 import Common.mySelf
 import FireBase.fireStore
-import Model.postData.post
 import Model.user
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
-import com.helpme.EditProfile.EditProfile
 import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
+import junit.framework.TestResult
+import java.lang.Exception
 import java.util.*
-
+import javax.xml.transform.Result
+import kotlin.math.truncate
 
 class UserControl private constructor() {
-    private var User_Model: user? = null
+    private var User_Model: mySelf? = null
     private var SignIn_View: SignIn? = null
     private var SignUp_View: SignUp? = null
     private var Home_View: home? = null
@@ -58,9 +59,9 @@ class UserControl private constructor() {
                                     if (mySelf.loadMyself(userName)) {
                                         User_Model = mySelf
                                         toasmsg = "Sign In Successfully " +
-                                                User_Model!!.firstName + " " +
-                                                User_Model!!.midName +
-                                                " " + User_Model!!.lastName + " "
+                                                User_Model!!.get_firstName() + " " +
+                                                User_Model!!.get_midName() +
+                                                " " + User_Model!!.get_lastName() + " "
                                         SignIn_View!!.ShowToast(toasmsg)
                                         SignIn_View!!.LogIn()
                                     } else {
@@ -82,8 +83,8 @@ class UserControl private constructor() {
     }
 
     fun signUp(newUser: user) {
-        dataBaseInstance.collection("user")
-                .whereEqualTo("userName", newUser.userName)
+        dataBaseInstance.collection(user.usersCollectionName)
+                .whereEqualTo(user.userNameKey, newUser.get_userName())
                 .get()
                 .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
                     override fun onComplete(p0: Task<QuerySnapshot>) {
@@ -93,26 +94,40 @@ class UserControl private constructor() {
                                 // getting empty documents ; here we should push our user to db :V
                                 println("No Document Data");
                                 var userData = HashMap<String, Any>();
-                                userData.put("userName", newUser.userName);
-                                userData.put("image", newUser.imageID);
-                                userData.put("password", newUser.password);
-                                userData.put("eMail", newUser.email);
-                                userData.put("firstName", newUser.firstName);
-                                userData.put("midName", newUser.midName);
-                                userData.put("lastName", newUser.lastName);
-                                userData.put("gender", newUser.gender);
-                                userData.put("phoneNum", newUser.phoneNum);
-                                userData.put("behav_rate", newUser.behaveRate);
-                                userData.put("birthDate", newUser.birthDate);
-                                dataBaseInstance.collection("user").document(newUser.userName).set(userData);
-                                toasmsg = "Sign up successfully"
+                                userData.put(user.userNameKey, newUser.get_userName());
+                                userData.put(user.imageKey, newUser.get_imageID());
+                                userData.put(user.passwordKey, newUser.get_password());
+                                userData.put(user.emailKey, newUser.get_email());
+                                userData.put(user.firstNameKey, newUser.get_firstName());
+                                userData.put(user.midNameKey, newUser.get_midName());
+                                userData.put(user.lastNameKey, newUser.get_lastName());
+                                userData.put(user.genderKey, newUser.get_gender());
+                                userData.put(user.phoneNumKey, newUser.get_phoneNum());
+                                userData.put(user.behaveRateKey, newUser.get_behaveRate());
+                                userData.put(user.birthDateKey, newUser.get_birthDate());
+                                toasmsg = "Congratz your data will be uploaded in seconds"
                                 SignUp_View!!.ShowToast(toasmsg)
                                 SignUp_View!!.Signup()
-
+                                var task=dataBaseInstance.collection("user").document(newUser.get_userName()).set(userData)
+                                while(true) {
+                                    if (task.isComplete) {
+                                        if (task.isSuccessful) {
+                                            toasmsg = "Your data uploaded you can sign in now and enjoy our service"
+                                            SignUp_View!!.ShowToast(toasmsg)
+                                            SignUp_View!!.Signup()
+                                            break
+                                        }else
+                                        { toasmsg = "Error:Your data isn't uploaded correctly please try again"
+                                            SignUp_View!!.ShowToast(toasmsg)
+                                            SignUp_View!!.Signup()
+                                            break
+                                        }
+                                    }
+                                }
                             } else {
                                 // here i found someone has the same userName :V so i can't add this user
                                 println(p0.result.documents[0].data.toString());
-                                toasmsg = "Sign up is not success user name is already exist"
+                                toasmsg = "Sign up is not success user name is already exist or you are offline"
                                 SignUp_View!!.ShowToast(toasmsg)
                             }
                         } else {
@@ -123,11 +138,12 @@ class UserControl private constructor() {
                 })
     }
 
-    fun UpdateUserInfo(NewFistName:String,NewMidName:String,NewLastName:String,NewGender:String,NewEmail: String,NewPassword:String, NewMobile: String,NewBirthDate:String)
+    fun UpdateUserInfo(NewFistName:String, NewMidName:String, NewLastName:String, NewGender: String,
+                       NewEmail: String, NewPassword:String, NewMobile: String, NewBirthDate:String)
     {
         toasmsg = ""
         var newemail:String = NewEmail //To Config.
-        if (User_Model!!.email != NewEmail) {
+        if (User_Model!!.get_email() != NewEmail) {
             // checks if the new Email exists
             dataBaseInstance.collection("user")
                     .whereEqualTo("eMail", NewEmail)
@@ -138,7 +154,7 @@ class UserControl private constructor() {
                             if (p0.isSuccessful) {
                                 if (!p0.result.isEmpty) {
                                     toasmsg += "Email Error, "
-                                    newemail = User_Model!!.email
+                                    newemail = User_Model!!.get_email()
                                 }
                                 else {
                                     toasmsg += "Email Changed, "
@@ -149,7 +165,7 @@ class UserControl private constructor() {
         }
 
         dataBaseInstance.collection("user")
-                .whereEqualTo("userName", User_Model!!.userName)
+                .whereEqualTo("userName", User_Model!!.get_userName())
                 .get()
                 .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
                     override fun onComplete(p0: Task<QuerySnapshot>) {
@@ -158,31 +174,19 @@ class UserControl private constructor() {
                             if (!p0.result.isEmpty) {
                                 // getting non empty documents ; here we should update our user to db :V
                                 println("Found Document Data");
-                                var userData = HashMap<String, Any>();
-                                userData.put("userName", User_Model!!.userName);
-                                userData.put("image", User_Model!!.imageID);
-                                userData.put("password", NewPassword);
-                                userData.put("eMail", newemail);
-                                userData.put("firstName", NewFistName);
-                                userData.put("midName", NewMidName);
-                                userData.put("lastName", NewLastName);
-                                userData.put("gender", NewGender);
-                                userData.put("phoneNum", NewMobile);
-                                userData.put("behav_rate", User_Model!!.behaveRate);
-                                userData.put("birthDate", NewBirthDate);
-                                dataBaseInstance.collection("user").document(User_Model!!.userName).
-                                        update(userData);
-                                User_Model!!.firstName=NewFistName
-                                User_Model!!.midName=NewMidName
-                                User_Model!!.lastName=NewLastName
-                                User_Model!!.gender=NewGender
-                                User_Model!!.email = newemail as String
-                                User_Model!!.password = NewPassword
-                                User_Model!!.phoneNum = NewMobile
-                                User_Model!!.birthDate = NewBirthDate
-                                //User_Model!!.imageID = NewImageID
+                                User_Model!!.CheckSet_firstName(NewFistName)
+                                User_Model!!.CheckSet_midName(NewMidName)
+                                User_Model!!.CheckSet_lastName(NewLastName)
+                                User_Model!!.CheckSet_gender(NewGender)
+                                User_Model!!.CheckSet_email(newemail)
+                                User_Model!!.CheckSet_password(NewPassword,NewPassword)
+                                User_Model!!.CheckSet_phoneNum(NewMobile)
+                                User_Model!!.CheckSet_birthDate(NewBirthDate)
+                                //User_Model!!.Checkset_imageID()
                                 toasmsg="Data Changed Successfully !"
                                 EditProfile_View!!.ShowToast(toasmsg)
+                                User_Model!!.uploadMyself()
+
                             }
                         } else {
                             // Task is not Successfull ,, should be throw an exception

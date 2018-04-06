@@ -23,14 +23,14 @@ class EditProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-        val firstname= mySelf.firstName
-        val midname =mySelf.midName
-        val lastname=mySelf.lastName
-        val mail = mySelf.email
-        val Number= mySelf.phoneNum
-        val BirthDate= mySelf.birthDate
-        val gender=mySelf.gender
-        val pass=mySelf.password
+        val firstname= mySelf.get_firstName()
+        val midname =mySelf.get_midName()
+        val lastname=mySelf.get_lastName()
+        val mail = mySelf.get_email()
+        val Number= mySelf.get_phoneNum()
+        val BirthDate= mySelf.get_birthDate()
+        val gender=mySelf.get_gender()
+        val pass=mySelf.get_password()
 
         val firstnameView=findViewById<TextView>(R.id.editFirstNametextbox)
         val midnameView=findViewById<TextView>(R.id.editMidNametextbox)
@@ -44,7 +44,7 @@ class EditProfile : AppCompatActivity() {
         firstnameView.text=firstname
         midnameView.text=midname
         lastnameView.text=lastname
-        genderView.text=gender
+        genderView.text=gender as String
         emailView.text=mail
         passView.text=pass
         phonenumView.text=Number

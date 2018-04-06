@@ -2,29 +2,30 @@ package com.helpme.Authentication
 
 //import Model.Functionalities
 import Control.UserControl
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.helpme.Home.home
 import com.helpme.R
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import java.util.*
 
 class SignIn : AppCompatActivity() {
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    /*                                                                                          //
-    By Mohamed :V :V :V  34an ta5od drgat ma4y ma4y :V                                         //
-    */                                                                                        //
-    val UserController: UserControl = UserControl.getInstance(this)                //
-
+    /*
+    By Mohamed
+    */
+    val UserController: UserControl = UserControl.getInstance(this)
     //////////////////////////////////////add_post////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,18 +33,23 @@ class SignIn : AppCompatActivity() {
         //startMagic()
     }
 
-
     fun btnSignUpClick(view: View) {
-        val signUp = Intent(this@SignIn, SignUp::class.java)
-        startActivity(signUp)
+        val intent = Intent(this@SignIn, SignUp::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 
     fun btnSignInClick(view: View) {
+        this.onTouchEvent(event = null)
         signInBtn.isEnabled = false
+        signUpBtn.isEnabled = false
         val buttonTimer = Timer()
         buttonTimer.schedule(object : TimerTask() {
             override fun run() {
-                runOnUiThread { signInBtn.setEnabled(true) }
+                runOnUiThread {
+                    signInBtn.isEnabled=true
+                    signUpBtn.isEnabled=true
+                }
             }
         }, 2000)
         UserController.Login(
@@ -52,12 +58,11 @@ class SignIn : AppCompatActivity() {
         );
 
     }
-
     //added functions by mohamed start here
     fun LogIn() {
         val intent = Intent(this, home::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("EXIT", true)
+       // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+      //  intent.putExtra("EXIT", true)
         startActivity(intent)
     }
 
@@ -83,6 +88,13 @@ class SignIn : AppCompatActivity() {
                 linearLayoutPanel.startAnimation(linearLayoutAnimation)
             }
         })
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        val view = this.currentFocus
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm!!.hideSoftInputFromWindow(view.windowToken, 0)
+        return true
     }
 }
 
