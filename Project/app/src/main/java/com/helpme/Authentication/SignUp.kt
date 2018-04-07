@@ -56,23 +56,19 @@ class SignUp : AppCompatActivity() {
             }
         }, 2000)
         //validaaaaaaaaaaaaation
-        val newUser = user()
-        try {
-            newUser.CheckSet_userName(userName.text.toString())
-            newUser.CheckSet_email(eMail.text.toString())
-            newUser.CheckSet_password(password.text.toString(),passwordconfirm.text.toString())
-            newUser.CheckSet_firstName(firstName.text.toString())
-            newUser.CheckSet_midName(midName.text.toString())
-            newUser.CheckSet_lastName(lastName.text.toString())
-            newUser.CheckSet_phoneNum(phoneNumber.text.toString())
-            newUser.CheckSet_birthDate(birthDatePicker.text.toString())
-            newUser.CheckSet_gender(genderSwitch.text.toString())
-            if(!fireStore.isNetworkAvailable(this))
-                throw Exception("You can't sign up if you offline")
-            UserController.signUp(newUser)
-        }catch (e:Exception){
-            Toast.makeText(this,e.message,Toast.LENGTH_LONG).show()
-        }
+        //Validation edited to meet mvc concept
+
+            UserController.CheckSet_userName(userName.text.toString())
+            UserController.CheckSet_email(eMail.text.toString())
+            UserController.CheckSet_password(password.text.toString(),passwordconfirm.text.toString())
+            UserController.CheckSet_firstName(firstName.text.toString())
+            UserController.CheckSet_midName(midName.text.toString())
+            UserController.CheckSet_lastName(lastName.text.toString())
+            UserController.CheckSet_phoneNum(phoneNumber.text.toString())
+            UserController.CheckSet_birthDate(birthDatePicker.text.toString())
+            UserController.CheckSet_gender(genderSwitch.text.toString())
+
+            UserController.signUp()
     }
     // added by mohamed
     fun Signup() {

@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.helpme.R
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class EditProfile : AppCompatActivity() {
@@ -17,7 +18,7 @@ class EditProfile : AppCompatActivity() {
     /*
     By Mohamed
     */
-  //  val UserController: UserControl = UserControl.getInstance(null,null, null,this)
+   val UserController: UserControl = UserControl.getInstance(null,null, null,this)
     /////////////////////////////////////////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,8 @@ class EditProfile : AppCompatActivity() {
         val BirthDate= mySelf.get_birthDate()
         val gender=mySelf.get_gender()
         val pass=mySelf.get_password()
+        val n_of_posts = mySelf.myPosts.size.toString()
+        val rate = mySelf.get_behaveRate().toString()
 
         val firstnameView=findViewById<TextView>(R.id.editFirstNametextbox)
         val midnameView=findViewById<TextView>(R.id.editMidNametextbox)
@@ -49,6 +52,12 @@ class EditProfile : AppCompatActivity() {
         passView.text=pass
         phonenumView.text=Number
         birthdateView.text=BirthDate
+        personName.text = "Name : "+firstname +" " + midname+" " +lastname
+        FirstLetterview.text = firstname[0].toString()
+        personNoOfPosts.text = n_of_posts
+        personRate.text = rate
+
+
     }
     fun btnEditWorkshopInfo(view:View)
     {
@@ -82,7 +91,7 @@ class EditProfile : AppCompatActivity() {
             this.ShowToast("Birth Date should be like dd/mm/yyyy")
             return
         }
-        //UserController.UpdateUserInfo(newFirstName,newMidName,newLastName,newGender,newemail,newpassword,newmobile,newBirthDate)
+        UserController.UpdateUserInfo(newFirstName,newMidName,newLastName,newGender,newemail,newpassword,newmobile,newBirthDate)
     }
     fun ShowToast(Msg:String)
     {

@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
+import com.helpme.EditProfile.EditProfile
 import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
 import junit.framework.TestResult
@@ -20,17 +21,18 @@ import kotlin.math.truncate
 
 class UserControl private constructor() {
     private var User_Model: mySelf? = null
+    private var newUser: user = user()
     private var SignIn_View: SignIn? = null
     private var SignUp_View: SignUp? = null
     private var Home_View: home? = null
-    private var EditProfile_View: MyProfile? = null
+    private var EditProfile_View: EditProfile? = null
     private var dataBaseInstance = fireStore.fireStoreHandler
     private var toasmsg: String = ""
 
     companion object {
         private var instance: UserControl? = null
         fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null
-                        , Home_View: home? = null, EditProfile_View: MyProfile? = null): UserControl {
+                        , Home_View: home? = null, EditProfile_View: EditProfile? = null): UserControl {
             if (instance == null)
                 instance = UserControl()
             instance!!.setcurrentview(SignIn_View, SignUp_View, Home_View, EditProfile_View)
@@ -39,7 +41,7 @@ class UserControl private constructor() {
     } //Singleton
 
     private fun setcurrentview(SignIn_View: SignIn?, SignUp_View: SignUp?, Home_View: home?,
-                               EditProfile_View: MyProfile?) {
+                               EditProfile_View: EditProfile?) {
         this.SignIn_View = SignIn_View
         this.SignUp_View = SignUp_View
         this.Home_View = Home_View
@@ -82,7 +84,12 @@ class UserControl private constructor() {
                 })
     }
 
-    fun signUp(newUser: user) {
+    fun signUp() {
+        if(!fireStore.isNetworkAvailable(SignUp_View!!.baseContext)) {
+            toasmsg =  ("You can't sign up if you offline")
+            SignUp_View!!.ShowToast(toasmsg)
+            return
+        }
         dataBaseInstance.collection(user.usersCollectionName)
                 .whereEqualTo(user.userNameKey, newUser.get_userName())
                 .get()
@@ -143,7 +150,7 @@ class UserControl private constructor() {
     {
         toasmsg = ""
         var newemail:String = NewEmail //To Config.
-        if (User_Model!!.get_email() != NewEmail) {
+     /*   if (User_Model!!.get_email() != NewEmail) {
             // checks if the new Email exists
             dataBaseInstance.collection("user")
                     .whereEqualTo("eMail", NewEmail)
@@ -156,14 +163,11 @@ class UserControl private constructor() {
                                     toasmsg += "Email Error, "
                                     newemail = User_Model!!.get_email()
                                 }
-                                else {
-                                    toasmsg += "Email Changed, "
-                                }
                             }
                         }
                     })
         }
-
+*/
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", User_Model!!.get_userName())
                 .get()
@@ -183,7 +187,7 @@ class UserControl private constructor() {
                                 User_Model!!.CheckSet_phoneNum(NewMobile)
                                 User_Model!!.CheckSet_birthDate(NewBirthDate)
                                 //User_Model!!.Checkset_imageID()
-                                toasmsg="Data Changed Successfully !"
+                                toasmsg="DONE!"
                                 EditProfile_View!!.ShowToast(toasmsg)
                                 User_Model!!.uploadMyself()
 
@@ -200,7 +204,33 @@ class UserControl private constructor() {
     {
         return  this.User_Model!!
     }
-
+    fun CheckSet_userName(uname:String){
+        User_Model!!.CheckSet_userName(uname)
+    }
+    fun CheckSet_password(pass1:String,pass2:String){
+        User_Model!!.CheckSet_password(pass1,pass2)
+    }
+    fun CheckSet_email(em:String) {
+        User_Model!!.CheckSet_email(em)
+    }
+    fun CheckSet_phoneNum(phNum:String){
+        User_Model!!.CheckSet_phoneNum(phNum)
+    }
+    fun CheckSet_firstName(fName:String){
+        User_Model!!.CheckSet_firstName(fName)
+    }
+    fun CheckSet_midName(mName:String){
+        User_Model!!.CheckSet_midName(mName)
+    }
+    fun CheckSet_lastName(lName:String){
+        User_Model!!.CheckSet_lastName(lName)
+    }
+    fun CheckSet_birthDate(bDate:String){
+        User_Model!!.CheckSet_birthDate(bDate)
+    }
+    fun CheckSet_gender(g:String){
+        newUser.CheckSet_gender(g)
+    }
 
 
 

@@ -286,11 +286,11 @@ public class home extends AppCompatActivity
                 String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
                 switch (s) {
                     case "Carpenter":
-                        PostControl.Companion.addPost (new post(postContent.getText().toString(), "", timeStamp, "Carpenter", comments));
+                        PostControl.Companion.addPost (new post(postContent.getText().toString(), "", timeStamp,"Doctor",comments));
                         dialog.dismiss();
                         break;
                     case "Doctor":
-                        PostControl.Companion.addPost(new post(postContent.getText().toString(), "", timeStamp, "Doctor", comments));
+                        PostControl.Companion.addPost(new post());
                         dialog.dismiss();
                         break;
                     case "Mechanic":
@@ -313,7 +313,7 @@ public class home extends AppCompatActivity
                         break;
                 }
             }
-        });
-        */
+        });*/
+
     }
 }

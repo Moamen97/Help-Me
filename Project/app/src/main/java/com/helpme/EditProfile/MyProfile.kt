@@ -19,7 +19,7 @@ import com.helpme.R
 class MyProfile : AppCompatActivity() {
 
     val UserController: UserControl = UserControl.getInstance(null, null,
-            null, this)
+            null, null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

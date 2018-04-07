@@ -48,6 +48,7 @@
                             android:src="@drawable/bg_circle" />
 
                         <TextView
+                            android:id="@+id/FirstLetterview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -124,6 +125,7 @@
                                 android:textStyle="bold" />
 
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="200dp"
@@ -293,6 +295,26 @@
                     android:paddingStart="10dp"
                     android:textColor="@color/fbutton_color_midnight_blue"
                     android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="btnSaveChanges"
+                    android:paddingTop="10dp"
+                    android:text="Save Changes"
+                    android:textColor="@color/fbutton_color_wet_asphalt"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>
