@@ -1,23 +1,17 @@
 package Control
-
 import Common.mySelf
 import FireBase.fireStore
 import Model.user
+import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
 import com.helpme.EditProfile.EditProfile
-import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
-import junit.framework.TestResult
 import java.lang.Exception
 import java.util.*
-import javax.xml.transform.Result
-import kotlin.math.truncate
 
 class UserControl private constructor() {
     private var User_Model: mySelf? = null
@@ -204,37 +198,25 @@ class UserControl private constructor() {
     {
         return  this.User_Model!!
     }
-    fun CheckSet_userName(uname:String){
-        User_Model!!.CheckSet_userName(uname)
+    fun CreateNewUser() {
+        try {
+            newUser.CheckSet_userName( SignUp_View!!.get_userName())
+            newUser.CheckSet_email(SignUp_View!!.get_eMail())
+            newUser.CheckSet_password(SignUp_View!!.get_password()
+                    , SignUp_View!!.get_passwordconfirm())
+            newUser.CheckSet_firstName(SignUp_View!!.get_firstName())
+            newUser.CheckSet_midName(SignUp_View!!.get_midName())
+            newUser.CheckSet_lastName(SignUp_View!!.get_lastName())
+            newUser.CheckSet_phoneNum(SignUp_View!!.get_phoneNumber())
+            newUser.CheckSet_birthDate(SignUp_View!!.get_birthDate())
+            newUser.CheckSet_gender(SignUp_View!!.get_gender())
+            if (!fireStore.isNetworkAvailable(SignUp_View!!.baseContext))
+                throw Exception("You can't sign up if you offline")
+            this.signUp()
+        } catch (e: Exception) {
+            SignUp_View!!.ShowToast(e.message!!)
+        }
     }
-    fun CheckSet_password(pass1:String,pass2:String){
-        User_Model!!.CheckSet_password(pass1,pass2)
-    }
-    fun CheckSet_email(em:String) {
-        User_Model!!.CheckSet_email(em)
-    }
-    fun CheckSet_phoneNum(phNum:String){
-        User_Model!!.CheckSet_phoneNum(phNum)
-    }
-    fun CheckSet_firstName(fName:String){
-        User_Model!!.CheckSet_firstName(fName)
-    }
-    fun CheckSet_midName(mName:String){
-        User_Model!!.CheckSet_midName(mName)
-    }
-    fun CheckSet_lastName(lName:String){
-        User_Model!!.CheckSet_lastName(lName)
-    }
-    fun CheckSet_birthDate(bDate:String){
-        User_Model!!.CheckSet_birthDate(bDate)
-    }
-    fun CheckSet_gender(g:String){
-        newUser.CheckSet_gender(g)
-    }
-
-
-
-
 
 
 

@@ -1,6 +1,5 @@
 package com.helpme.Authentication
 import Control.UserControl
-import FireBase.fireStore
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
@@ -8,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.helpme.R
-import Model.user
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.MotionEvent
@@ -29,14 +27,20 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        birthDatePicker.onFocusChangeListener = object: View.OnFocusChangeListener{
+        birthDatePicker.onFocusChangeListener=object: View.OnFocusChangeListener{
             override fun onFocusChange(p0: View?, p1: Boolean) {
                 if(p1){
-                    onTouchEvent(null) // remove keypad
                     datePicker()
                 }
             }
         }
+        birthDatePicker.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(p0: View?) {
+                datePicker()
+            }
+        })
+
+
         genderSwitch.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
                 if(p1) genderSwitch.setText(genderSwitch.textOn) else genderSwitch.setText(genderSwitch.textOff)
@@ -58,17 +62,8 @@ class SignUp : AppCompatActivity() {
         //validaaaaaaaaaaaaation
         //Validation edited to meet mvc concept
 
-            UserController.CheckSet_userName(userName.text.toString())
-            UserController.CheckSet_email(eMail.text.toString())
-            UserController.CheckSet_password(password.text.toString(),passwordconfirm.text.toString())
-            UserController.CheckSet_firstName(firstName.text.toString())
-            UserController.CheckSet_midName(midName.text.toString())
-            UserController.CheckSet_lastName(lastName.text.toString())
-            UserController.CheckSet_phoneNum(phoneNumber.text.toString())
-            UserController.CheckSet_birthDate(birthDatePicker.text.toString())
-            UserController.CheckSet_gender(genderSwitch.text.toString())
+        UserController.CreateNewUser()
 
-            UserController.signUp()
     }
     // added by mohamed
     fun Signup() {
@@ -87,7 +82,8 @@ class SignUp : AppCompatActivity() {
         logo.typeface = face;
         linearLayoutPanel.startAnimation(AnimationUtils.loadAnimation(this.applicationContext, R.anim.fade_in))
     }
-    fun datePicker(){
+    fun datePicker(view: View?=null){
+        onTouchEvent(null) // remove keypad
         val cal=Calendar.getInstance()
         val year:Int=cal.get(Calendar.YEAR)
         val month:Int=cal.get(Calendar.MONTH)
@@ -112,4 +108,14 @@ class SignUp : AppCompatActivity() {
         imm!!.hideSoftInputFromWindow(view.windowToken, 0)
         return true
     }
+    fun get_userName() = userName.text.toString()
+    fun get_eMail() = eMail.text.toString()
+    fun get_password()= password.text.toString()
+    fun get_passwordconfirm() = passwordconfirm.text.toString()
+    fun get_firstName() = firstName.text.toString()
+    fun get_midName() = midName.text.toString()
+    fun get_lastName() = lastName.text.toString()
+    fun get_phoneNumber() = phoneNumber.text.toString()
+    fun get_birthDate() = birthDatePicker.text.toString()
+    fun get_gender()=genderSwitch.text.toString()
 }
