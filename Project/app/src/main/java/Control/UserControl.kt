@@ -1,4 +1,5 @@
 package Control
+
 import Common.mySelf
 import FireBase.fireStore
 import Model.user
@@ -9,6 +10,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
 import com.helpme.EditProfile.EditProfile
+import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
 import java.lang.Exception
 import java.util.*
@@ -19,27 +21,27 @@ class UserControl private constructor() {
     private var SignIn_View: SignIn? = null
     private var SignUp_View: SignUp? = null
     private var Home_View: home? = null
-    private var EditProfile_View: EditProfile? = null
+    private var myProfileView: MyProfile? = null
     private var dataBaseInstance = fireStore.fireStoreHandler
     private var toasmsg: String = ""
 
     companion object {
         private var instance: UserControl? = null
         fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null
-                        , Home_View: home? = null, EditProfile_View: EditProfile? = null): UserControl {
+                        , Home_View: home? = null, myProfileView: MyProfile? = null): UserControl {
             if (instance == null)
                 instance = UserControl()
-            instance!!.setcurrentview(SignIn_View, SignUp_View, Home_View, EditProfile_View)
+            instance!!.setcurrentview(SignIn_View, SignUp_View, Home_View, myProfileView)
             return instance!!
         }
     } //Singleton
 
     private fun setcurrentview(SignIn_View: SignIn?, SignUp_View: SignUp?, Home_View: home?,
-                               EditProfile_View: EditProfile?) {
+                               myProfileView: MyProfile?) {
         this.SignIn_View = SignIn_View
         this.SignUp_View = SignUp_View
         this.Home_View = Home_View
-        this.EditProfile_View = EditProfile_View
+        this.myProfileView = myProfileView
     }
 
     fun Login(userName: String, password: String) {
@@ -79,8 +81,8 @@ class UserControl private constructor() {
     }
 
     fun signUp() {
-        if(!fireStore.isNetworkAvailable(SignUp_View!!.baseContext)) {
-            toasmsg =  ("You can't sign up if you offline")
+        if (!fireStore.isNetworkAvailable(SignUp_View!!.baseContext)) {
+            toasmsg = ("You can't sign up if you offline")
             SignUp_View!!.ShowToast(toasmsg)
             return
         }
@@ -109,16 +111,16 @@ class UserControl private constructor() {
                                 toasmsg = "Congratz your data will be uploaded in seconds"
                                 SignUp_View!!.ShowToast(toasmsg)
                                 SignUp_View!!.Signup()
-                                var task=dataBaseInstance.collection("user").document(newUser.get_userName()).set(userData)
-                                while(true) {
+                                var task = dataBaseInstance.collection("user").document(newUser.get_userName()).set(userData)
+                                while (true) {
                                     if (task.isComplete) {
                                         if (task.isSuccessful) {
                                             toasmsg = "Your data uploaded you can sign in now and enjoy our service"
                                             SignUp_View!!.ShowToast(toasmsg)
                                             SignUp_View!!.Signup()
                                             break
-                                        }else
-                                        { toasmsg = "Error:Your data isn't uploaded correctly please try again"
+                                        } else {
+                                            toasmsg = "Error:Your data isn't uploaded correctly please try again"
                                             SignUp_View!!.ShowToast(toasmsg)
                                             SignUp_View!!.Signup()
                                             break
@@ -139,29 +141,28 @@ class UserControl private constructor() {
                 })
     }
 
-    fun UpdateUserInfo(NewFistName:String, NewMidName:String, NewLastName:String, NewGender: String,
-                       NewEmail: String, NewPassword:String, NewMobile: String, NewBirthDate:String)
-    {
+    fun UpdateUserInfo(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
+                       NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String) {
         toasmsg = ""
-        var newemail:String = NewEmail //To Config.
-     /*   if (User_Model!!.get_email() != NewEmail) {
-            // checks if the new Email exists
-            dataBaseInstance.collection("user")
-                    .whereEqualTo("eMail", NewEmail)
-                    .get()
-                    .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                        override fun onComplete(p0: Task<QuerySnapshot>) {
-                            println("Entered Complete Listener");
-                            if (p0.isSuccessful) {
-                                if (!p0.result.isEmpty) {
-                                    toasmsg += "Email Error, "
-                                    newemail = User_Model!!.get_email()
-                                }
-                            }
-                        }
-                    })
-        }
-*/
+        var newemail: String = NewEmail //To Config.
+        /*   if (User_Model!!.get_email() != NewEmail) {
+               // checks if the new Email exists
+               dataBaseInstance.collection("user")
+                       .whereEqualTo("eMail", NewEmail)
+                       .get()
+                       .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                           override fun onComplete(p0: Task<QuerySnapshot>) {
+                               println("Entered Complete Listener");
+                               if (p0.isSuccessful) {
+                                   if (!p0.result.isEmpty) {
+                                       toasmsg += "Email Error, "
+                                       newemail = User_Model!!.get_email()
+                                   }
+                               }
+                           }
+                       })
+           }
+   */
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", User_Model!!.get_userName())
                 .get()
@@ -177,12 +178,12 @@ class UserControl private constructor() {
                                 User_Model!!.CheckSet_lastName(NewLastName)
                                 User_Model!!.CheckSet_gender(NewGender)
                                 User_Model!!.CheckSet_email(newemail)
-                                User_Model!!.CheckSet_password(NewPassword,NewPassword)
+                                User_Model!!.CheckSet_password(NewPassword, NewPassword)
                                 User_Model!!.CheckSet_phoneNum(NewMobile)
                                 User_Model!!.CheckSet_birthDate(NewBirthDate)
                                 //User_Model!!.Checkset_imageID()
-                                toasmsg="DONE!"
-                                EditProfile_View!!.ShowToast(toasmsg)
+                                toasmsg = "DONE!"
+                                myProfileView!!.ShowToast(toasmsg)
                                 User_Model!!.uploadMyself()
 
                             }
@@ -194,13 +195,13 @@ class UserControl private constructor() {
                 })
     }
 
-    fun GetCurrentUserProfile():user
-    {
-        return  this.User_Model!!
+    fun GetCurrentUserProfile(): user {
+        return this.User_Model!!
     }
+
     fun CreateNewUser() {
         try {
-            newUser.CheckSet_userName( SignUp_View!!.get_userName())
+            newUser.CheckSet_userName(SignUp_View!!.get_userName())
             newUser.CheckSet_email(SignUp_View!!.get_eMail())
             newUser.CheckSet_password(SignUp_View!!.get_password()
                     , SignUp_View!!.get_passwordconfirm())
@@ -217,19 +218,6 @@ class UserControl private constructor() {
             SignUp_View!!.ShowToast(e.message!!)
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

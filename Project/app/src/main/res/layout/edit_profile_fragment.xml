@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -25,7 +26,7 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/editMidNametextbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -41,7 +42,7 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/editLastNametextbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -57,7 +58,7 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/editGendertextbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -66,7 +67,6 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/rounded_white"
         android:drawableLeft="@drawable/ic_person_midnight_24dp"
-
         android:drawablePadding="5dp"
         android:hint="Change Gender"
         android:inputType="text"
@@ -74,7 +74,8 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
-    <AutoCompleteTextView
+
+    <EditText
         android:id="@+id/editEmailtextbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -82,7 +83,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
         android:background="@drawable/rounded_white"
-        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
         android:drawablePadding="5dp"
         android:hint="Email Address"
         android:inputType="text"
@@ -90,7 +91,7 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/editPassWordtextbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -98,7 +99,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
         android:background="@drawable/rounded_white"
-        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
         android:drawablePadding="5dp"
         android:hint="New Password"
         android:inputType="textPassword"
@@ -106,7 +107,7 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/editPhonetextbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -115,7 +116,7 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/rounded_white"
 
-        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawableLeft="@drawable/ic_phone_android_black_24dp"
         android:drawablePadding="5dp"
         android:hint="Edit Phone"
         android:inputType="text"
@@ -123,22 +124,39 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
+<!--
+    <EditText
+        android:id="@+id/editBirthDatetextbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/rounded_white"
+        android:drawableLeft="@drawable/ic_date_range_black_24dp"
+        android:drawablePadding="5dp"
+        android:hint="Edit Phone"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textColor="@color/fbutton_color_midnight_blue"
+        android:textSize="14sp" />
+-->
     <AutoCompleteTextView
         android:id="@+id/editBirthDatetextbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="15dp"
-
         android:layout_marginStart="15dp"
         android:background="@drawable/rounded_white"
-        android:drawableLeft="@drawable/ic_person_midnight_24dp"
+        android:drawableLeft="@drawable/ic_date_range_black_24dp"
         android:drawablePadding="5dp"
-        android:hint="Birth Date"
-        android:inputType="text"
+        android:hint="BirthDate"
         android:paddingStart="10dp"
-        android:textColor="@color/fbutton_color_midnight_blue"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:editable="false"
+        tools:ignore="Deprecated"
+        />
 
     <Button
         android:id="@+id/SaveInfo"

@@ -18,7 +18,7 @@ class EditProfile : AppCompatActivity() {
     /*
     By Mohamed
     */
-   val UserController: UserControl = UserControl.getInstance(null,null, null,this)
+   val UserController: UserControl = UserControl.getInstance(null,null, null,null)
     /////////////////////////////////////////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

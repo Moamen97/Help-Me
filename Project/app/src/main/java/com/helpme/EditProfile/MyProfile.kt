@@ -2,6 +2,8 @@ package com.helpme.EditProfile
 
 import Common.mySelf
 import Control.UserControl
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -10,16 +12,16 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.helpme.R
+import kotlinx.android.synthetic.main.activity_edit_profile.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
+import java.util.*
 
 class MyProfile : AppCompatActivity() {
 
     val UserController: UserControl = UserControl.getInstance(null, null,
-            null, null)
+            null, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,46 +30,38 @@ class MyProfile : AppCompatActivity() {
         val firstname = mySelf.get_firstName()
         val midname = mySelf.get_midName()
         val lastname = mySelf.get_lastName()
-        val mail = mySelf.get_email()
-        val Number = mySelf.get_phoneNum()
-        val BirthDate = mySelf.get_birthDate()
-        val gender = mySelf.get_gender()
-        val pass = mySelf.get_password()
+        val n_of_posts = mySelf.myPosts.size.toString()
+        val rate = mySelf.get_behaveRate().toString()
+
+
+        personName.text = "Name : " + firstname + " " + midname + " " + lastname
+        personNoOfPosts.text = n_of_posts
+        personRate.text = rate
 
 
         val editMyProfile = findViewById<FloatingActionButton>(R.id.fab)
-
-
         val dialog: Dialog = Dialog(this)
         dialog.setContentView(R.layout.edit_profile_fragment)
         editMyProfile.setOnClickListener {
-            /*     dialog.setContentView(R.layout.add_post);
-                 EditText postContent = dialog.findViewById(R.id.postContent);
-                 Button postButton = dialog.findViewById(R.id.postButton);
-                 Button plumberButton = dialog.findViewById(R.id.plumberButton);
-                 Button carpenterButton = dialog.findViewById(R.id.carpenterButton);
-                 Button mechanicButton = dialog.findViewById(R.id.mechanicButton);
-                 Button engineerButton = dialog.findViewById(R.id.engineerButton);
-                 Button cookingButton = dialog.findViewById(R.id.cookingButton);
-                 Button doctorButton = dialog.findViewById(R.id.doctorButton);
-                 TextView postTypeTextView = dialog.findViewById(R.id.postTypeTextView);
-                 TextView postContentTextView = dialog.findViewById(R.id.postContentTextView);
-                 postTypeTextView.setTypeface(Typeface.createFromAsset(getAssets(), "Fonts/Nabila.ttf"));
-                 postContentTextView.setTypeface(Typeface.createFromAsset(getAssets(), "Fonts/Nabila.ttf"));
-                 buttonsEffect(cookingButton, plumberButton, carpenterButton, mechanicButton, engineerButton, doctorButton, postButton, postContent, dialog);
-                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                 dialog.show();*/
-            val firstnameView = dialog.findViewById<TextView>(R.id.editFirstNametextbox)
-            val midnameView = dialog.findViewById<TextView>(R.id.editMidNametextbox)
-            val lastnameView = dialog.findViewById<TextView>(R.id.editLastNametextbox)
-            val genderView = dialog.findViewById<TextView>(R.id.editGendertextbox)
-            val emailView = dialog.findViewById<TextView>(R.id.editEmailtextbox)
-            val passView = dialog.findViewById<TextView>(R.id.editPassWordtextbox)
-            val phonenumView = dialog.findViewById<TextView>(R.id.editPhonetextbox)
-            val birthdateView = dialog.findViewById<TextView>(R.id.editBirthDatetextbox)
+
+            val editBirthDatetextbox: AutoCompleteTextView = dialog.findViewById(R.id.editBirthDatetextbox)
+            editBirthDatetextbox.onFocusChangeListener = object : View.OnFocusChangeListener {
+                override fun onFocusChange(p0: View?, p1: Boolean) {
+                    if (p1) {
+                        datePicker(dialog)
+                    }
+                }
+            }
+            editBirthDatetextbox.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(p0: View?) {
+                    datePicker(dialog)
+                }
+            })
+
             val buttonSave = dialog.findViewById<Button>(R.id.SaveInfo)
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
+
             buttonSave.setOnClickListener {
                 editMyProfile(dialog)
             }
@@ -90,7 +84,6 @@ class MyProfile : AppCompatActivity() {
         var newmobile: String = (dialog.findViewById<(EditText)>(R.id.editPhonetextbox)).text.toString();
         var newBirthDate: String = (dialog.findViewById<(EditText)>(R.id.editBirthDatetextbox)).text.toString();
 
-
         if (newemail == "") {
             this.ShowToast("Email Cannot Be Empty")
             return
@@ -105,7 +98,7 @@ class MyProfile : AppCompatActivity() {
         }
         UserController.UpdateUserInfo(newFirstName, newMidName, newLastName, newGender, newemail, newpassword, newmobile, newBirthDate)
         dialog.dismiss()
-     }
+    }
 
     fun btnSaveChanges(view: View) {
 
@@ -113,6 +106,21 @@ class MyProfile : AppCompatActivity() {
 
     fun ShowToast(Msg: String) {
         Toast.makeText(this, Msg, Toast.LENGTH_LONG).show();
+    }
+
+    fun datePicker(dialog: Dialog, view: View? = null) {
+        onTouchEvent(null) // remove keypad
+        val cal = Calendar.getInstance()
+        val year: Int = cal.get(Calendar.YEAR)
+        val month: Int = cal.get(Calendar.MONTH)
+        val day: Int = cal.get(Calendar.DAY_OF_MONTH)
+        var dialog1 = DatePickerDialog(this, object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(p0: DatePicker?, yyyy: Int, mm: Int, dd: Int) {
+                val editBirthDatetextbox: AutoCompleteTextView = dialog.findViewById(R.id.editBirthDatetextbox)
+                editBirthDatetextbox.setText("$dd/${mm + 1}/$yyyy")
+            }
+        }, year, month, day)
+        dialog1.show()
     }
 
 }
