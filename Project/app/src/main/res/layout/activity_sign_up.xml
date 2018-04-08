@@ -77,7 +77,8 @@
                     android:hint="User Name"
                     android:inputType="text"
                     android:paddingStart="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:imeOptions="actionNext"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/eMail"
@@ -91,7 +92,10 @@
                     android:drawablePadding="5dp"
                     android:hint="Email"
                     android:paddingStart="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    />
 
                 <AutoCompleteTextView
                     android:id="@+id/password"
@@ -107,6 +111,7 @@
                     android:inputType="textPassword"
                     android:paddingStart="10dp"
                     android:textSize="14sp"
+                    android:imeOptions="actionNext"
                     />
 
                 <AutoCompleteTextView
@@ -123,6 +128,7 @@
                     android:inputType="textPassword"
                     android:paddingStart="10dp"
                     android:textSize="14sp"
+                    android:imeOptions="actionNext"
                     />
 
                 <AutoCompleteTextView
@@ -138,7 +144,8 @@
                     android:hint="First Name"
                     android:inputType="text"
                     android:paddingStart="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:imeOptions="actionNext"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/midName"
@@ -153,7 +160,8 @@
                     android:hint="Middle Name"
                     android:inputType="text"
                     android:paddingStart="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:imeOptions="actionNext"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/lastName"
@@ -168,7 +176,8 @@
                     android:hint="Last Name"
                     android:inputType="text"
                     android:paddingStart="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:imeOptions="actionNext"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/phoneNumber"
@@ -183,7 +192,8 @@
                     android:hint="Phone Number"
                     android:inputType="phone"
                     android:paddingStart="10dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:imeOptions="actionNext"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/birthDatePicker"
@@ -200,6 +210,7 @@
                     android:textSize="14sp"
                     android:editable="false"
                     tools:ignore="Deprecated"
+                    android:imeOptions="actionNext"
                     />
 
 

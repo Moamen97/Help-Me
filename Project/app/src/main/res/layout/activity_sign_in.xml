@@ -73,8 +73,11 @@
                         android:drawableLeft="@drawable/ic_person_black_24dp"
                         android:drawablePadding="5dp"
                         android:hint="Email or User Name"
+                        android:inputType="text"
                         android:paddingStart="10dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:imeOptions="actionNext"
+                        />
 
                     <AutoCompleteTextView
                         android:id="@+id/password"
@@ -89,7 +92,9 @@
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:paddingStart="10dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:imeOptions="actionDone"
+                        />
 
 
                     <info.hoang8f.widget.FButton

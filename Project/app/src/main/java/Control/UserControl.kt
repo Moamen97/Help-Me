@@ -128,7 +128,7 @@ class UserControl private constructor() {
                             } else {
                                 // here i found someone has the same userName :V so i can't add this user
                                 println(p0.result.documents[0].data.toString());
-                                toasmsg = "Sign up is not success user name is already exist or you are offline"
+                                toasmsg = "Sign up is not success user name is already exist"
                                 SignUp_View!!.ShowToast(toasmsg)
                             }
                         } else {
@@ -152,7 +152,7 @@ class UserControl private constructor() {
             newUser.CheckSet_phoneNum(NewMobile)
             newUser.CheckSet_birthDate(NewBirthDate)
             newUser.CheckSet_gender(NewGender)
-            if (!fireStore.isNetworkAvailable(myProfileView!!.baseContext))
+            if (!fireStore.isNetworkAvailable(SignUp_View!!.applicationContext))
                 throw Exception("You can't sign up if you offline")
             this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail, NewPassword, NewMobile, NewBirthDate)
         } catch (e: Exception) {

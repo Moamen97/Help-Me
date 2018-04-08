@@ -38,7 +38,7 @@ open class user() {
         password=pass1
     }
     fun CheckSet_email(em:String) {
-        require(em.matches(Regex("\\w{1,20}@[a-z]{1,7}\\.com"))){"wrong email format"}
+        require(em.matches(Regex("[0-9A-Za-z._]{1,20}@[a-z]{1,7}\\.com"))){"wrong email format"}
         eMail=em
     }
     fun CheckSet_phoneNum(phNum:String){
