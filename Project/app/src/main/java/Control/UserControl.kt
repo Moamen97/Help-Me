@@ -3,13 +3,11 @@ package Control
 import Common.mySelf
 import FireBase.fireStore
 import Model.user
-import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
-import com.helpme.EditProfile.EditProfile
 import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
 import java.lang.Exception
@@ -141,8 +139,30 @@ class UserControl private constructor() {
                 })
     }
 
+
+    fun checkBeforUpdateUserInfo(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
+                                 NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String) {
+
+        try {
+            newUser.CheckSet_email(NewEmail)
+            newUser.CheckSet_password(NewPassword, NewPassword)
+            newUser.CheckSet_firstName(NewFistName)
+            newUser.CheckSet_midName(NewMidName)
+            newUser.CheckSet_lastName(NewLastName)
+            newUser.CheckSet_phoneNum(NewMobile)
+            newUser.CheckSet_birthDate(NewBirthDate)
+            newUser.CheckSet_gender(NewGender)
+            if (!fireStore.isNetworkAvailable(myProfileView!!.baseContext))
+                throw Exception("You can't sign up if you offline")
+            this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail, NewPassword, NewMobile, NewBirthDate)
+        } catch (e: Exception) {
+            myProfileView!!.ShowToast(e.message!!)
+        }
+    }
+
     fun UpdateUserInfo(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
                        NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String) {
+
         toasmsg = ""
         var newemail: String = NewEmail //To Config.
         /*   if (User_Model!!.get_email() != NewEmail) {

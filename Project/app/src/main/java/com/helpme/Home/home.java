@@ -30,7 +30,6 @@ import com.helpme.CarpenterFragment;
 import com.helpme.CookingFragment;
 import com.helpme.DoctorFragment;
 import com.helpme.EditProfile.AddProfession;
-import com.helpme.EditProfile.EditProfile;
 import com.helpme.EditProfile.MyProfile;
 import com.helpme.EngineerFragment;
 import com.helpme.Fragments.ViewPagerAdapter;
@@ -38,13 +37,8 @@ import com.helpme.MechanicFragment;
 import com.helpme.PlumberFragment;
 import com.helpme.R;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 import Control.PostControl;
 import Control.UserControl;
-import Model.postData.post;
 
 public class home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -148,10 +142,7 @@ public class home extends AppCompatActivity
         if (id == R.id.MyProfile) {
             Intent intent = new Intent(this, MyProfile.class);
             startActivity(intent);
-        } else if (id == R.id.EditMyInfo) {
-            Intent intent = new Intent(this, EditProfile.class);
-            startActivity(intent);
-        } else if (id == R.id.MyPosts) {
+        }  else if (id == R.id.MyPosts) {
 
         } else if (id == R.id.AddProfession) {
             Intent intent = new Intent(this, AddProfession.class);

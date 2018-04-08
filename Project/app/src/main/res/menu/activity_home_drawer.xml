@@ -8,10 +8,7 @@
             android:id="@+id/MyProfile"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="My Profile" />
-        <item
-            android:id="@+id/EditMyInfo"
-            android:icon="@drawable/ic_edit_black_24dp"
-            android:title="Edit My Info" />
+
         <item
             android:id="@+id/MyPosts"
             android:icon="@drawable/ic_insert_comment_black_24dp"

@@ -14,8 +14,7 @@ import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.widget.*
 import com.helpme.R
-import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_my_profile.*
 import java.util.*
 
 class MyProfile : AppCompatActivity() {
@@ -96,7 +95,7 @@ class MyProfile : AppCompatActivity() {
             this.ShowToast("Birth Date should be like dd/mm/yyyy")
             return
         }
-        UserController.UpdateUserInfo(newFirstName, newMidName, newLastName, newGender, newemail, newpassword, newmobile, newBirthDate)
+        UserController.checkBeforUpdateUserInfo(newFirstName, newMidName, newLastName, newGender, newemail, newpassword, newmobile, newBirthDate)
         dialog.dismiss()
     }
 
