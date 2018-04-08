@@ -15,6 +15,8 @@ import android.view.View
 import android.widget.*
 import com.helpme.R
 import kotlinx.android.synthetic.main.activity_my_profile.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.edit_profile_fragment.*
 import java.util.*
 
 class MyProfile : AppCompatActivity() {
@@ -42,6 +44,31 @@ class MyProfile : AppCompatActivity() {
         val dialog: Dialog = Dialog(this)
         dialog.setContentView(R.layout.edit_profile_fragment)
         editMyProfile.setOnClickListener {
+
+
+
+
+
+            var FirstName: EditText = (dialog.findViewById<(EditText)>(R.id.editFirstNametextbox))
+            var MidName: EditText = (dialog.findViewById<(EditText)>(R.id.editMidNametextbox))
+            var LastName: EditText = (dialog.findViewById<(EditText)>(R.id.editLastNametextbox))
+            var Gender: Switch = (dialog.findViewById<(Switch)>(R.id.genderSwitch2))
+            var email: EditText = (dialog.findViewById<(EditText)>(R.id.editEmailtextbox))
+            var password: EditText = (dialog.findViewById<(EditText)>(R.id.editPassWordtextbox))
+            var mobile: EditText = (dialog.findViewById<(EditText)>(R.id.editPhonetextbox))
+            var BDate: AutoCompleteTextView = (dialog.findViewById<(AutoCompleteTextView)>(R.id.editBirthDatetextbox))
+
+            FirstName.setText(mySelf.get_firstName())
+            MidName.setText(mySelf.get_midName())
+            LastName.setText(mySelf.get_lastName())
+            if(mySelf.get_gender()=="female")
+            {
+                Gender.isChecked = true
+            }
+            email.setText(mySelf.get_email())
+            password.setText(mySelf.get_password())
+            mobile.setText(mySelf.get_phoneNum())
+            BDate.setText(mySelf.get_birthDate())
 
             val editBirthDatetextbox: AutoCompleteTextView = dialog.findViewById(R.id.editBirthDatetextbox)
             editBirthDatetextbox.onFocusChangeListener = object : View.OnFocusChangeListener {
@@ -74,27 +101,39 @@ class MyProfile : AppCompatActivity() {
     }
 
     fun editMyProfile(dialog: Dialog) {
+
+
+
+
+
+
         var newFirstName: String = (dialog.findViewById<(EditText)>(R.id.editFirstNametextbox)).text.toString();
         var newMidName: String = (dialog.findViewById<(EditText)>(R.id.editMidNametextbox)).text.toString();
         var newLastName: String = (dialog.findViewById<(EditText)>(R.id.editLastNametextbox)).text.toString();
-        var newGender: String = (dialog.findViewById<(EditText)>(R.id.editGendertextbox)).text.toString();
+        var Gender: Switch = (dialog.findViewById<(Switch)>(R.id.genderSwitch2))
+        Gender.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                if(p1) Gender.setText(Gender.textOn) else Gender.setText(Gender.textOff)
+            }
+        })
+        var newGender=""
+        if(Gender.text=="male")
+            newGender="male"
+        else newGender="female"
         var newemail: String = (dialog.findViewById<(EditText)>(R.id.editEmailtextbox)).text.toString();
         var newpassword: String = (dialog.findViewById<(EditText)>(R.id.editPassWordtextbox)).text.toString();
         var newmobile: String = (dialog.findViewById<(EditText)>(R.id.editPhonetextbox)).text.toString();
         var newBirthDate: String = (dialog.findViewById<(EditText)>(R.id.editBirthDatetextbox)).text.toString();
 
-        if (newemail == "") {
+        /*if (newemail == "") {
             this.ShowToast("Email Cannot Be Empty")
             return
         }
         if (newpassword == "") {
             this.ShowToast("Password Cannot Be Empty")
             return
-        }
-        if (newBirthDate != "" && newBirthDate[2] != '/' && newBirthDate[5] != '/') {
-            this.ShowToast("Birth Date should be like dd/mm/yyyy")
-            return
-        }
+        }*/
+
         UserController.checkBeforUpdateUserInfo(newFirstName, newMidName, newLastName, newGender, newemail, newpassword, newmobile, newBirthDate)
         dialog.dismiss()
     }
