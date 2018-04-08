@@ -66,11 +66,13 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
+
         android:background="@drawable/rounded_white"
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="5dp"
         android:paddingStart="10dp"
         android:text="male"
+        android:textColor="@color/fbutton_color_midnight_blue"
         android:textOff="male"
         android:textOn="female"
         android:textSize="14sp" />
@@ -124,23 +126,23 @@
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textSize="14sp" />
 
-<!--
-    <EditText
-        android:id="@+id/editBirthDatetextbox"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:background="@drawable/rounded_white"
-        android:drawableLeft="@drawable/ic_date_range_black_24dp"
-        android:drawablePadding="5dp"
-        android:hint="Edit Phone"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textColor="@color/fbutton_color_midnight_blue"
-        android:textSize="14sp" />
--->
+    <!--
+        <EditText
+            android:id="@+id/editBirthDatetextbox"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/rounded_white"
+            android:drawableLeft="@drawable/ic_date_range_black_24dp"
+            android:drawablePadding="5dp"
+            android:hint="Edit Phone"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColor="@color/fbutton_color_midnight_blue"
+            android:textSize="14sp" />
+    -->
     <AutoCompleteTextView
         android:id="@+id/editBirthDatetextbox"
         android:layout_width="match_parent"
@@ -151,12 +153,11 @@
         android:background="@drawable/rounded_white"
         android:drawableLeft="@drawable/ic_date_range_black_24dp"
         android:drawablePadding="5dp"
+        android:editable="false"
         android:hint="BirthDate"
         android:paddingStart="10dp"
         android:textSize="14sp"
-        android:editable="false"
-        tools:ignore="Deprecated"
-        />
+        tools:ignore="Deprecated" />
 
     <Button
         android:id="@+id/SaveInfo"
@@ -165,7 +166,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="10dp"
         android:background="@color/md_amber_100"
-        android:onClick="btnSaveChanges"
         android:text="Save"
         android:textColor="@color/fbutton_color_midnight_blue"
         android:textStyle="bold" />

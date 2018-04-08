@@ -21,9 +21,7 @@ import java.util.*
 
 class MyProfile : AppCompatActivity() {
 
-    val UserController: UserControl = UserControl.getInstance(null, null,
-            null, this)
-
+    val UserController: UserControl = UserControl.getInstance(null, null, null, this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
@@ -34,7 +32,7 @@ class MyProfile : AppCompatActivity() {
         val n_of_posts = mySelf.myPosts.size.toString()
         val rate = mySelf.get_behaveRate().toString()
 
-
+        imageAbb.text = firstname[0].toUpperCase().toString()
         personName.text = "Name : " + firstname + " " + midname + " " + lastname
         personNoOfPosts.text = n_of_posts
         personRate.text = rate
@@ -44,10 +42,6 @@ class MyProfile : AppCompatActivity() {
         val dialog: Dialog = Dialog(this)
         dialog.setContentView(R.layout.edit_profile_fragment)
         editMyProfile.setOnClickListener {
-
-
-
-
 
             var FirstName: EditText = (dialog.findViewById<(EditText)>(R.id.editFirstNametextbox))
             var MidName: EditText = (dialog.findViewById<(EditText)>(R.id.editMidNametextbox))
@@ -61,8 +55,7 @@ class MyProfile : AppCompatActivity() {
             FirstName.setText(mySelf.get_firstName())
             MidName.setText(mySelf.get_midName())
             LastName.setText(mySelf.get_lastName())
-            if(mySelf.get_gender()=="female")
-            {
+            if (mySelf.get_gender() == "female") {
                 Gender.isChecked = true
             }
             email.setText(mySelf.get_email())
@@ -84,6 +77,12 @@ class MyProfile : AppCompatActivity() {
                 }
             })
 
+            Gender.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+                override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                    if (p1) Gender.text = Gender.textOn else Gender.text = Gender.textOff
+                }
+            })
+
             val buttonSave = dialog.findViewById<Button>(R.id.SaveInfo)
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
@@ -101,46 +100,24 @@ class MyProfile : AppCompatActivity() {
     }
 
     fun editMyProfile(dialog: Dialog) {
-
-
-
-
-
-
         var newFirstName: String = (dialog.findViewById<(EditText)>(R.id.editFirstNametextbox)).text.toString();
         var newMidName: String = (dialog.findViewById<(EditText)>(R.id.editMidNametextbox)).text.toString();
         var newLastName: String = (dialog.findViewById<(EditText)>(R.id.editLastNametextbox)).text.toString();
         var Gender: Switch = (dialog.findViewById<(Switch)>(R.id.genderSwitch2))
-        Gender.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
-                if(p1) Gender.setText(Gender.textOn) else Gender.setText(Gender.textOff)
-            }
-        })
-        var newGender=""
-        if(Gender.text=="male")
-            newGender="male"
-        else newGender="female"
+
+        var newGender = ""
+        if (Gender.text == "male")
+            newGender = "male"
+        else newGender = "female"
         var newemail: String = (dialog.findViewById<(EditText)>(R.id.editEmailtextbox)).text.toString();
         var newpassword: String = (dialog.findViewById<(EditText)>(R.id.editPassWordtextbox)).text.toString();
         var newmobile: String = (dialog.findViewById<(EditText)>(R.id.editPhonetextbox)).text.toString();
         var newBirthDate: String = (dialog.findViewById<(EditText)>(R.id.editBirthDatetextbox)).text.toString();
 
-        /*if (newemail == "") {
-            this.ShowToast("Email Cannot Be Empty")
-            return
-        }
-        if (newpassword == "") {
-            this.ShowToast("Password Cannot Be Empty")
-            return
-        }*/
-
         UserController.checkBeforUpdateUserInfo(newFirstName, newMidName, newLastName, newGender, newemail, newpassword, newmobile, newBirthDate)
         dialog.dismiss()
     }
 
-    fun btnSaveChanges(view: View) {
-
-    }
 
     fun ShowToast(Msg: String) {
         Toast.makeText(this, Msg, Toast.LENGTH_LONG).show();

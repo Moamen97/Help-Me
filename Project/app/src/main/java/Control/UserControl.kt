@@ -152,8 +152,8 @@ class UserControl private constructor() {
             newUser.CheckSet_phoneNum(NewMobile)
             newUser.CheckSet_birthDate(NewBirthDate)
             newUser.CheckSet_gender(NewGender)
-            if (!fireStore.isNetworkAvailable(SignUp_View!!.applicationContext))
-                throw Exception("You can't sign up if you offline")
+            if (!fireStore.isNetworkAvailable(myProfileView!!.applicationContext))
+                throw Exception("You can't edit profile if you offline")
             this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail, NewPassword, NewMobile, NewBirthDate)
         } catch (e: Exception) {
             myProfileView!!.ShowToast(e.message!!)
