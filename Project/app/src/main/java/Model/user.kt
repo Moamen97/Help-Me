@@ -52,11 +52,11 @@ open class user() {
         firstName=fName
     }
     fun CheckSet_midName(mName:String){
-        require(!mName.matches(Regex(".*\\d.*"))){"Error: midname contains numbers"}
+        require(!mName.matches(Regex(".*\\d.*"))){"Error: middle name contains numbers"}
         midName=mName
     }
     fun CheckSet_lastName(lName:String){
-        require(!lName.matches(Regex(".*\\d.*"))){"Error: midname contains numbers"}
+        require(!lName.matches(Regex(".*\\d.*"))){"Error: last name contains numbers"}
         lastName=lName
     }
     fun CheckSet_birthDate(bDate:String){
