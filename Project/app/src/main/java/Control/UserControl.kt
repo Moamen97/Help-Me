@@ -43,6 +43,11 @@ class UserControl private constructor() {
     }
 
     fun Login(userName: String, password: String) {
+        if (!fireStore.isNetworkAvailable(SignIn_View!!.baseContext)) {
+            toasmsg = ("You can't Log In if you offline")
+            SignIn_View!!.ShowToast(toasmsg)
+            return
+        }
         dataBaseInstance.collection(user.usersCollectionName)
                 .whereEqualTo(user.userNameKey, userName)
                 .get()
@@ -140,8 +145,9 @@ class UserControl private constructor() {
     }
 
 
-    fun checkBeforUpdateUserInfo(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
-                                 NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String) {
+    fun checkBeforUpdate(NewFistName: String, NewMidName: String, NewLastName: String,NewGender:String,
+                                 NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String
+    ,NewImageId: String) {
 
         try {
             newUser.CheckSet_email(NewEmail)
@@ -152,17 +158,25 @@ class UserControl private constructor() {
             newUser.CheckSet_phoneNum(NewMobile)
             newUser.CheckSet_birthDate(NewBirthDate)
             newUser.CheckSet_gender(NewGender)
+            newUser.Checkset_imageID(NewImageId)
             if (!fireStore.isNetworkAvailable(myProfileView!!.applicationContext))
                 throw Exception("You can't edit profile if you offline")
-            this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail, NewPassword, NewMobile, NewBirthDate)
+            this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail
+                    , NewPassword, NewMobile, NewBirthDate,NewImageId)
         } catch (e: Exception) {
             myProfileView!!.ShowToast(e.message!!)
         }
     }
 
-    fun UpdateUserInfo(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
-                       NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String) {
-
+    fun UpdateUserInfo(NewFirstName:String,NewMidName:String,NewLastName:String,NewGender:String
+                       ,NewEmail: String, NewPassword: String,NewMobile: String,NewBdate:String,
+                       NewImageId: String)
+    {
+        if (!fireStore.isNetworkAvailable(myProfileView!!.baseContext)) {
+            toasmsg = ("You can't Edit Your Profile if you are offline")
+            myProfileView!!.ShowToast(toasmsg)
+            return
+        }
         toasmsg = ""
         var newemail: String = NewEmail //To Config.
         /*   if (User_Model!!.get_email() != NewEmail) {
@@ -193,18 +207,21 @@ class UserControl private constructor() {
                             if (!p0.result.isEmpty) {
                                 // getting non empty documents ; here we should update our user to db :V
                                 println("Found Document Data");
-                                User_Model!!.CheckSet_firstName(NewFistName)
-                                User_Model!!.CheckSet_midName(NewMidName)
-                                User_Model!!.CheckSet_lastName(NewLastName)
-                                User_Model!!.CheckSet_gender(NewGender)
                                 User_Model!!.CheckSet_email(newemail)
                                 User_Model!!.CheckSet_password(NewPassword, NewPassword)
                                 User_Model!!.CheckSet_phoneNum(NewMobile)
-                                User_Model!!.CheckSet_birthDate(NewBirthDate)
-                                //User_Model!!.Checkset_imageID()
+                                User_Model!!.Checkset_imageID(NewImageId)
+                                User_Model!!.CheckSet_firstName(NewFirstName)
+                                User_Model!!.CheckSet_midName(NewMidName)
+                                User_Model!!.CheckSet_lastName(NewLastName)
+                                User_Model!!.CheckSet_gender(NewGender)
+                                User_Model!!.Checkset_imageID(NewImageId)
+                                User_Model!!.CheckSet_birthDate(NewBdate)
+
                                 toasmsg = "DONE!"
                                 myProfileView!!.ShowToast(toasmsg)
                                 User_Model!!.uploadMyself()
+                                myProfileView!!.updateinfoviewer()
 
                             }
                         } else {
