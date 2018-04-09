@@ -62,8 +62,11 @@ class SignUp : AppCompatActivity() {
         //validaaaaaaaaaaaaation
         //Validation edited to meet mvc concept
 
-        UserController.CreateNewUser()
-
+        UserController.CreateNewUser(userName.text.toString(), eMail.text.toString(),
+                password.text.toString(), passwordconfirm.text.toString(),
+                firstName.text.toString(), midName.text.toString(),
+                lastName.text.toString(), phoneNumber.text.toString(),
+                birthDatePicker.text.toString(), genderSwitch.text.toString() )
     }
     // added by mohamed
     fun Signup() {
@@ -108,14 +111,7 @@ class SignUp : AppCompatActivity() {
         imm!!.hideSoftInputFromWindow(view.windowToken, 0)
         return true
     }
-    fun get_userName() = userName.text.toString()
-    fun get_eMail() = eMail.text.toString()
-    fun get_password()= password.text.toString()
-    fun get_passwordconfirm() = passwordconfirm.text.toString()
-    fun get_firstName() = firstName.text.toString()
-    fun get_midName() = midName.text.toString()
-    fun get_lastName() = lastName.text.toString()
-    fun get_phoneNumber() = phoneNumber.text.toString()
-    fun get_birthDate() = birthDatePicker.text.toString()
-    fun get_gender()=genderSwitch.text.toString()
+
+
+
 }

@@ -33,7 +33,7 @@ class PlumberFragment : android.support.v4.app.Fragment() {
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
         preparePosts(adapter);
-        recyclerView?.adapter = adapter;
+         recyclerView?.adapter = adapter;
         return view
     }
 

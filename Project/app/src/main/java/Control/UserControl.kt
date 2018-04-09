@@ -219,18 +219,20 @@ class UserControl private constructor() {
         return this.User_Model!!
     }
 
-    fun CreateNewUser() {
+    fun CreateNewUser(userName:String,eMail:String,password: String,passwordconfirm:String,
+                      firstName:String,midName:String,lastName:String, phoneNumber:String
+                      ,birthDate:String,gender:String) {
         try {
-            newUser.CheckSet_userName(SignUp_View!!.get_userName())
-            newUser.CheckSet_email(SignUp_View!!.get_eMail())
-            newUser.CheckSet_password(SignUp_View!!.get_password()
-                    , SignUp_View!!.get_passwordconfirm())
-            newUser.CheckSet_firstName(SignUp_View!!.get_firstName())
-            newUser.CheckSet_midName(SignUp_View!!.get_midName())
-            newUser.CheckSet_lastName(SignUp_View!!.get_lastName())
-            newUser.CheckSet_phoneNum(SignUp_View!!.get_phoneNumber())
-            newUser.CheckSet_birthDate(SignUp_View!!.get_birthDate())
-            newUser.CheckSet_gender(SignUp_View!!.get_gender())
+            newUser.CheckSet_userName(userName)
+            newUser.CheckSet_email(eMail)
+            newUser.CheckSet_password(password
+                    ,passwordconfirm)
+            newUser.CheckSet_firstName(firstName)
+            newUser.CheckSet_midName(midName)
+            newUser.CheckSet_lastName(lastName)
+            newUser.CheckSet_phoneNum(phoneNumber)
+            newUser.CheckSet_birthDate(birthDate)
+            newUser.CheckSet_gender(gender)
             if (!fireStore.isNetworkAvailable(SignUp_View!!.baseContext))
                 throw Exception("You can't sign up if you offline")
             this.signUp()
@@ -238,7 +240,6 @@ class UserControl private constructor() {
             SignUp_View!!.ShowToast(e.message!!)
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
