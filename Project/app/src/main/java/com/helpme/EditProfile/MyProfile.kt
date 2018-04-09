@@ -16,6 +16,7 @@ import android.widget.*
 import com.helpme.R
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.edit_profile_fragment.*
 import java.util.*
 
@@ -109,13 +110,22 @@ class MyProfile : AppCompatActivity() {
         if (Gender.text == "male")
             newGender = "male"
         else newGender = "female"
+
         var newemail: String = (dialog.findViewById<(EditText)>(R.id.editEmailtextbox)).text.toString();
         var newpassword: String = (dialog.findViewById<(EditText)>(R.id.editPassWordtextbox)).text.toString();
         var newmobile: String = (dialog.findViewById<(EditText)>(R.id.editPhonetextbox)).text.toString();
+        var newimageid=""
         var newBirthDate: String = (dialog.findViewById<(EditText)>(R.id.editBirthDatetextbox)).text.toString();
 
-        UserController.checkBeforUpdateUserInfo(newFirstName, newMidName, newLastName, newGender, newemail, newpassword, newmobile, newBirthDate)
+        UserController.checkBeforUpdate(newFirstName,newMidName,newLastName,newGender
+                ,newemail,newpassword,newmobile,newBirthDate,newimageid)
         dialog.dismiss()
+    }
+    fun updateinfoviewer()
+    {
+        val intent = intent
+        this.finish()
+        startActivity(intent)
     }
 
 
