@@ -1,5 +1,6 @@
 package com.helpme.Authentication
 import Control.UserControl
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
@@ -9,7 +10,6 @@ import android.view.animation.AnimationUtils
 import com.helpme.R
 import android.app.DatePickerDialog
 import android.content.Context
-import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -49,7 +49,7 @@ class SignUp : AppCompatActivity() {
         //startMagic()
     }
     fun btnRegisterClicked(view: View) {
-        onTouchEvent(null) // remove keypad
+        hideKeypad()
         register.isEnabled = false
         val buttonTimer = Timer()
         buttonTimer.schedule(object : TimerTask() {
@@ -58,7 +58,7 @@ class SignUp : AppCompatActivity() {
                     register.isEnabled=true
                 }
             }
-        }, 2000)
+        }, 5000)
         //validaaaaaaaaaaaaation
         //Validation edited to meet mvc concept
 
@@ -86,7 +86,7 @@ class SignUp : AppCompatActivity() {
         linearLayoutPanel.startAnimation(AnimationUtils.loadAnimation(this.applicationContext, R.anim.fade_in))
     }
     fun datePicker(view: View?=null){
-        onTouchEvent(null) // remove keypad
+        hideKeypad()
         val cal=Calendar.getInstance()
         val year:Int=cal.get(Calendar.YEAR)
         val month:Int=cal.get(Calendar.MONTH)
@@ -105,11 +105,12 @@ class SignUp : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        val view = this.currentFocus
+
+    private fun hideKeypad(){
+        val view:View? = this.currentFocus
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm!!.hideSoftInputFromWindow(view.windowToken, 0)
-        return true
+        if(view!=null)
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 
