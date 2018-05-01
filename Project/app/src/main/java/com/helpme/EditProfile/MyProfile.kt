@@ -60,7 +60,6 @@ class MyProfile : AppCompatActivity() {
                 Gender.isChecked = true
             }
             email.setText(mySelf.get_email())
-            password.setText(mySelf.get_password())
             mobile.setText(mySelf.get_phoneNum())
             BDate.setText(mySelf.get_birthDate())
 
