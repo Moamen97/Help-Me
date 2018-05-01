@@ -149,9 +149,12 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
 
     private void prepareMessages() {
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
-        for (int i = 0; i < 200; ++i) {
+        for (int i = 0; i < 10; ++i) {
             feedbacks.add(new Feedback(1, link, "Moamen Hassan Attia",
-                    "Hello Salama ", "10:30 AM", getRandomMaterialColor(), false, 0));
+                    "البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر", "10:30 AM", getRandomMaterialColor(), false, 5));
+            feedbacks.add(new Feedback(1, link, "Moamen Hassan Attia",
+                    "البرنامج معفن وبطئ وبيكراش كتير خلوا بالكم يا جماعه البرنامج ده ان وسخه", "10:30 AM", getRandomMaterialColor(), false, 1));
+
         }
     }
 

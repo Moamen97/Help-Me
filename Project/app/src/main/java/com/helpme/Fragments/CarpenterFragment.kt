@@ -26,7 +26,6 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.carpenter_fragment, container, false)
-
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
         var adapter = postAdapter(this.context, postList, POST_TYPE)
         var mLayoutManager = GridLayoutManager(this.context, 1)
