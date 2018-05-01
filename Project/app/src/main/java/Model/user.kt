@@ -35,7 +35,7 @@ open class user() {
     fun CheckSet_password(pass1:String,pass2:String){
         require(pass1.length>=5 ){"Error: password length less than five chars"}
         require(pass1==pass2){"Error: password confirmation mismatch"}
-        password=pass1
+        password=Utility.hashString(pass1)
     }
     fun CheckSet_email(em:String) {
         require(em.matches(Regex("[0-9A-Za-z._]{1,20}@[a-z]{1,7}\\.com"))){"wrong email format"}

@@ -16,7 +16,7 @@ object Utility {
      fun hashString(input: String): String {
         val HEX_CHARS = "0123456789ABCDEF"
         val bytes = MessageDigest
-                .getInstance("SHA_256")
+                .getInstance("SHA-256")
                 .digest(input.toByteArray())
         val result = StringBuilder(bytes.size * 2)
 

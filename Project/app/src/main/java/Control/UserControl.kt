@@ -9,10 +9,8 @@ import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
 import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
-import junit.framework.TestResult
 import java.lang.Exception
 import java.util.*
-import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 
 class UserControl private constructor() {
@@ -58,7 +56,8 @@ class UserControl private constructor() {
                         if (p0.isSuccessful) {
                             if (!p0.result.isEmpty) {
                                 println(p0.result.documents[0].data.toString())
-                                if (p0.result.documents[0].get(user.passwordKey).equals(password)) {
+                                if (p0.result.documents[0].get(user.passwordKey)
+                                                .equals(Utility.hashString(password))) {
                                     if (mySelf.loadMyself(userName)) {
                                         User_Model = mySelf
                                         toasmsg = "Sign In Successfully " +
