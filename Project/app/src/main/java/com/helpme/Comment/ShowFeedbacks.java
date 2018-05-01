@@ -1,11 +1,14 @@
 package com.helpme.Comment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -73,10 +77,75 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
         addCommentDialog.setContentView(R.layout.add_comment);
         LinearLayout addCommentPanel = addCommentDialog.findViewById(R.id.addCommentPanel);
         EditText commentContent = addCommentDialog.findViewById(R.id.commentContent);
+        final ImageView firstStar = addCommentDialog.findViewById(R.id.firstStar);
+        final ImageView secondStar = addCommentDialog.findViewById(R.id.secondStar);
+        final ImageView thirdStar = addCommentDialog.findViewById(R.id.thirdStar);
+        final ImageView fourthStar = addCommentDialog.findViewById(R.id.fourthStar);
+        final ImageView fifthStar = addCommentDialog.findViewById(R.id.fifthStar);
+        final Context context = this;
+
+        firstStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firstStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                secondStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+                thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+                fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+                fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+
+            }
+        });
+        secondStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firstStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                secondStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+                fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+                fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+
+            }
+        });
+        thirdStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firstStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                secondStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+                fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+
+            }
+        });
+        fourthStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firstStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                secondStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
+
+            }
+        });
+        fifthStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firstStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                secondStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+                fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
+
+            }
+        });
+
+
         addCommentPanel.setBackgroundColor(getRandomMaterialColor());
         addCommentDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         addCommentDialog.show();
     }
+
 
     private void prepareMessages() {
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
