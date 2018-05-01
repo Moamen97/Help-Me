@@ -1,9 +1,8 @@
-package Model.postData.Comment;
+package Model.postData.Feedback;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,25 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.helpme.Comment.commentAdapterListener;
+
 import com.helpme.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.helpme.Comment.ShowFeedbacks;
+
 import Model.Magic.CircleTransform;
 import Model.Magic.FlipAnimator;
 
-public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
+public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
     private Context mContext;
-    private List<comment> comments;
-    private commentAdapterListener listener;
+    private List<Feedback> comments;
+    private FeedbackAdapterListener listener;
     private SparseBooleanArray selectedItems;
-    private commentViewHolder mHolder;
+    private FeedbackViewHolder mHolder;
     // array used to perform multiple animation at once
     private SparseBooleanArray animationItemsIndex;
     private boolean reverseAllAnimations = false;
@@ -40,7 +40,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
     // dirty fix, find a better solution
     private static int currentSelectedIndex = -1;
 
-    public commentAdapter(Context mContext, List<comment> comments, commentAdapterListener listener) {
+    public FeedbackAdapter(Context mContext, List<Feedback> comments, FeedbackAdapterListener listener) {
         this.mContext = mContext;
         this.comments = comments;
         this.listener = listener;
@@ -49,9 +49,40 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
     }
 
     @Override
-    public commentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeedbackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_list_row, parent, false);
-        return new commentViewHolder(itemView);
+        return new FeedbackViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(FeedbackViewHolder holder, int position) {
+        mHolder = holder;
+        Feedback message = comments.get(position);
+
+        // displaying text view data
+        holder.getFrom().setText(message.getFrom());
+        holder.getSubject().setText(message.getMessage());
+        holder.getTimestamp().setText(message.getTimestamp());
+
+        // displaying the first letter of From in icon text
+        holder.getIconText().setText(message.getFrom().substring(0, 1));
+
+        // change the row state to activated
+        holder.itemView.setActivated(selectedItems.get(position, false));
+
+        // apply click events
+        applyClickEvents(holder, position, message);
+
+        // handle comment mood
+        //applyImportant(holder, message);
+
+        applyRate(holder, message);
+        // handle icon animation
+        applyIconAnimation(holder, position);
+
+        // display profile image
+        applyProfilePicture(holder, message);
+
     }
 
     private int getRandomMaterialColor() {
@@ -67,54 +98,42 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
         return returnColor;
     }
 
-    @Override
-    public void onBindViewHolder(commentViewHolder holder, int position) {
-        mHolder = holder;
-        comment message = comments.get(position);
 
-        // displaying text view data
-        holder.getFrom().setText(message.getFrom());
-        holder.getSubject().setText(message.getSubject());
-        holder.getTimestamp().setText(message.getTimestamp());
-
-        // displaying the first letter of From in icon text
-        holder.getIconText().setText(message.getFrom().substring(0, 1));
-
-        // change the row state to activated
-        holder.itemView.setActivated(selectedItems.get(position, false));
-
-        // apply click events
-        applyClickEvents(holder, position, message);
-
-        // handle comment mood
-        applyImportant(holder, message);
-
-        // handle icon animation
-        applyIconAnimation(holder, position);
-
-        // display profile image
-        applyProfilePicture(holder, message);
-    }
-
-    private void applyClickEvents(commentViewHolder holder, final int position, final comment message) {
+    private void applyClickEvents(FeedbackViewHolder holder, final int position, final Feedback message) {
         holder.getIconContainer().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onIconClicked(position);
             }
         });
-
-        holder.getIconImp().setOnClickListener(new View.OnClickListener() {
+        holder.getFirstStar().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onIconImportantClicked(position);
+                listener.onRateFirstStarClicked(position);
             }
         });
-
-        holder.getMoodSad().setOnClickListener(new View.OnClickListener() {
+        holder.getSecondStar().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onIconMoodSadClicked(position);
+                listener.onRateSecondStarClicked(position);
+            }
+        });
+        holder.getThirdStar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onRateThirdStarClicked(position);
+            }
+        });
+        holder.getFourthStar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onRateFourthStarClicked(position);
+            }
+        });
+        holder.getFifthStar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onRateFifthStarClicked(position);
             }
         });
 
@@ -126,7 +145,6 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
         });
 
         holder.getMessageContainer().
-
                 setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
@@ -137,7 +155,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
                 });
     }
 
-    private void applyProfilePicture(commentViewHolder holder, comment Comment) {
+    private void applyProfilePicture(FeedbackViewHolder holder, Feedback Comment) {
         if (!TextUtils.isEmpty(Comment.getPicture())) {
             Glide.with(mContext).load(Comment.getPicture())
                     .thumbnail(0.5f)
@@ -154,7 +172,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
         }
     }
 
-    private void applyIconAnimation(commentViewHolder holder, int position) {
+    private void applyIconAnimation(FeedbackViewHolder holder, int position) {
         if (selectedItems.get(position, false)) {
             holder.getIconFront().setVisibility(View.GONE);
             resetIconYAxis(holder.getIconBack());
@@ -195,19 +213,66 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
         return comments.get(position).getId();
     }
 
-    private void applyImportant(commentViewHolder holder, comment Comment) {
-        if (!Comment.isImportant() && !Comment.isRead()) {
-            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
-            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
-        } else if (Comment.isImportant()) {
-            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.md_green_600));
-            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
-        } else {
-            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
-            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.md_red_500));
+//    private void applyImportant(FeedbackViewHolder holder, Feedback Comment) {
+//        if (!Comment.isImportant() && !Comment.isRead()) {
+//            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+//            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+//        } else if (Comment.isImportant()) {
+//            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.md_green_600));
+//            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+//        } else {
+//            holder.getIconImp().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+//            holder.getMoodSad().setColorFilter(ContextCompat.getColor(mContext, R.color.md_red_500));
+//        }
+//    }
+
+    private void applyRate(FeedbackViewHolder holder, Feedback Comment) {
+
+        switch (Comment.getRate()) {
+            case 0:
+                holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                break;
+            case 1:
+                holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                break;
+            case 2:
+                holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                break;
+            case 3:
+                holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                break;
+            case 4:
+                holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+                break;
+            case 5:
+                holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
+                break;
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -245,7 +310,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentViewHolder> {
         return items;
     }
 
-    public comment getSelectedItem(int position) {
+    public Feedback getSelectedItem(int position) {
         return comments.get(position);
     }
 

@@ -3,11 +3,9 @@ package com.helpme.Comment;
 import android.app.Dialog;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -21,26 +19,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.helpme.R;
 
-import org.w3c.dom.Comment;
+import Model.postData.Feedback.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.postData.Comment.comment;
-import Model.postData.Comment.commentAdapter;
 
-public class ShowComments extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, commentAdapterListener {
-    private ArrayList<comment> comments = new ArrayList<>();
+public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, FeedbackAdapterListener {
+    private ArrayList<Feedback> feedbacks = new ArrayList<>();
     private RecyclerView recyclerView;
-    private commentAdapter mAdapter;
+    private FeedbackAdapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ActionModeCallback actionModeCallback;
     private ActionMode actionMode;
@@ -65,7 +59,7 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-        mAdapter = new commentAdapter(this, comments, this);
+        mAdapter = new FeedbackAdapter(this, feedbacks, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -87,8 +81,8 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
     private void prepareMessages() {
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
         for (int i = 0; i < 200; ++i) {
-            comments.add(new comment(1, false, link, "Moamen Hassan Attia",
-                    "Hello Salama ", "A7la Mesa 3 el nas el kwaysa", "10:30 AM", false, getRandomMaterialColor(), false));
+            feedbacks.add(new Feedback(1, link, "Moamen Hassan Attia",
+                    "Hello Salama ", "10:30 AM", getRandomMaterialColor(), false, 0));
         }
     }
 
@@ -143,40 +137,6 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     @Override
-    public void onIconImportantClicked(int position) {
-        // Star icon is clicked,
-        // mark the message as important
-
-        comment message = comments.get(position);
-        if (message.isImportant()) {
-            message.setImportant(false);
-        } else if (message.isRead()) {
-            message.setRead(false);
-            message.setImportant(true);
-        } else {
-            message.setImportant(true);
-        }
-        comments.set(position, message);
-        mAdapter.notifyDataSetChanged();
-    }
-
-
-    @Override
-    public void onIconMoodSadClicked(int position) {
-        comment message = comments.get(position);
-        if (message.isRead()) {
-            message.setRead(false);
-        } else if (message.isImportant()) {
-            message.setImportant(false);
-            message.setRead(true);
-        } else {
-            message.setRead(true);
-        }
-        comments.set(position, message);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void onMessageRowClicked(int position) {
         // verify whether action mode is enabled or not
         // if enabled, change the row state to activated
@@ -184,9 +144,8 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
             enableActionMode(position);
         } else {
             // read the message which removes bold from the row
-            comment message = comments.get(position);
-            message.setRead(true);
-            comments.set(position, message);
+            Feedback message = feedbacks.get(position);
+            feedbacks.set(position, message);
             mAdapter.notifyDataSetChanged();
             Toast.makeText(getApplicationContext(), "Read: " + message.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -217,6 +176,60 @@ public class ShowComments extends AppCompatActivity implements SwipeRefreshLayou
         }
     }
 
+    @Override
+    public void onRateFirstStarClicked(int position) {
+        Feedback message = feedbacks.get(position);
+        if (message.getRate() == 1)
+            message.setRate(0);
+        else
+            message.setRate(1);
+        feedbacks.set(position, message);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRateSecondStarClicked(int position) {
+        Feedback message = feedbacks.get(position);
+        if (message.getRate() == 2)
+            message.setRate(0);
+        else
+            message.setRate(2);
+        feedbacks.set(position, message);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRateThirdStarClicked(int position) {
+        Feedback message = feedbacks.get(position);
+        if (message.getRate() == 3)
+            message.setRate(0);
+        else
+            message.setRate(3);
+        feedbacks.set(position, message);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRateFourthStarClicked(int position) {
+        Feedback message = feedbacks.get(position);
+        if (message.getRate() == 4)
+            message.setRate(0);
+        else
+            message.setRate(4);
+        feedbacks.set(position, message);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRateFifthStarClicked(int position) {
+        Feedback message = feedbacks.get(position);
+        if (message.getRate() == 5)
+            message.setRate(0);
+        else
+            message.setRate(5);
+        feedbacks.set(position, message);
+        mAdapter.notifyDataSetChanged();
+    }
 
     private class ActionModeCallback implements ActionMode.Callback {
         @Override
