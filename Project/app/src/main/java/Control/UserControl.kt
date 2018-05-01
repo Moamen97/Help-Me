@@ -1,7 +1,7 @@
 package Control
 
 import Common.mySelf
-import FireBase.fireStore
+import Utility.Utility
 import Model.user
 import com.google.android.gms.tasks.*
 import com.google.firebase.firestore.QuerySnapshot
@@ -22,7 +22,7 @@ class UserControl private constructor() {
     private var SignUp_View: SignUp? = null
     private var Home_View: home? = null
     private var myProfileView: MyProfile? = null
-    private var dataBaseInstance = fireStore.fireStoreHandler
+    private var dataBaseInstance = Utility.fireStoreHandler
     private var toasmsg: String = ""
 
     companion object {
@@ -45,7 +45,7 @@ class UserControl private constructor() {
     }
 
     fun Login(userName: String, password: String) {
-        if (!fireStore.isNetworkAvailable(SignIn_View!!.baseContext)) {
+        if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {
             toasmsg = ("You can't Log In if you offline")
             SignIn_View!!.ShowToast(toasmsg)
             return
@@ -86,7 +86,7 @@ class UserControl private constructor() {
     }
 
     fun signUp() {
-        if (!fireStore.isNetworkAvailable(SignUp_View!!.baseContext)) {
+        if (!Utility.isNetworkAvailable(SignUp_View!!.baseContext)) {
             toasmsg = ("You can't sign up if you offline")
             SignUp_View!!.ShowToast(toasmsg)
             return
@@ -176,7 +176,7 @@ class UserControl private constructor() {
                 newUser.CheckSet_birthDate(NewBirthDate)
                 newUser.CheckSet_gender(NewGender)
                 newUser.Checkset_imageID(NewImageId)
-                if (!fireStore.isNetworkAvailable(myProfileView!!.applicationContext))
+                if (!Utility.isNetworkAvailable(myProfileView!!.applicationContext))
                     throw Exception("You can't edit profile if you offline")
                 this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail
                         , NewPassword, NewMobile, NewBirthDate, NewImageId)
@@ -188,7 +188,7 @@ class UserControl private constructor() {
         fun UpdateUserInfo(NewFirstName: String, NewMidName: String, NewLastName: String, NewGender: String
                            , NewEmail: String, NewPassword: String, NewMobile: String, NewBdate: String,
                            NewImageId: String) {
-            if (!fireStore.isNetworkAvailable(myProfileView!!.baseContext)) {
+            if (!Utility.isNetworkAvailable(myProfileView!!.baseContext)) {
                 toasmsg = ("You can't Edit Your Profile if you are offline")
                 myProfileView!!.ShowToast(toasmsg)
                 return
@@ -266,7 +266,7 @@ class UserControl private constructor() {
                 newUser.CheckSet_phoneNum(phoneNumber)
                 newUser.CheckSet_birthDate(birthDate)
                 newUser.CheckSet_gender(gender)
-                if (!fireStore.isNetworkAvailable(SignUp_View!!.baseContext))
+                if (!Utility.isNetworkAvailable(SignUp_View!!.baseContext))
                     throw Exception("You can't sign up if you offline")
                 this.signUp()
             } catch (e: Exception) {

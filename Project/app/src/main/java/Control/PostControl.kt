@@ -2,7 +2,7 @@ package Control
 /**
  * Created by Mohamed Aaziz on 02/04/2018.
  */
-import FireBase.fireStore
+import Utility.Utility
 import Model.postData.post
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -18,7 +18,7 @@ class PostControl private constructor() {
 
     companion object {
         private var instance: PostControl? = null
-        private var dataBaseInstance = fireStore.fireStoreHandler
+        private var dataBaseInstance = Utility.fireStoreHandler
         fun getInstance(x:Int = 0/*Dummy*/): PostControl {
             if (instance == null)
                 instance = PostControl()

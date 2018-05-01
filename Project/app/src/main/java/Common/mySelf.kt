@@ -1,5 +1,5 @@
 package Common
-import  FireBase.fireStore
+import Utility.Utility
 import java.util.*
 import Model.postData.post
 import Model.user
@@ -7,7 +7,7 @@ import Model.user
 object mySelf : Model.user() {
     fun loadMyself(uName:String):Boolean {
         userName = uName
-        var task = fireStore.fireStoreHandler.document("${user.usersCollectionName}/$uName").get()
+        var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/$uName").get()
         while (true) {
             if(task.isComplete) {
                 if (task.isSuccessful) {
@@ -41,7 +41,7 @@ object mySelf : Model.user() {
         userData.put(user.phoneNumKey, phoneNum);
         userData.put(user.behaveRateKey, behaveRate);
         userData.put(user.birthDateKey, birthDate);
-        fireStore.fireStoreHandler.collection("user").document(userName).
+        Utility.fireStoreHandler.collection("user").document(userName).
                 update(userData);
     }
     var myNotifications: MutableList<Pair<String, Date>> = mutableListOf<Pair<String, Date>>()

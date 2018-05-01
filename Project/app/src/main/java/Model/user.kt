@@ -1,5 +1,5 @@
 package Model
-import FireBase.fireStore
+import Utility.Utility
 import com.google.android.gms.tasks.Task
 import com.helpme.R.id.*
 import java.util.*
