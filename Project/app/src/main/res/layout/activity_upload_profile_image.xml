@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img2"
+    tools:context="com.helpme.UploadImages.UploadProfileImage"
+    >
+
+    <ImageView
+        android:id="@+id/CurrentProfileImage"
+        android:layout_width="244dp"
+        android:layout_height="246dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        app:srcCompat="@drawable/ic_user_icon"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="27dp" />
+
+
+    <Button
+        android:id="@+id/selectNewImageBtn"
+        android:layout_width="192dp"
+        android:layout_height="64dp"
+        android:layout_above="@+id/uploadImageBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="37dp"
+        android:onClick="selectNewImage"
+        android:text="Select New Image"
+        android:visibility="visible"
+        tools:layout_editor_absoluteY="293dp" />
+
+
+    <Button
+        android:id="@+id/uploadImageBtn"
+        android:layout_width="192dp"
+        android:layout_height="64dp"
+        android:layout_above="@+id/uploadProgressbar"
+        android:layout_alignStart="@+id/selectNewImageBtn"
+        android:layout_marginBottom="27dp"
+        android:onClick="uploadImage"
+        android:text="Save &amp; Upload"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="370dp" />
+
+    <ProgressBar
+        android:id="@+id/uploadProgressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="368dp"
+        android:layout_height="28dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="449dp" />
+</RelativeLayout>

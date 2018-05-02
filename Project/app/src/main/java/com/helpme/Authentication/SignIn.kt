@@ -51,7 +51,7 @@ class SignIn : AppCompatActivity() {
                     signUpBtn.isEnabled=true
                 }
             }
-        }, 2000)
+        }, 2500)
         UserController.Login(
                 (findViewById<(AutoCompleteTextView)>(R.id.userName)).text.toString(),
                 (findViewById<(AutoCompleteTextView)>(R.id.password)).text.toString()

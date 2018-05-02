@@ -3,11 +3,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import java.security.MessageDigest
 
 
 object Utility {
     val fireStoreHandler = FirebaseFirestore.getInstance()
+    val storageHandler = FirebaseStorage.getInstance()
      fun isNetworkAvailable(context: Context): Boolean {
          var cm:ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
          var activeNetwork:NetworkInfo? = cm.getActiveNetworkInfo();

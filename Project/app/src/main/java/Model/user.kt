@@ -1,5 +1,6 @@
 package Model
 import Utility.Utility
+import android.graphics.Bitmap
 import com.google.android.gms.tasks.Task
 import com.helpme.R.id.*
 import java.util.*
@@ -17,7 +18,7 @@ open class user() {
     protected var lastName: String = ""
     protected var birthDate: String = ""
     protected var gender: String = ""
-    protected var imageID: String = ""
+    protected var image: Bitmap? = null
     protected var behaveRate: Int = 5
         set(value) {
             field = when {
@@ -73,8 +74,8 @@ open class user() {
         else
             throw IllegalArgumentException("Error: only male or female accepted")
     }
-    fun Checkset_imageID(imgid:String){
-
+    fun Checkset_image(bm:Bitmap?){
+        image=bm
     }
     fun get_userName()=userName
     fun get_password()=password
@@ -85,7 +86,7 @@ open class user() {
     fun get_lastName()=lastName
     fun get_birthDate()=birthDate
     fun get_gender()=gender
-    fun get_imageID()=imageID
+    fun get_image()=image
     fun get_behaveRate()=behaveRate
     companion object {
         val userNameKey: String = "userName"
@@ -103,6 +104,7 @@ open class user() {
         val notificationsCollectionKey: String = "notifications"
         val postsCollectionKey: String = "posts"
         val usersCollectionName: String = "user"
+        val userStorageImageFolder:String ="users_images"
     }
 }
 

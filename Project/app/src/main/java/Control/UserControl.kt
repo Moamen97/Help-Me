@@ -57,7 +57,7 @@ class UserControl private constructor() {
                             if (!p0.result.isEmpty) {
                                 println(p0.result.documents[0].data.toString())
                                 if (p0.result.documents[0].get(user.passwordKey)
-                                                .equals(Utility.hashString(password))) {
+                                        == Utility.hashString(password)) {
                                     if (mySelf.loadMyself(userName)) {
                                         User_Model = mySelf
                                         toasmsg = "Sign In Successfully " +
@@ -102,7 +102,6 @@ class UserControl private constructor() {
                                 println("No Document Data");
                                 var userData = HashMap<String, Any>();
                                 userData.put(user.userNameKey, newUser.get_userName());
-                                userData.put(user.imageKey, newUser.get_imageID());
                                 userData.put(user.passwordKey, newUser.get_password());
                                 userData.put(user.emailKey, newUser.get_email());
                                 userData.put(user.firstNameKey, newUser.get_firstName());
@@ -163,7 +162,7 @@ class UserControl private constructor() {
 
         fun checkBeforUpdate(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
                              NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String
-                             , NewImageId: String) {
+                             ) {
 
             try {
                 newUser.CheckSet_email(NewEmail)
@@ -174,19 +173,17 @@ class UserControl private constructor() {
                 newUser.CheckSet_phoneNum(NewMobile)
                 newUser.CheckSet_birthDate(NewBirthDate)
                 newUser.CheckSet_gender(NewGender)
-                newUser.Checkset_imageID(NewImageId)
                 if (!Utility.isNetworkAvailable(myProfileView!!.applicationContext))
                     throw Exception("You can't edit profile if you offline")
                 this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail
-                        , NewPassword, NewMobile, NewBirthDate, NewImageId)
+                        , NewPassword, NewMobile, NewBirthDate)
             } catch (e: Exception) {
                 myProfileView!!.ShowToast(e.message!!)
             }
         }
 
         fun UpdateUserInfo(NewFirstName: String, NewMidName: String, NewLastName: String, NewGender: String
-                           , NewEmail: String, NewPassword: String, NewMobile: String, NewBdate: String,
-                           NewImageId: String) {
+                           , NewEmail: String, NewPassword: String, NewMobile: String, NewBdate: String) {
             if (!Utility.isNetworkAvailable(myProfileView!!.baseContext)) {
                 toasmsg = ("You can't Edit Your Profile if you are offline")
                 myProfileView!!.ShowToast(toasmsg)
@@ -225,12 +222,10 @@ class UserControl private constructor() {
                                     User_Model!!.CheckSet_email(newemail)
                                     User_Model!!.CheckSet_password(NewPassword, NewPassword)
                                     User_Model!!.CheckSet_phoneNum(NewMobile)
-                                    User_Model!!.Checkset_imageID(NewImageId)
                                     User_Model!!.CheckSet_firstName(NewFirstName)
                                     User_Model!!.CheckSet_midName(NewMidName)
                                     User_Model!!.CheckSet_lastName(NewLastName)
                                     User_Model!!.CheckSet_gender(NewGender)
-                                    User_Model!!.Checkset_imageID(NewImageId)
                                     User_Model!!.CheckSet_birthDate(NewBdate)
 
                                     toasmsg = "DONE!"

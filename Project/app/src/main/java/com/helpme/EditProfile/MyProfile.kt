@@ -2,7 +2,6 @@ package com.helpme.EditProfile
 
 import Common.mySelf
 import Control.UserControl
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
@@ -14,18 +13,22 @@ import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.widget.*
 import com.helpme.R
+import com.helpme.UploadImages.UploadProfileImage
 import kotlinx.android.synthetic.main.activity_my_profile.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.edit_profile_fragment.*
 import java.util.*
 
 class MyProfile : AppCompatActivity() {
-
     val UserController: UserControl = UserControl.getInstance(null, null, null, this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
+        userImage.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                val intent = Intent(this@MyProfile, UploadProfileImage::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
 
         val firstname = mySelf.get_firstName()
         val midname = mySelf.get_midName()
@@ -33,17 +36,18 @@ class MyProfile : AppCompatActivity() {
         val n_of_posts = mySelf.myPosts.size.toString()
         val rate = mySelf.get_behaveRate().toString()
 
-        imageAbb.text = firstname[0].toUpperCase().toString()
+        // imageAbb.text = firstname[0].toUpperCase().toString()
         personName.text = "Name : " + firstname + " " + midname + " " + lastname
         personNoOfPosts.text = n_of_posts
         personRate.text = rate
-
+        var bm = mySelf.get_image()
+        if (bm != null)
+            userImage.setImageBitmap(bm)
 
         val editMyProfile = findViewById<FloatingActionButton>(R.id.fab)
         val dialog: Dialog = Dialog(this)
         dialog.setContentView(R.layout.edit_profile_fragment)
         editMyProfile.setOnClickListener {
-
             var FirstName: EditText = (dialog.findViewById<(EditText)>(R.id.editFirstNametextbox))
             var MidName: EditText = (dialog.findViewById<(EditText)>(R.id.editMidNametextbox))
             var LastName: EditText = (dialog.findViewById<(EditText)>(R.id.editLastNametextbox))
@@ -113,20 +117,19 @@ class MyProfile : AppCompatActivity() {
         var newemail: String = (dialog.findViewById<(EditText)>(R.id.editEmailtextbox)).text.toString();
         var newpassword: String = (dialog.findViewById<(EditText)>(R.id.editPassWordtextbox)).text.toString();
         var newmobile: String = (dialog.findViewById<(EditText)>(R.id.editPhonetextbox)).text.toString();
-        var newimageid=""
+        var newimageid = ""
         var newBirthDate: String = (dialog.findViewById<(EditText)>(R.id.editBirthDatetextbox)).text.toString();
 
-        UserController.checkBeforUpdate(newFirstName,newMidName,newLastName,newGender
-                ,newemail,newpassword,newmobile,newBirthDate,newimageid)
+        UserController.checkBeforUpdate(newFirstName, newMidName, newLastName, newGender
+                , newemail, newpassword, newmobile, newBirthDate)
         dialog.dismiss()
     }
-    fun updateinfoviewer()
-    {
+
+    fun updateinfoviewer() {
         val intent = intent
         this.finish()
         startActivity(intent)
     }
-
 
     fun ShowToast(Msg: String) {
         Toast.makeText(this, Msg, Toast.LENGTH_LONG).show();
