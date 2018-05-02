@@ -107,16 +107,15 @@ class UploadProfileImage : AppCompatActivity() {
             showMessage("No new image selected")
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                var uri = data.data
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri)
-                CurrentProfileImage.setImageBitmap(bitmap)
-            }
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
+            var uri = data.data
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri)
+            CurrentProfileImage.setImageBitmap(bitmap)
         }
     }
+
 
     override fun onBackPressed() {
         if (uploadProgressbar.progress == uploadProgressbar.max ||
