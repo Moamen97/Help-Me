@@ -1,5 +1,6 @@
 package com.helpme
 
+import Control.PostControl
 import Model.postData.post
 import Model.postData.postAdapter
 import android.app.Dialog
@@ -16,8 +17,9 @@ import android.view.ViewGroup
 class CarpenterFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.engineer;
-    private var postList = arrayListOf<post>()
+    private var postList = ArrayList<post>()
     private var dialog: Dialog? = null;
+    private var PostController:PostControl = PostControl.getInstance();
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,33 +28,30 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.carpenter_fragment, container, false)
-
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
+
         var adapter = postAdapter(this.context, postList, POST_TYPE)
         var mLayoutManager = GridLayoutManager(this.context, 1)
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
-        preparePosts(adapter);
+        var templist = PostController.getlist("Carpenter")
+        postList.clear()
+        for (temp in templist)
+        {
+            temp.color = getRandomMaterialColor()
+            postList.add(temp)
+        }
+        adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter;
+        PostController.getPostsByType("Doctor")
+        PostController.getPostsByType("Engineer")
+        PostController.getPostsByType("Cooking")
+        PostController.getPostsByType("Carpenter")
+        PostController.getPostsByType("Mechanic")
+        PostController.getPostsByType("Plumber")
         return view
     }
 
-    private fun preparePosts(adapter: postAdapter) {
-        val covers = arrayListOf(R.drawable.carpenter, R.drawable.carpenter,
-                R.drawable.mechanic, R.drawable.mechanic, R.drawable.mechanic,
-                R.drawable.mechanic, R.drawable.plumber, R.drawable.plumber,
-                R.drawable.plumber, R.drawable.carpenter, R.drawable.carpenter
-        )
-
-        val link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF"
-
-        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf(), "", "Moamen Hassan Attia", getRandomMaterialColor()))
-        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf(), "", "Moamen Hassan Attia", getRandomMaterialColor()))
-        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf(), "", "Moamen Hassan Attia", getRandomMaterialColor()))
-        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf(), "", "Moamen Hassan Attia", getRandomMaterialColor()))
-        postList.add(post("Moamen Hassan", "", "", "Doctor", arrayListOf(), "", "Moamen Hassan Attia", getRandomMaterialColor()))
-        adapter.notifyDataSetChanged()
-    }
 
     private fun getRandomMaterialColor(): Int {
         var returnColor = Color.GRAY

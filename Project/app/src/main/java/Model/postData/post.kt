@@ -1,5 +1,7 @@
 package Model.postData
 
+import java.lang.reflect.Type
+
 class post {
     var comments = arrayListOf<String>()
     var postContent: String = ""
@@ -29,6 +31,10 @@ class post {
         this.postImage = Post.postImage
         this.postTime = Post.postTime
         this.postType = Post.postType
+    }
+    fun edittype(type:String)
+    {
+        postType = type;
     }
 
 

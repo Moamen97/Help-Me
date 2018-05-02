@@ -1,6 +1,7 @@
 package com.helpme.Authentication
 
 //import Model.Functionalities
+import Control.PostControl
 import Control.UserControl
 import android.content.Context
 import android.content.Intent
@@ -26,10 +27,17 @@ class SignIn : AppCompatActivity() {
     By Mohamed
     */
     val UserController: UserControl = UserControl.getInstance(this)
+    val PostController:PostControl = PostControl.getInstance()
     //////////////////////////////////////add_post////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+        PostController.getPostsByType("Doctor")
+        PostController.getPostsByType("Engineer")
+        PostController.getPostsByType("Cooking")
+        PostController.getPostsByType("Carpenter")
+        PostController.getPostsByType("Mechanic")
+        PostController.getPostsByType("Plumber")
         //startMagic()
     }
 
@@ -51,7 +59,7 @@ class SignIn : AppCompatActivity() {
                     signUpBtn.isEnabled=true
                 }
             }
-        }, 2500)
+        }, 2000)
         UserController.Login(
                 (findViewById<(AutoCompleteTextView)>(R.id.userName)).text.toString(),
                 (findViewById<(AutoCompleteTextView)>(R.id.password)).text.toString()
