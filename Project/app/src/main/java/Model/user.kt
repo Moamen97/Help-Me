@@ -87,6 +87,7 @@ open class user() {
     fun get_birthDate()=birthDate
     fun get_gender()=gender
     fun get_image()=image
+    fun get_imageID()="" // this func will be removed later
     fun get_behaveRate()=behaveRate
     companion object {
         val userNameKey: String = "userName"

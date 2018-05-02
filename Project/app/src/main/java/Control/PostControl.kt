@@ -1,6 +1,6 @@
 package Control
 
-import FireBase.fireStore
+import Utility.Utility
 import Model.postData.post
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -12,7 +12,7 @@ import java.util.HashMap
 
 
 class PostControl  {
-    private var dataBaseInstance = fireStore.fireStoreHandler
+    private var dataBaseInstance = Utility.fireStoreHandler
     var Posttypemap = HashMap<String, ArrayList<post>>();
     var entered = 0
     private constructor()
