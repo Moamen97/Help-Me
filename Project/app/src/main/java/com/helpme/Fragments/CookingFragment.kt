@@ -43,6 +43,7 @@ class CookingFragment : android.support.v4.app.Fragment() {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
+        
         adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter;
         PostController.getPostsByType("Doctor")

@@ -1,6 +1,7 @@
 package Model.postData
 
 import Model.Magic.CircleTransform
+import android.app.Dialog
 import android.support.design.widget.Snackbar;
 import android.content.Context
 import android.content.Intent
@@ -31,11 +32,12 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         holder?.postType?.setImageResource(postType);
         holder?.postOwnerUserName?.text = postToBind.postOwnerUserName
         holder?.showCommentsButton?.setOnClickListener {
-            //val dialog: Dialog = Dialog(mContext)
-            //dialog.setContentView(R.layout.activity_show_comments);
+           // val dialog: Dialog = Dialog(mContext)
+           // dialog.setContentView(R.layout.comments_activity)
             //dialog.show()
             val intent: Intent = Intent(mContext, ShowFeedbacks::class.java)
             mContext.startActivity(intent)
+
         }
         holder?.itemView?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {

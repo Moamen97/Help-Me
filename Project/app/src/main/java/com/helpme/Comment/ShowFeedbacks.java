@@ -43,9 +43,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+public class ShowFeedbacks extends AppCompatActivity implements android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener, FeedbackAdapterListener {
 
-public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, FeedbackAdapterListener {
-    private ArrayList<Feedback> feedbacks = new ArrayList<>();
+  private ArrayList<Model.postData.Feedback.Feedback> feedbacks = new ArrayList<>();
     private RecyclerView recyclerView;
     private FeedbackAdapter mAdapter = new FeedbackAdapter(this, this);
     private SwipeRefreshLayout swipeRefreshLayout;
