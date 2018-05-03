@@ -102,10 +102,12 @@ class MyProfile : AppCompatActivity() {
         var intent = Intent(this, AddWorkShop::class.java)
         startActivity(intent)
     }
+
     fun getmyposts(view: View) {
         var intent = Intent(this, AddWorkShop::class.java)
         startActivity(intent)
     }
+
     fun editMyProfile(dialog: Dialog) {
         var newFirstName: String = (dialog.findViewById<(EditText)>(R.id.editFirstNametextbox)).text.toString();
         var newMidName: String = (dialog.findViewById<(EditText)>(R.id.editMidNametextbox)).text.toString();
