@@ -20,17 +20,12 @@ import com.helpme.R
 import org.w3c.dom.Text
 
 class postAdapter(var mContext: Context, var postList: ArrayList<post>, var postType: Int) : RecyclerView.Adapter<postViewHolder>() {
-
-    override fun getItemCount(): Int {
-        return postList.size;
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): postViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): postViewHolder {
         val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.post_card, parent, false)
         return postViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: postViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: postViewHolder, position: Int) {
         var postToBind: post = postList[position];
         holder?.postContent?.text = postToBind.postContent;
         holder?.postType?.setImageResource(postType);
@@ -54,9 +49,11 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         })
         applyProfilePicture(holder!!, postToBind)
         // dh by3mel load ll post cover using Glide library gamed f45
-        Glide.with(mContext).load(postToBind.postImage).into(holder?.postImage);
-    }
+        Glide.with(mContext).load(postToBind.postImage).into(holder?.postImage);    }
 
+    override fun getItemCount(): Int {
+        return postList.size;
+    }
     private fun applyProfilePicture(holder: postViewHolder, Post: post) {
         if (!TextUtils.isEmpty(Post.postOwnerImage)) {
             Glide.with(mContext).load(Post.postOwnerImage)

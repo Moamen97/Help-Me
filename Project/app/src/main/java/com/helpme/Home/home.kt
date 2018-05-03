@@ -39,6 +39,8 @@ import java.util.Date
 import Control.PostControl
 import Control.UserControl
 import Model.postData.post
+import com.facebook.Profile
+import com.facebook.login.LoginManager
 import com.helpme.*
 
 class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -94,6 +96,12 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         val actionBar = supportActionBar
         actionBar!!.elevation = 0f
+
+        val profile = Profile.getCurrentProfile()
+        if (profile != null) {
+            LoginManager.getInstance().logOut()
+
+        }
 
     }
 
