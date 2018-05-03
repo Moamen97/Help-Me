@@ -33,14 +33,12 @@ class post {
         this.postTime = Post.postTime
         this.postType = Post.postType
     }
-    fun edittype(type:String)
-    {
-        postType = type;
+
+    fun edittype(type: String) {
+        postType = type
     }
-    fun editID(ID:String)
-    {
+
+    fun editID(ID: String) {
         this.postID = ID
     }
-
-
 }

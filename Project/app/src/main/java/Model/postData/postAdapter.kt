@@ -1,6 +1,7 @@
 package Model.postData
 
 import Common.mySelf
+import Control.FeedbackControl
 import Model.Magic.CircleTransform
 import android.app.Dialog
 import android.support.design.widget.Snackbar;
@@ -35,9 +36,9 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         holder?.showCommentsButton?.setOnClickListener {
             mySelf.currentPostId = postList[position].postID
             mySelf.postOwner = postList[position].postOwnerUserName
+            println(FeedbackControl.printHashMapOfThisFragment())
             val intent: Intent = Intent(mContext, ShowFeedbacks::class.java)
             mContext.startActivity(intent)
-
         }
         holder?.itemView?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {

@@ -1,5 +1,6 @@
 package Common
 
+import Model.postData.Feedback.Feedback
 import Utility.Utility
 import java.util.*
 import Model.postData.post
@@ -11,11 +12,16 @@ import android.support.annotation.NonNull
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import java.io.ByteArrayOutputStream
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 public object mySelf : Model.user() {
     var currentPostId: String = ""
     var postOwner: String = ""
+
+    var hashMap = HashMap<String, ArrayList<Feedback>>()
+
     fun loadMyself(uName: String): Boolean {
         userName = uName
         var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/$uName").get()

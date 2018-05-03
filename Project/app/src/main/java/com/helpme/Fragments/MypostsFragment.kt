@@ -1,6 +1,7 @@
 package com.helpme
 
 import Common.mySelf
+import Control.FeedbackControl
 import Control.PostControl
 import Model.postData.post
 import Model.postData.postAdapter
@@ -51,6 +52,7 @@ class MypostsFragment : android.support.v4.app.Fragment() {
         PostController.getPostsByType("Mechanic")
         PostController.getPostsByType("Plumber")
         PostController.getMyPosts()
+        prepareFeedbacks()
         return view
     }
 
@@ -66,4 +68,12 @@ class MypostsFragment : android.support.v4.app.Fragment() {
         }
         return returnColor
     }
+    private fun prepareFeedbacks() {
+        for (i in 0..(postList.size - 1)) {
+            mySelf.currentPostId = postList[i].postID
+            FeedbackControl.prepareFeedback()
+
+        }
+    }
+
 }

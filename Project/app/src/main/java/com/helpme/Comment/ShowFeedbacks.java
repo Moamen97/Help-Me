@@ -159,13 +159,12 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
             public void onClick(View view) {
                 UserControl userControl = UserControl.Companion.getInstance(null, null, null, null);
                 Calendar calander = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
-                String timestamp = simpleDateFormat.format(calander.getTime());
+                String timestamp = String.valueOf(System.currentTimeMillis());
                 String message = commentContent.getText().toString();
                 user User = userControl.getUser();
                 String from = User.get_userName();
                 String userImage = "";
-                Feedback feedback = new Feedback(userImage, from, message, timestamp, false, rate[0]);
+                Feedback feedback = new Feedback(userImage, from, message, timestamp, false, rate[0], User.get_firstName(), User.get_midName(), User.get_lastName());
                 FeedbackControl.Companion.addFeedback(feedback, ShowFeedbacks.this);
                 switch (rate[0]) {
                     case "0":
@@ -206,16 +205,20 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
         swipeRefreshLayout.setRefreshing(true);
         feedbacks.clear();
         FeedbackControl.Companion.prepareFeedback();
-        ArrayList<Feedback> tempList = FeedbackControl.Companion.getFeedbacksList();
+        ArrayList<Feedback> tempList = FeedbackControl.Companion.getSortedFeedbacksList();
 
-        if (tempList.size() == 0) toastMessage("Nothing to show here");
+        if (tempList.size() == 0) {
+            toastMessage("Nothing to show here");
+        }
+
         for (int i = 0; i < tempList.size(); ++i) {
-            String userFullName = UserControl.Companion.getInstance(null, null, null, null).getUserByUserName(tempList.get(i).getFrom()).toString();
-            feedbacks.add(new Feedback(tempList.get(i).getUserImage(), userFullName, tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate()));
+            feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate(), tempList.get(i).getFirstName(), tempList.get(i).getMidName(), tempList.get(i).getLastName()));
+            mAdapter.notifyDataSetChanged();
         }
         swipeRefreshLayout.setRefreshing(false);
         mAdapter.notifyDataSetChanged();
     }
+
 
     private int getRandomMaterialColor() {
         int returnColor = Color.GRAY;

@@ -55,8 +55,12 @@ class FeedbackControl private constructor() {
                                                     document.get("message") as String,
                                                     document.get("timestamp") as String,
                                                     document.get("deleteIt") as Boolean,
-                                                    document.get("rate") as String)
+                                                    document.get("rate") as String,
+                                                    document.get("firstName") as String,
+                                                    document.get("midName") as String,
+                                                    document.get("lastName") as String)
                                             getFeedbacksList().add(feedback)
+                                            mySelf.hashMap[mySelf.currentPostId]!!.add(feedback)
                                             println("Document whose data => " + document.data.toString())
                                             flag[0] = true
                                         } catch (e: Exception) {
@@ -75,6 +79,34 @@ class FeedbackControl private constructor() {
             return this.feedbacks
         }
 
+        fun getSortedFeedbacksList(): ArrayList<Feedback> {
+            var sortedList = feedbacks.sortedWith(compareBy({ it.timestamp }))
+            feedbacks.clear()
+            for (i in (0..sortedList.size - 1)) {
+                feedbacks.add(sortedList[i])
+            }
+            return feedbacks
+        }
+
+        fun returnHashMapOfFeedbackList(): ArrayList<Feedback> {
+            val postID = mySelf.currentPostId
+            if (feedbacks.size == 0)
+                for (i in 0..(mySelf.hashMap[postID]!!.size - 1))
+                    feedbacks.add(mySelf.hashMap[postID]!![i])
+            return feedbacks
+        }
+
+        fun clearHashMap() {
+            mySelf.hashMap.clear()
+        }
+
+        fun printHashMapOfThisFragment() {
+            mySelf.hashMap.keys.forEach {
+                for (i in (0..mySelf.hashMap[it]!!.size - 1)) {
+                    println(mySelf.hashMap[it]!![i])
+                }
+            }
+        }
     } //Singleton
 
 }

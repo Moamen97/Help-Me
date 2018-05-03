@@ -18,7 +18,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import com.helpme.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.helpme.Comment.ShowFeedbacks;
@@ -65,12 +67,18 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
         Feedback message = comments.get(position);
 
         // displaying text view data
-        holder.getFrom().setText(message.getFrom());
+        holder.getFrom().setText(message.getFirstName() + " " + message.getMidName() + " " + message.getLastName());
         holder.getSubject().setText(message.getMessage());
-        holder.getTimestamp().setText(message.getTimestamp());
+
+        long TimeStamp = Long.parseLong(message.getTimestamp());
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(TimeStamp);
+        final String timeString = new SimpleDateFormat("hh:mm a").format(cal.getTime());
+
+        holder.getTimestamp().setText(timeString);
 
         // displaying the first letter of From in icon text
-        holder.getIconText().setText(message.getFrom().substring(0, 1));
+        holder.getIconText().setText(message.getFirstName().substring(0, 1));
 
         // change the row state to activated
         holder.itemView.setActivated(selectedItems.get(position, false));
@@ -81,7 +89,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
         // handle comment mood
         //applyImportant(holder, message);
 
-//        applyRate(holder, message);
+        applyRate(holder, message);
         // handle icon animation
         applyIconAnimation(holder, position);
 
@@ -109,36 +117,6 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
             @Override
             public void onClick(View view) {
                 listener.onIconClicked(position);
-            }
-        });
-        holder.getFirstStar().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onRateFirstStarClicked(position);
-            }
-        });
-        holder.getSecondStar().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onRateSecondStarClicked(position);
-            }
-        });
-        holder.getThirdStar().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onRateThirdStarClicked(position);
-            }
-        });
-        holder.getFourthStar().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onRateFourthStarClicked(position);
-            }
-        });
-        holder.getFifthStar().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onRateFifthStarClicked(position);
             }
         });
 

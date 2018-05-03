@@ -1,6 +1,7 @@
 package com.helpme
 
 import Common.mySelf
+import Control.FeedbackControl
 import Control.PostControl
 import Model.postData.post
 import Model.postData.postAdapter
@@ -38,8 +39,7 @@ class MechanicFragment : android.support.v4.app.Fragment() {
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
         var templist = PostController.getlist("Mechanic")
         postList.clear()
-        for (temp in templist)
-        {
+        for (temp in templist) {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
@@ -52,7 +52,7 @@ class MechanicFragment : android.support.v4.app.Fragment() {
         PostController.getPostsByType("Mechanic")
         PostController.getPostsByType("Plumber")
         PostController.getMyPosts()
-
+        prepareFeedbacks()
         return view
     }
 
@@ -68,4 +68,14 @@ class MechanicFragment : android.support.v4.app.Fragment() {
         }
         return returnColor
     }
+
+    private fun prepareFeedbacks() {
+        FeedbackControl.clearHashMap()
+        for (i in 0..(postList.size - 1)) {
+            mySelf.currentPostId = postList[i].postID
+            FeedbackControl.prepareFeedback()
+        }
+        FeedbackControl.printHashMapOfThisFragment()
+    }
+
 }

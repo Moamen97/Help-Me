@@ -1,6 +1,7 @@
 package com.helpme
 
 import Common.mySelf
+import Control.FeedbackControl
 import Control.PostControl
 import Model.postData.post
 import Model.postData.postAdapter
@@ -20,7 +21,7 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
     private val POST_TYPE = R.drawable.engineer;
     private var postList = ArrayList<post>()
     private var dialog: Dialog? = null;
-    private var PostController:PostControl = PostControl.getInstance();
+    private var PostController: PostControl = PostControl.getInstance();
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +38,13 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
         var templist = PostController.getlist("Carpenter")
         postList.clear()
-        for (temp in templist)
-        {
+        for (temp in templist) {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
         adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter;
+        prepareFeedbacks()
         PostController.getPostsByType("Doctor")
         PostController.getPostsByType("Engineer")
         PostController.getPostsByType("Cooking")
@@ -54,6 +55,12 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         return view
     }
 
+    private fun prepareFeedbacks() {
+        for (i in 0..(postList.size - 1)) {
+            mySelf.currentPostId = postList[i].postID
+            FeedbackControl.prepareFeedback()
+        }
+    }
 
     private fun getRandomMaterialColor(): Int {
         var returnColor = Color.GRAY
