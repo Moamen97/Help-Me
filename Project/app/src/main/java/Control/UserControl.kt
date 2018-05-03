@@ -3,6 +3,7 @@ package Control
 import Common.mySelf
 import Utility.Utility
 import Model.user
+import android.graphics.BitmapFactory
 import com.google.android.gms.tasks.*
 import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.Authentication.SignIn
@@ -35,6 +36,23 @@ class UserControl private constructor() {
         }
     } //Singleton
 
+
+    fun getUserByUserName(userName: String): StringBuilder {
+        val s = StringBuilder()
+
+        var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/$userName").get()
+        while (true) {
+            if (task.isComplete) {
+                if (task.isSuccessful) {
+                    val docSnapshot = task.result
+                    s.append(docSnapshot.getString(user.firstNameKey)!! + " ").append(docSnapshot.getString(user.midNameKey)!! + " ")
+                            .append(docSnapshot.getString(user.lastNameKey)!!)
+                    return s
+                } else
+                    return s
+            }
+        }
+    }
 
     fun getUser(): mySelf? {
         return this.User_Model

@@ -3,6 +3,7 @@ package Control
 /**
  * Created by Mohamed Aaziz on 02/04/2018.
  */
+import Common.mySelf
 import Model.postData.Feedback.Feedback
 import Model.postData.post
 import Utility.Utility
@@ -27,8 +28,8 @@ class FeedbackControl private constructor() {
         }
 
 
-        fun addFeedback(feedback: Feedback, postId: Int, showFeedbacks: ShowFeedbacks) {
-            FeedbackControl.dataBaseInstance.collection("post").document(postId.toString()).collection("feedbacks")
+        fun addFeedback(feedback: Feedback, showFeedbacks: ShowFeedbacks) {
+            FeedbackControl.dataBaseInstance.collection("post").document(mySelf.currentPostId).collection("feedbacks")
                     .add(feedback)
                     .addOnSuccessListener {
                         print("Success")
@@ -37,9 +38,9 @@ class FeedbackControl private constructor() {
         }
 
 
-        fun prepareFeedback(postId: String) {
+        fun prepareFeedback() {
             flag[0] = false
-            FeedbackControl.dataBaseInstance.collection("post").document(postId).collection("feedbacks")
+            FeedbackControl.dataBaseInstance.collection("post").document(mySelf.currentPostId).collection("feedbacks")
                     .get()
                     .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
                         override fun onComplete(p0: Task<QuerySnapshot>) {
@@ -67,7 +68,6 @@ class FeedbackControl private constructor() {
                             }
                         }
                     })
-
         }
 
         fun getFeedbacksList(): ArrayList<Feedback> {

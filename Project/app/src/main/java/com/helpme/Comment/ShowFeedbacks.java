@@ -2,6 +2,7 @@ package com.helpme.Comment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -36,22 +37,25 @@ import Common.mySelf;
 import Control.FeedbackControl;
 import Control.UserControl;
 import Model.postData.Feedback.*;
+import Model.user;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ShowFeedbacks extends AppCompatActivity implements android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener, FeedbackAdapterListener {
 
-  private ArrayList<Model.postData.Feedback.Feedback> feedbacks = new ArrayList<>();
+    private ArrayList<Model.postData.Feedback.Feedback> feedbacks = new ArrayList<>();
     private RecyclerView recyclerView;
     private FeedbackAdapter mAdapter = new FeedbackAdapter(this, this);
     private SwipeRefreshLayout swipeRefreshLayout;
     private ActionModeCallback actionModeCallback;
     private ActionMode actionMode;
     private Dialog addCommentDialog;
+    private ProgressDialog mDialog;
 
 
     @Override
@@ -158,9 +162,11 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
                 String timestamp = simpleDateFormat.format(calander.getTime());
                 String message = commentContent.getText().toString();
                 String from = UserControl.Companion.getInstance(null, null, null, null).getUser().get_userName();
-                String userImage = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
+                String userImage = "";
                 Feedback feedback = new Feedback(userImage, from, message, timestamp, false, rate[0]);
-                FeedbackControl.Companion.addFeedback(feedback, 1, ShowFeedbacks.this);
+                FeedbackControl.Companion.addFeedback(feedback, ShowFeedbacks.this);
+                user User = UserControl.Companion.getInstance(null, null, null, null).getUser();
+                feedback.setFrom(User.get_firstName() + " " + User.get_midName() + " " + User.get_lastName());
                 feedbacks.add(feedback);
                 mAdapter.notifyDataSetChanged();
                 addCommentDialog.dismiss();
@@ -176,16 +182,14 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
         swipeRefreshLayout.setRefreshing(true);
         feedbacks.clear();
-
-        for (int i = 0; i < 3; ++i) {
-            FeedbackControl.Companion.prepareFeedback("1");
-        }
+        FeedbackControl.Companion.prepareFeedback();
         ArrayList<Feedback> tempList = FeedbackControl.Companion.getFeedbacksList();
 
-        if (tempList.size() == 0)
-            toastMessage("Nothing to show here");
-        for (int i = 0; i < tempList.size(); ++i)
-            feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate()));
+        if (tempList.size() == 0) toastMessage("Nothing to show here");
+        for (int i = 0; i < tempList.size(); ++i) {
+            String userFullName = UserControl.Companion.getInstance(null, null, null, null).getUserByUserName(tempList.get(i).getFrom()).toString();
+            feedbacks.add(new Feedback(tempList.get(i).getUserImage(), userFullName, tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate()));
+        }
         swipeRefreshLayout.setRefreshing(false);
         mAdapter.notifyDataSetChanged();
     }
@@ -201,6 +205,7 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
         }
         return returnColor;
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,10 +286,8 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     @Override
     public void onRateFirstStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate().equals("1"))
-            message.setRate("0");
-        else
-            message.setRate("1");
+        if (message.getRate().equals("1")) message.setRate("0");
+        else message.setRate("1");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -292,10 +295,8 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     @Override
     public void onRateSecondStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate().equals("2"))
-            message.setRate("0");
-        else
-            message.setRate("2");
+        if (message.getRate().equals("2")) message.setRate("0");
+        else message.setRate("2");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -303,10 +304,8 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     @Override
     public void onRateThirdStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate().equals("3"))
-            message.setRate("0");
-        else
-            message.setRate("3");
+        if (message.getRate().equals("3")) message.setRate("0");
+        else message.setRate("3");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -314,10 +313,8 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     @Override
     public void onRateFourthStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate().equals("4"))
-            message.setRate("0");
-        else
-            message.setRate("4");
+        if (message.getRate().equals("4")) message.setRate("0");
+        else message.setRate("4");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -325,10 +322,8 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     @Override
     public void onRateFifthStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate().equals("5"))
-            message.setRate("0");
-        else
-            message.setRate("5");
+        if (message.getRate().equals("5")) message.setRate("0");
+        else message.setRate("5");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -389,7 +384,7 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     }
 
     public void toastMessage(String Message) {
-        Toast.makeText(this, Message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, Message, Toast.LENGTH_SHORT).show();
     }
 
 }
