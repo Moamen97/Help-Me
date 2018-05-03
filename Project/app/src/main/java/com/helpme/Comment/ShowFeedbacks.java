@@ -1,5 +1,6 @@
 package com.helpme.Comment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,11 +18,13 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,9 +32,15 @@ import android.widget.Toast;
 
 import com.helpme.R;
 
+import Common.mySelf;
+import Control.FeedbackControl;
+import Control.UserControl;
 import Model.postData.Feedback.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -76,14 +85,14 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
     public void showAddCommentFragment() {
         addCommentDialog.setContentView(R.layout.add_comment);
         LinearLayout addCommentPanel = addCommentDialog.findViewById(R.id.addCommentPanel);
-        EditText commentContent = addCommentDialog.findViewById(R.id.commentContent);
+        final EditText commentContent = addCommentDialog.findViewById(R.id.commentContent);
         final ImageView firstStar = addCommentDialog.findViewById(R.id.firstStar);
         final ImageView secondStar = addCommentDialog.findViewById(R.id.secondStar);
         final ImageView thirdStar = addCommentDialog.findViewById(R.id.thirdStar);
         final ImageView fourthStar = addCommentDialog.findViewById(R.id.fourthStar);
         final ImageView fifthStar = addCommentDialog.findViewById(R.id.fifthStar);
         final Context context = this;
-
+        final String[] rate = {"0"};
         firstStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +101,7 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
                 thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
                 fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
                 fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
-
+                rate[0] = "1";
             }
         });
         secondStar.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +112,7 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
                 thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
                 fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
                 fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
-
+                rate[0] = "2";
             }
         });
         thirdStar.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +123,7 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
                 thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
                 fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
                 fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
-
+                rate[0] = "3";
             }
         });
         fourthStar.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +134,7 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
                 thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
                 fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
                 fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.icon_tint_normal));
-
+                rate[0] = "4";
             }
         });
         fifthStar.setOnClickListener(new View.OnClickListener() {
@@ -136,11 +145,24 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
                 thirdStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
                 fourthStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
                 fifthStar.setColorFilter(ContextCompat.getColor(context, R.color.md_yellow_600));
-
+                rate[0] = "5";
             }
         });
-
-
+        final Button addFeedbackButton = addCommentDialog.findViewById(R.id.addFeedbackButton);
+        addFeedbackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calander = Calendar.getInstance();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+                String timestamp = simpleDateFormat.format(calander.getTime());
+                String message = commentContent.getText().toString();
+                String from = UserControl.Companion.getInstance(null, null, null, null).getUser().get_userName();
+                String userImage = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
+                Feedback feedback = new Feedback(userImage, from, message, timestamp, false, rate[0]);
+                FeedbackControl.Companion.addFeedback(feedback, 1);
+                addCommentDialog.dismiss();
+            }
+        });
         addCommentPanel.setBackgroundColor(getRandomMaterialColor());
         addCommentDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         addCommentDialog.show();
@@ -149,19 +171,21 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
 
     private void prepareMessages() {
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
-        for (int i = 0; i < 10; ++i) {
-            feedbacks.add(new Feedback(1, link, "Moamen Hassan Attia",
-                    "البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر البرنامج يسطا جامد فشخ ,من حلاوته اديته تقييم 5 عاش يزميلي استمر", "10:30 AM", getRandomMaterialColor(), false, 5));
-            feedbacks.add(new Feedback(1, link, "Moamen Hassan Attia",
-                    "البرنامج معفن وبطئ وبيكراش كتير خلوا بالكم يا جماعه البرنامج ده ان وسخه", "10:30 AM", getRandomMaterialColor(), false, 1));
+        swipeRefreshLayout.setRefreshing(true);
+        feedbacks.clear();
+        FeedbackControl.Companion.prepareFeedback(1);
+        System.out.println(FeedbackControl.Companion.getFeedbacksList().size());
+        ArrayList<Feedback> tempList = FeedbackControl.Companion.getFeedbacksList();
+        for (int i = 0; i < tempList.size(); ++i)
+            feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate()));
+        mAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
 
-        }
     }
 
     private int getRandomMaterialColor() {
         int returnColor = Color.GRAY;
         int arrayId = getResources().getIdentifier("shuffle", "array", getPackageName());
-
         if (arrayId != 0) {
             TypedArray colors = getResources().obtainTypedArray(arrayId);
             int index = (int) (Math.random() * colors.length());
@@ -180,9 +204,7 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -251,10 +273,10 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRateFirstStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate() == 1)
-            message.setRate(0);
+        if (message.getRate().equals("1"))
+            message.setRate("0");
         else
-            message.setRate(1);
+            message.setRate("1");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -262,10 +284,10 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRateSecondStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate() == 2)
-            message.setRate(0);
+        if (message.getRate().equals("2"))
+            message.setRate("0");
         else
-            message.setRate(2);
+            message.setRate("2");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -273,10 +295,10 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRateThirdStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate() == 3)
-            message.setRate(0);
+        if (message.getRate().equals("3"))
+            message.setRate("0");
         else
-            message.setRate(3);
+            message.setRate("3");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -284,10 +306,10 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRateFourthStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate() == 4)
-            message.setRate(0);
+        if (message.getRate().equals("4"))
+            message.setRate("0");
         else
-            message.setRate(4);
+            message.setRate("4");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
@@ -295,10 +317,10 @@ public class ShowFeedbacks extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRateFifthStarClicked(int position) {
         Feedback message = feedbacks.get(position);
-        if (message.getRate() == 5)
-            message.setRate(0);
+        if (message.getRate().equals("5"))
+            message.setRate("0");
         else
-            message.setRate(5);
+            message.setRate("5");
         feedbacks.set(position, message);
         mAdapter.notifyDataSetChanged();
     }

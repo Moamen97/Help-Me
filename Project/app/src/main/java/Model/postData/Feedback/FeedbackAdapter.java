@@ -156,8 +156,8 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
     }
 
     private void applyProfilePicture(FeedbackViewHolder holder, Feedback Comment) {
-        if (!TextUtils.isEmpty(Comment.getPicture())) {
-            Glide.with(mContext).load(Comment.getPicture())
+        if (!TextUtils.isEmpty(Comment.getUserImage())) {
+            Glide.with(mContext).load(Comment.getUserImage())
                     .thumbnail(0.5f)
                     .crossFade()
                     .transform(new CircleTransform(mContext))
@@ -167,7 +167,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
             holder.getIconText().setVisibility(View.GONE);
         } else {
             holder.getImgProfile().setImageResource(R.drawable.bg_circle);
-            holder.getImgProfile().setColorFilter(Comment.getColor());
+            holder.getImgProfile().setColorFilter(getRandomMaterialColor());
             holder.getIconText().setVisibility(View.VISIBLE);
         }
     }
@@ -208,10 +208,6 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
         animationItemsIndex.clear();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return comments.get(position).getId();
-    }
 
 //    private void applyImportant(FeedbackViewHolder holder, Feedback Comment) {
 //        if (!Comment.isImportant() && !Comment.isRead()) {
@@ -229,42 +225,42 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
     private void applyRate(FeedbackViewHolder holder, Feedback Comment) {
 
         switch (Comment.getRate()) {
-            case 0:
+            case "0":
                 holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 break;
-            case 1:
+            case "1":
                 holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 break;
-            case 2:
+            case "2":
                 holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 break;
-            case 3:
+            case "3":
                 holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 break;
-            case 4:
+            case "4":
                 holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getFourthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getFifthStar().setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
                 break;
-            case 5:
+            case "5":
                 holder.getFirstStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getSecondStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));
                 holder.getThirdStar().setColorFilter(ContextCompat.getColor(mContext, R.color.md_yellow_600));

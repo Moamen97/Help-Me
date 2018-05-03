@@ -24,6 +24,7 @@ class UserControl private constructor() {
     private var toasmsg: String = ""
 
     companion object {
+
         private var instance: UserControl? = null
         fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null
                         , Home_View: home? = null, myProfileView: MyProfile? = null): UserControl {
@@ -33,6 +34,10 @@ class UserControl private constructor() {
             return instance!!
         }
     } //Singleton
+
+    fun getUser(): mySelf? {
+        return this.User_Model
+    }
 
     private fun setcurrentview(SignIn_View: SignIn?, SignUp_View: SignUp?, Home_View: home?,
                                myProfileView: MyProfile?) {
@@ -161,117 +166,117 @@ class UserControl private constructor() {
                 })
     }
 
-        fun checkBeforUpdate(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
-                             NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String
-                             , NewImageId: String) {
+    fun checkBeforUpdate(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
+                         NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String
+                         , NewImageId: String) {
 
-            try {
-                newUser.CheckSet_email(NewEmail)
-                newUser.CheckSet_password(NewPassword, NewPassword)
-                newUser.CheckSet_firstName(NewFistName)
-                newUser.CheckSet_midName(NewMidName)
-                newUser.CheckSet_lastName(NewLastName)
-                newUser.CheckSet_phoneNum(NewMobile)
-                newUser.CheckSet_birthDate(NewBirthDate)
-                newUser.CheckSet_gender(NewGender)
-                newUser.Checkset_imageID(NewImageId)
-                if (!Utility.isNetworkAvailable(myProfileView!!.applicationContext))
-                    throw Exception("You can't edit profile if you offline")
-                this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail
-                        , NewPassword, NewMobile, NewBirthDate, NewImageId)
-            } catch (e: Exception) {
-                myProfileView!!.ShowToast(e.message!!)
-            }
+        try {
+            newUser.CheckSet_email(NewEmail)
+            newUser.CheckSet_password(NewPassword, NewPassword)
+            newUser.CheckSet_firstName(NewFistName)
+            newUser.CheckSet_midName(NewMidName)
+            newUser.CheckSet_lastName(NewLastName)
+            newUser.CheckSet_phoneNum(NewMobile)
+            newUser.CheckSet_birthDate(NewBirthDate)
+            newUser.CheckSet_gender(NewGender)
+            newUser.Checkset_imageID(NewImageId)
+            if (!Utility.isNetworkAvailable(myProfileView!!.applicationContext))
+                throw Exception("You can't edit profile if you offline")
+            this.UpdateUserInfo(NewFistName, NewMidName, NewLastName, NewGender, NewEmail
+                    , NewPassword, NewMobile, NewBirthDate, NewImageId)
+        } catch (e: Exception) {
+            myProfileView!!.ShowToast(e.message!!)
         }
+    }
 
-        fun UpdateUserInfo(NewFirstName: String, NewMidName: String, NewLastName: String, NewGender: String
-                           , NewEmail: String, NewPassword: String, NewMobile: String, NewBdate: String,
-                           NewImageId: String) {
-            if (!Utility.isNetworkAvailable(myProfileView!!.baseContext)) {
-                toasmsg = ("You can't Edit Your Profile if you are offline")
-                myProfileView!!.ShowToast(toasmsg)
-                return
-            }
-            toasmsg = ""
-            var newemail: String = NewEmail //To Config.
-            /*   if (User_Model!!.get_email() != NewEmail) {
-                   // checks if the new Email exists
-                   dataBaseInstance.collection("user")
-                           .whereEqualTo("eMail", NewEmail)
-                           .get()
-                           .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                               override fun onComplete(p0: Task<QuerySnapshot>) {
-                                   println("Entered Complete Listener");
-                                   if (p0.isSuccessful) {
-                                       if (!p0.result.isEmpty) {
-                                           toasmsg += "Email Error, "
-                                           newemail = User_Model!!.get_email()
-                                       }
+    fun UpdateUserInfo(NewFirstName: String, NewMidName: String, NewLastName: String, NewGender: String
+                       , NewEmail: String, NewPassword: String, NewMobile: String, NewBdate: String,
+                       NewImageId: String) {
+        if (!Utility.isNetworkAvailable(myProfileView!!.baseContext)) {
+            toasmsg = ("You can't Edit Your Profile if you are offline")
+            myProfileView!!.ShowToast(toasmsg)
+            return
+        }
+        toasmsg = ""
+        var newemail: String = NewEmail //To Config.
+        /*   if (User_Model!!.get_email() != NewEmail) {
+               // checks if the new Email exists
+               dataBaseInstance.collection("user")
+                       .whereEqualTo("eMail", NewEmail)
+                       .get()
+                       .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                           override fun onComplete(p0: Task<QuerySnapshot>) {
+                               println("Entered Complete Listener");
+                               if (p0.isSuccessful) {
+                                   if (!p0.result.isEmpty) {
+                                       toasmsg += "Email Error, "
+                                       newemail = User_Model!!.get_email()
                                    }
                                }
-                           })
-               }
-        */
-            dataBaseInstance.collection("user")
-                    .whereEqualTo("userName", User_Model!!.get_userName())
-                    .get()
-                    .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                        override fun onComplete(p0: Task<QuerySnapshot>) {
-                            println("Entered Complete Listener");
-                            if (p0.isSuccessful) {
-                                if (!p0.result.isEmpty) {
-                                    // getting non empty documents ; here we should update our user to db :V
-                                    println("Found Document Data");
-                                    User_Model!!.CheckSet_email(newemail)
-                                    User_Model!!.CheckSet_password(NewPassword, NewPassword)
-                                    User_Model!!.CheckSet_phoneNum(NewMobile)
-                                    User_Model!!.Checkset_imageID(NewImageId)
-                                    User_Model!!.CheckSet_firstName(NewFirstName)
-                                    User_Model!!.CheckSet_midName(NewMidName)
-                                    User_Model!!.CheckSet_lastName(NewLastName)
-                                    User_Model!!.CheckSet_gender(NewGender)
-                                    User_Model!!.Checkset_imageID(NewImageId)
-                                    User_Model!!.CheckSet_birthDate(NewBdate)
+                           }
+                       })
+           }
+    */
+        dataBaseInstance.collection("user")
+                .whereEqualTo("userName", User_Model!!.get_userName())
+                .get()
+                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        println("Entered Complete Listener");
+                        if (p0.isSuccessful) {
+                            if (!p0.result.isEmpty) {
+                                // getting non empty documents ; here we should update our user to db :V
+                                println("Found Document Data");
+                                User_Model!!.CheckSet_email(newemail)
+                                User_Model!!.CheckSet_password(NewPassword, NewPassword)
+                                User_Model!!.CheckSet_phoneNum(NewMobile)
+                                User_Model!!.Checkset_imageID(NewImageId)
+                                User_Model!!.CheckSet_firstName(NewFirstName)
+                                User_Model!!.CheckSet_midName(NewMidName)
+                                User_Model!!.CheckSet_lastName(NewLastName)
+                                User_Model!!.CheckSet_gender(NewGender)
+                                User_Model!!.Checkset_imageID(NewImageId)
+                                User_Model!!.CheckSet_birthDate(NewBdate)
 
-                                    toasmsg = "DONE!"
-                                    myProfileView!!.ShowToast(toasmsg)
-                                    User_Model!!.uploadMyself()
-                                    myProfileView!!.updateinfoviewer()
+                                toasmsg = "DONE!"
+                                myProfileView!!.ShowToast(toasmsg)
+                                User_Model!!.uploadMyself()
+                                myProfileView!!.updateinfoviewer()
 
-                                }
-                            } else {
-                                // Task is not Successfull ,, should be throw an exception
-                                println(p0.exception.toString());
                             }
+                        } else {
+                            // Task is not Successfull ,, should be throw an exception
+                            println(p0.exception.toString());
                         }
-                    })
-        }
+                    }
+                })
+    }
 
-        fun GetCurrentUserProfile(): user {
-            return this.User_Model!!
-        }
+    fun GetCurrentUserProfile(): user {
+        return this.User_Model!!
+    }
 
-        fun CreateNewUser(userName: String, eMail: String, password: String, passwordconfirm: String,
-                          firstName: String, midName: String, lastName: String, phoneNumber: String
-                          , birthDate: String, gender: String) {
-            try {
-                newUser.CheckSet_userName(userName)
-                newUser.CheckSet_email(eMail)
-                newUser.CheckSet_password(password
-                        , passwordconfirm)
-                newUser.CheckSet_firstName(firstName)
-                newUser.CheckSet_midName(midName)
-                newUser.CheckSet_lastName(lastName)
-                newUser.CheckSet_phoneNum(phoneNumber)
-                newUser.CheckSet_birthDate(birthDate)
-                newUser.CheckSet_gender(gender)
-                if (!Utility.isNetworkAvailable(SignUp_View!!.baseContext))
-                    throw Exception("You can't sign up if you offline")
-                this.signUp()
-            } catch (e: Exception) {
-                SignUp_View!!.ShowToast(e.message!!)
-            }
+    fun CreateNewUser(userName: String, eMail: String, password: String, passwordconfirm: String,
+                      firstName: String, midName: String, lastName: String, phoneNumber: String
+                      , birthDate: String, gender: String) {
+        try {
+            newUser.CheckSet_userName(userName)
+            newUser.CheckSet_email(eMail)
+            newUser.CheckSet_password(password
+                    , passwordconfirm)
+            newUser.CheckSet_firstName(firstName)
+            newUser.CheckSet_midName(midName)
+            newUser.CheckSet_lastName(lastName)
+            newUser.CheckSet_phoneNum(phoneNumber)
+            newUser.CheckSet_birthDate(birthDate)
+            newUser.CheckSet_gender(gender)
+            if (!Utility.isNetworkAvailable(SignUp_View!!.baseContext))
+                throw Exception("You can't sign up if you offline")
+            this.signUp()
+        } catch (e: Exception) {
+            SignUp_View!!.ShowToast(e.message!!)
         }
+    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -376,5 +381,5 @@ fun UpdateRate(RatedUserName:String,NewRate:Integer) {
                 }
             })
 }*/
-    }
+}
 

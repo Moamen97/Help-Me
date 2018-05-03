@@ -141,7 +141,7 @@ public class home extends AppCompatActivity
         if (id == R.id.MyProfile) {
             Intent intent = new Intent(this, MyProfile.class);
             startActivity(intent);
-        }  else if (id == R.id.MyPosts) {
+        } else if (id == R.id.MyPosts) {
 
         } else if (id == R.id.AddProfession) {
             Intent intent = new Intent(this, AddProfession.class);
