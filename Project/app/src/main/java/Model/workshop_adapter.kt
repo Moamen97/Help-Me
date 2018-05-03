@@ -11,10 +11,10 @@ import com.helpme.R
 /**
  * Created by Lenovo on 3/27/2018.
  */
-class workshopAdapter(var mContext: Context, var workshopList: ArrayList<Workshop>,var listener: workshopListener) : RecyclerView.Adapter<workshopViewHolder>() {
+class workshopAdapter(var mContext: Context, var workshopList: ArrayList<Workshop>, var listener: workshopListener) : RecyclerView.Adapter<workshopViewHolder>() {
 
 
-    override fun onBindViewHolder(holder: workshopViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: workshopViewHolder, position: Int) {
         var workshopToBind: Workshop = workshopList[position];
 
         holder?.WorkShopName?.setText(workshopToBind.workshopName);
@@ -34,8 +34,8 @@ class workshopAdapter(var mContext: Context, var workshopList: ArrayList<Worksho
         return workshopList.size;
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): workshopViewHolder {
-        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.workshop_card, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): workshopViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.workshop_card, parent, false)
         return workshopViewHolder(itemView)
     }
 

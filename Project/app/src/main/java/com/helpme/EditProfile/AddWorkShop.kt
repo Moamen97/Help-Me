@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import com.helpme.Comment.commentAdapterListener
 import com.helpme.R
 import kotlinx.android.synthetic.main.activity_edit_workshop.*
 
@@ -21,7 +20,6 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
     lateinit var Adapter: workshopAdapter
     var ListOFWorkshops = ArrayList<Workshop>()
     lateinit var recyclerView: RecyclerView
-    var listener: commentAdapterListener? = null
     var count: Int = 1;
     private lateinit var LayoutManager: LinearLayoutManager
     override fun onCreate(savedInstanceState: Bundle?) {

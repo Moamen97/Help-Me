@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.widget.LinearLayout
-import com.helpme.Comment.ShowComments
 import com.helpme.R
 
 class MainActivity : AppCompatActivity() {

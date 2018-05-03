@@ -1,5 +1,6 @@
 package Common
 
+import Model.postData.Feedback.Feedback
 import Utility.Utility
 import java.util.*
 import Model.postData.post
@@ -14,6 +15,10 @@ import java.io.ByteArrayOutputStream
 
 
 object mySelf : Model.user() {
+    var currentPostId: String = ""
+    var postOwner: String = ""
+    var hashMap = HashMap<String, ArrayList<Feedback>>()
+
     fun loadMyself(uName: String): Boolean {
         userName = uName
         var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/$uName").get()
@@ -30,13 +35,12 @@ object mySelf : Model.user() {
                     this@mySelf.phoneNum = docSnapshot.getString(user.phoneNumKey)!!
                     //this@mySelf.behaveRate = docSnapshot.getLong(user.behaveRateKey) as Int
                     this@mySelf.birthDate = docSnapshot.getString(user.birthDateKey).toString()
-                    Utility.storageHandler.reference.child("${user.userStorageImageFolder}/$userName.jpg").
-                            getBytes(Long.MAX_VALUE)
-                            .addOnSuccessListener(object :OnSuccessListener<ByteArray> {
-                                override fun onSuccess(p0: ByteArray ) {
-                                       mySelf.Checkset_image(BitmapFactory.decodeByteArray(p0, 0, p0.size))
+                    Utility.storageHandler.reference.child("${user.userStorageImageFolder}/$userName.jpg").getBytes(Long.MAX_VALUE)
+                            .addOnSuccessListener(object : OnSuccessListener<ByteArray> {
+                                override fun onSuccess(p0: ByteArray) {
+                                    mySelf.Checkset_image(BitmapFactory.decodeByteArray(p0, 0, p0.size))
                                 }
-                    })
+                            })
                     return true
                 } else
                     return false

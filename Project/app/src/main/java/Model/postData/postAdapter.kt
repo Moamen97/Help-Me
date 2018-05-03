@@ -1,13 +1,12 @@
 package Model.postData
 
+import Common.mySelf
+import Control.FeedbackControl
 import Model.Magic.CircleTransform
-import Model.postData.Comment.comment
-import Model.postData.Comment.commentViewHolder
 import android.app.Dialog
 import android.support.design.widget.Snackbar;
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -15,9 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.helpme.Comment.ShowComments
+import com.helpme.Comment.ShowFeedbacks
 import com.helpme.R
-import org.w3c.dom.Text
 
 class postAdapter(var mContext: Context, var postList: ArrayList<post>, var postType: Int) : RecyclerView.Adapter<postViewHolder>() {
 
@@ -25,21 +23,21 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         return postList.size;
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): postViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): postViewHolder {
         val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.post_card, parent, false)
         return postViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: postViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: postViewHolder, position: Int) {
         var postToBind: post = postList[position];
         holder?.postContent?.text = postToBind.postContent;
         holder?.postType?.setImageResource(postType);
         holder?.postOwnerUserName?.text = postToBind.postOwnerUserName
         holder?.showCommentsButton?.setOnClickListener {
-            //val dialog: Dialog = Dialog(mContext)
-            //dialog.setContentView(R.layout.activity_show_comments);
-            //dialog.show()
-            val intent: Intent = Intent(mContext, ShowComments::class.java)
+            mySelf.currentPostId = postList[position].postID
+            mySelf.postOwner = postList[position].postOwnerUserName
+            println(FeedbackControl.printHashMapOfThisFragment())
+            val intent: Intent = Intent(mContext, ShowFeedbacks::class.java)
             mContext.startActivity(intent)
         }
         holder?.itemView?.setOnClickListener(object : View.OnClickListener {

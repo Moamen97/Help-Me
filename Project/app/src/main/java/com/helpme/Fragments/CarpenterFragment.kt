@@ -27,10 +27,10 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.carpenter_fragment, container, false)
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
-        var adapter = postAdapter(this.context, postList, POST_TYPE)
+        var adapter = postAdapter(this.context!!, postList, POST_TYPE)
         var mLayoutManager = GridLayoutManager(this.context, 1)
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
@@ -56,7 +56,7 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
 
     private fun getRandomMaterialColor(): Int {
         var returnColor = Color.GRAY
-        val arrayId = resources.getIdentifier("shuffle", "array", context.packageName)
+        val arrayId = resources.getIdentifier("shuffle", "array", context!!.packageName)
         if (arrayId != 0) {
             val colors = resources.obtainTypedArray(arrayId)
             val index = (Math.random() * colors.length()).toInt()
