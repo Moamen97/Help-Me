@@ -159,6 +159,74 @@ class UserControl private constructor() {
                     }
                 })
     }
+    ////////////////////////facebook//////////////////////////////////////
+    fun signUpFacebook(unhashedpass: String) {
+        if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {
+            toasmsg = ("You can't sign up if you offline")
+            SignUp_View!!.ShowToast(toasmsg)
+            return
+        }
+        dataBaseInstance.collection(user.usersCollectionName)
+                .whereEqualTo(user.userNameKey, newUser.get_userName())
+                .get()
+                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        println("Entered Complete Listener");
+                        if (p0.isSuccessful) {
+                            if (p0.result.isEmpty) {
+                                // getting empty documents ; here we should push our user to db :V
+                                println("No Document Data");
+                                var userData = HashMap<String, Any>();
+                                userData.put(user.userNameKey, newUser.get_userName());
+                                userData.put(user.imageKey, newUser.get_imageID());
+                                userData.put(user.passwordKey, newUser.get_password());
+                                userData.put(user.emailKey, newUser.get_email());
+                                userData.put(user.firstNameKey, newUser.get_firstName());
+                                userData.put(user.midNameKey, newUser.get_midName());
+                                userData.put(user.lastNameKey, newUser.get_lastName());
+                                userData.put(user.genderKey, newUser.get_gender());
+                                userData.put(user.phoneNumKey, newUser.get_phoneNum());
+                                userData.put(user.behaveRateKey, newUser.get_behaveRate());
+                                userData.put(user.birthDateKey, newUser.get_birthDate());
+                                toasmsg = "data will be uploaded in seconds please wait"
+                                SignIn_View!!.ShowToast(toasmsg)
+                                //SignIn_View!!.Signup()
+                                var task = dataBaseInstance.collection("user").document(newUser.get_userName())
+                                        .set(userData)
+                                TimeUnit.SECONDS.sleep(1)
+                                Login(newUser.get_userName(),unhashedpass)
+                            } else {
+                                println(p0.result.documents[0].data.toString());
+                                Login(newUser.get_userName(),unhashedpass)
+                            }
+                        }
+                    }
+                })
+    }
+    fun CreateNewUserFB(userName: String, eMail: String, password: String, passwordconfirm: String,
+                        firstName: String, midName: String, lastName: String, phoneNumber: String
+                        , birthDate: String, gender: String,unhashedpass:String) {
+        try {
+            newUser.CheckSet_userName(userName)
+            newUser.CheckSet_email(eMail)
+            newUser.CheckSet_password(password
+                    , passwordconfirm)
+            newUser.CheckSet_firstName(firstName)
+            newUser.CheckSet_midName(midName)
+            newUser.CheckSet_lastName(lastName)
+            newUser.CheckSet_phoneNum(phoneNumber)
+            newUser.CheckSet_birthDate(birthDate)
+            newUser.CheckSet_gender(gender)
+            if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext))
+                throw Exception("You can't sign up if you offline")
+
+            this.signUpFacebook(unhashedpass)
+        } catch (e: Exception) {
+            SignIn_View!!.ShowToast(e.message!!)
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////////
+
 
         fun checkBeforUpdate(NewFistName: String, NewMidName: String, NewLastName: String, NewGender: String,
                              NewEmail: String, NewPassword: String, NewMobile: String, NewBirthDate: String

@@ -13,4 +13,6 @@
     <string name="action_search">Search</string>
     <string name="action_delete">Delete</string>
     <string name="title_activity_upload_profile_image">UploadProfileImage</string>
+    <string name="facebook_app_id">655045528160400</string>
+    <string name="fb_login_protocol_scheme">fb655045528160400</string>
 </resources>

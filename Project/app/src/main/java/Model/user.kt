@@ -44,7 +44,7 @@ open class user() {
     }
     fun CheckSet_phoneNum(phNum:String){
         val regex=Regex("01[0-2][0-9]{8}")
-        require(phNum.matches(regex)) {"Error:wrong phone number format"}
+        if (!phNum.isEmpty())require(phNum.matches(regex)) {"Error:wrong phone number format"}
         phoneNum=phNum
     }
     fun CheckSet_firstName(fName:String){
@@ -69,10 +69,12 @@ open class user() {
         birthDate=bDate
     }
     fun CheckSet_gender(g:String){
-        if(g=="male"|| g=="female")
+        /*if(g=="male"|| g=="female")
             gender=g
+
         else
-            throw IllegalArgumentException("Error: only male or female accepted")
+            throw IllegalArgumentException("Error: only male or female accepted")*/
+        gender=g
     }
     fun Checkset_image(bm:Bitmap?){
         image=bm
