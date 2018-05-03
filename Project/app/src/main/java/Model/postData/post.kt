@@ -7,6 +7,7 @@ class post {
     var postContent: String = ""
     var postImage: String = ""
     var postTime: String = ""
+    var postID: String = ""
     var postType: String = ""
     var postOwnerImage: String = ""
     var postOwnerUserName: String = ""
@@ -35,6 +36,10 @@ class post {
     fun edittype(type:String)
     {
         postType = type;
+    }
+    fun editID(ID:String)
+    {
+        this.postID = ID
     }
 
 

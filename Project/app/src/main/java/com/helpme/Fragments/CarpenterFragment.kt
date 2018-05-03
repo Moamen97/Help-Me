@@ -1,5 +1,6 @@
 package com.helpme
 
+import Common.mySelf
 import Control.PostControl
 import Model.postData.post
 import Model.postData.postAdapter
@@ -48,6 +49,7 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         PostController.getPostsByType("Carpenter")
         PostController.getPostsByType("Mechanic")
         PostController.getPostsByType("Plumber")
+        PostController.getMyPosts()
         return view
     }
 

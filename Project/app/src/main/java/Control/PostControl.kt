@@ -1,5 +1,6 @@
 package Control
 
+import Common.mySelf
 import Utility.Utility
 import Model.postData.post
 import com.google.android.gms.tasks.OnCompleteListener
@@ -29,6 +30,8 @@ class PostControl  {
         getPostsByType("Mechanic")
         Posttypemap.put("Plumber", ArrayList())
         getPostsByType("Plumber")
+        Posttypemap.put("MyPosts", ArrayList())
+        getMyPosts()
     }
     companion object {
         private var instance: PostControl? = null
@@ -76,7 +79,9 @@ class PostControl  {
                                 var ptime = document.get("postTime").toString();
                                 var ptype = document.get("postType").toString();
                                 var temp = post(con, pimg, ptime, ptype, ArrayList(), oimg, ponme, col)
+                                temp.editID(document.id)
                                 Posttypemap.get(PostType)!!.add(temp)
+
                             }catch (e:Exception)
                             {}
                         }
@@ -85,7 +90,42 @@ class PostControl  {
                 }
             })
         }
-        fun editPost(Post:post , NewPost: post) {
+    fun getMyPosts() {
+        FirebaseFirestore.getInstance().collection("post").
+                whereEqualTo("postOwnerUserName",mySelf.get_userName())
+                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+            override fun onComplete(p0: Task<QuerySnapshot>) {
+                if (p0.isSuccessful) {
+                    Posttypemap.get("MyPosts")!!.clear();
+
+                    for (document: QueryDocumentSnapshot in p0.result) {
+                        println(document.id + " => " + document.data);
+                        try {
+                            var col = document.get("color").toString().toInt();
+                            var comm = document.get("comments");
+                            var con = document.get("postContent").toString();
+                            var pimg = document.get("postImage").toString();
+                            var oimg = document.get("postOwnerImage").toString();
+                            var ponme = document.get("postOwnerUserName").toString();
+                            var ptime = document.get("postTime").toString();
+                            var ptype = document.get("postType").toString();
+                            var temp = post(con, pimg, ptime, ptype, ArrayList(), oimg, ponme, col)
+                            temp.editID(document.id)
+                            Posttypemap.get("MyPosts")!!.add(temp)
+
+                        }catch (e:Exception)
+                        {}
+                    }
+
+                }
+            }
+        })
+    }
+
+
+
+
+    fun editPost(Post:post , NewPost: post) {
             dataBaseInstance.collection("posts_user_map")
                     .whereEqualTo("postContent", Post.postContent).
                     whereEqualTo("postTime",Post.postTime)
