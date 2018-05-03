@@ -94,6 +94,11 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         val actionBar = supportActionBar
         actionBar!!.elevation = 0f
+        val profile = Profile.getCurrentProfile()
+        if (profile != null) {
+            LoginManager.getInstance().logOut()
+
+        }
 
     }
 
