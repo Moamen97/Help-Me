@@ -25,11 +25,9 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Authentication.SignIn" />
         <activity android:name=".Authentication.SignUp" />
-        <activity android:name=".EditProfile.EditProfile" />
         <activity android:name=".EditProfile.MyProfile" />
-        <activity android:name=".EditProfile.EditProfile" />
         <activity android:name=".EditProfile.AddProfession" />
-        <activity android:name=".EditProfile.EditWorkshop" />
+        <activity android:name=".EditProfile.AddWorkShop" />
         <activity android:name=".AddPost" />
         <activity
             android:name=".Comment.ShowComments"
@@ -37,10 +35,12 @@
             android:label=""
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:screenOrientation="portrait"
             android:name=".UploadImages.UploadProfileImage"
             android:label="@string/title_activity_upload_profile_image"
-            android:theme="@style/AppTheme"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".MyPosts" />
+        <activity android:name=".MyPostsFrag"></activity>
     </application>
 
 </manifest>

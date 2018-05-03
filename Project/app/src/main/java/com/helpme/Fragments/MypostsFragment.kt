@@ -13,15 +13,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import java.util.ArrayList
 
 
-class CookingFragment : android.support.v4.app.Fragment() {
+class MypostsFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.engineer;
-    private var postList = arrayListOf<post>()
+    private var postList = ArrayList<post>()
     private var dialog: Dialog? = null;
-    private  var PostController:PostControl = PostControl.getInstance()
+    private var PostController:PostControl = PostControl.getInstance();
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,14 +28,14 @@ class CookingFragment : android.support.v4.app.Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater?.inflate(R.layout.cooking_fragment, container, false)
-
+        var view = inflater?.inflate(R.layout.activity_my_posts_frag, container, false)
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
+
         var adapter = postAdapter(this.context, postList, POST_TYPE)
         var mLayoutManager = GridLayoutManager(this.context, 1)
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
-        var templist = PostController.getlist("Cooking")
+        var templist = PostController.getlist("MyPosts")
         postList.clear()
         for (temp in templist)
         {
@@ -52,10 +51,8 @@ class CookingFragment : android.support.v4.app.Fragment() {
         PostController.getPostsByType("Mechanic")
         PostController.getPostsByType("Plumber")
         PostController.getMyPosts()
-
         return view
     }
-
 
 
     private fun getRandomMaterialColor(): Int {

@@ -28,16 +28,9 @@ import android.widget.Toast
 import Common.mySelf
 
 import com.helpme.Authentication.SignIn
-import com.helpme.CarpenterFragment
-import com.helpme.CookingFragment
-import com.helpme.DoctorFragment
 import com.helpme.EditProfile.AddProfession
 import com.helpme.EditProfile.MyProfile
-import com.helpme.EngineerFragment
 import com.helpme.Fragments.ViewPagerAdapter
-import com.helpme.MechanicFragment
-import com.helpme.PlumberFragment
-import com.helpme.R
 
 import java.text.SimpleDateFormat
 import java.util.ArrayList
@@ -46,6 +39,7 @@ import java.util.Date
 import Control.PostControl
 import Control.UserControl
 import Model.postData.post
+import com.helpme.*
 
 class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     internal var userName: TextView? = null
@@ -91,6 +85,8 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         adapter.addFragments(CookingFragment(), "Cooking")
         adapter.addFragments(PlumberFragment(), "Plumber")
         adapter.addFragments(MechanicFragment(), "Mechanic")
+        adapter.addFragments(MypostsFragment(), "MyPosts")
+
 
         // viewPager adapter set
         viewPager!!.adapter = adapter
@@ -239,6 +235,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             selectedButton.delete(0, selectedButton.length)
             selectedButton.append("Doctor")
         }
+
         postButton.setOnClickListener {
             val s = selectedButton.toString()
             val comments = ArrayList<String>()

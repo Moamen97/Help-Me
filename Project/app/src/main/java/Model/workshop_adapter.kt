@@ -11,16 +11,15 @@ import com.helpme.R
 /**
  * Created by Lenovo on 3/27/2018.
  */
-class workshopAdapter(var mContext: Context, var workshopList: ArrayList<WorkshopTestingVersion>,var listener: workshopListener) : RecyclerView.Adapter<workshopViewHolder>() {
+class workshopAdapter(var mContext: Context, var workshopList: ArrayList<Workshop>,var listener: workshopListener) : RecyclerView.Adapter<workshopViewHolder>() {
 
 
     override fun onBindViewHolder(holder: workshopViewHolder?, position: Int) {
-        var workshopToBind: WorkshopTestingVersion = workshopList[position];
+        var workshopToBind: Workshop = workshopList[position];
 
         holder?.WorkShopName?.setText(workshopToBind.workshopName);
         holder?.WorkShopLocation?.setText(workshopToBind.location);
         holder?.WorkShopPhoneNumber?.setText(workshopToBind.workshopPhoneNum);
-        holder?.WorkShopWorkingHours?.setText(workshopToBind.workingHours);
         holder?.addWorkShop?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 listener.onClicK(position)

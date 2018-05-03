@@ -26,7 +26,8 @@ class UserControl private constructor() {
     companion object {
         private var instance: UserControl? = null
         fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null
-                        , Home_View: home? = null, myProfileView: MyProfile? = null): UserControl {
+                        , Home_View: home? = null, myProfileView: MyProfile? = null
+                        ): UserControl {
             if (instance == null)
                 instance = UserControl()
             instance!!.setcurrentview(SignIn_View, SignUp_View, Home_View, myProfileView)
@@ -268,108 +269,6 @@ class UserControl private constructor() {
             }
         }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
 
-
-/*
-    fun UpdatePassword(NewPassword:String ,Oldpassword: String /*check*/)
-    {
-        if(User_Model!!.password != Oldpassword)
-        {
-            Toast.makeText(Current_Context, "Re-enter Old Password "
-                    , Toast.LENGTH_SHORT).show()
-            return
-        }
-        dataBaseInstance.collection("user")
-                .whereEqualTo("userName", User_Model!!.userName)
-                .get()
-                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                    override fun onComplete(p0: Task<QuerySnapshot>) {
-                        println("Entered Complete Listener");
-                        if (p0.isSuccessful) {
-                            if (!p0.result.isEmpty) {
-                                // getting non empty documents ; here we should update our user to db :V
-                                println("Found Document Data");
-                                var userData = HashMap<String, Any>();
-                                userData.put("password", NewPassword);
-
-                                dataBaseInstance.collection("user").document(User_Model!!.userName).
-                                        set(userData);
-                                Toast.makeText(Current_Context, "Password is updated successfully"
-                                        , Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            // Task is not Successfull ,, should be throw an exception
-                            println(p0.exception.toString());
-                        }
-                    }
-                })
-    }
-
-    fun UpdateImage(NewImage: String,password: String)
-    {
-        if(User_Model!!.password != password)
-        {
-            Toast.makeText(Current_Context, "Wrong Password"
-                    , Toast.LENGTH_SHORT).show()
-            return
-        }
-        dataBaseInstance.collection("user")
-                .whereEqualTo("userName", User_Model!!.userName)
-                .get()
-                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                    override fun onComplete(p0: Task<QuerySnapshot>) {
-                        println("Entered Complete Listener");
-                        if (p0.isSuccessful) {
-                            if (!p0.result.isEmpty) {
-                                // getting non empty documents ; here we should update our user to db :V
-                                println("Found Document Data");
-                                var userData = HashMap<String, Any>();
-                                userData.put("image", NewImage);
-
-                                dataBaseInstance.collection("user").document(User_Model!!.userName).
-                                        set(userData);
-                                Toast.makeText(Current_Context, "Image is updated successfully"
-                                        , Toast.LENGTH_SHORT).show();
-
-                            }
-                        } else {
-                            // Task is not Successfull ,, should be throw an exception
-                            println(p0.exception.toString());
-                        }
-                    }
-                })
-    }
-*/
-/*
-fun UpdateRate(RatedUserName:String,NewRate:Integer) {
-    dataBaseInstance.collection("user")
-            .whereEqualTo("userName", RatedUserName)
-            .get()
-            .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                override fun onComplete(p0: Task<QuerySnapshot>) {
-                    println("Entered Complete Listener");
-                    if (p0.isSuccessful) {
-                        if (!p0.result.isEmpty) {
-                            // getting non empty documents ; here we should update our user to db :V
-                            println("Found Document Data");
-                            var userData = HashMap<String, Any>();
-                            var Rate = p0.result.documents[0].get("behav_rate").toString().toLong()
-                            Rate = (Rate + NewRate.toLong())/5 //todo
-                            userData.put("behav_rate",Rate);
-
-                            dataBaseInstance.collection("user").document(RatedUserName).
-                                    set(userData);
-                            Toast.makeText(Current_Context, "Rate is updated successfully"
-                                    , Toast.LENGTH_SHORT).show();
-
-                        }
-                    } else {
-                        // Task is not Successfull ,, should be throw an exception
-                        println(p0.exception.toString());
-                    }
-                }
-            })
-}*/
     }
 
