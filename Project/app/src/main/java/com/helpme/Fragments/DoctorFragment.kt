@@ -42,6 +42,8 @@ class DoctorFragment : android.support.v4.app.Fragment() {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
+        fun selector(p:post): Int = p.postRate
+        postList.sortByDescending { selector(it) }
         recyclerView?.adapter = adapter;
         PostController.getPostsByType("Doctor")
         PostController.getPostsByType("Engineer")

@@ -57,6 +57,7 @@ class PostControl  {
             PostData.put("postOwnerUserName", NewPost.postOwnerUserName);
             PostData.put("postTime", NewPost.postTime);
             PostData.put("postType", NewPost.postType);
+            PostData.put("postRate",NewPost.postRate);
             dataBaseInstance.collection("post").add(PostData);
         }
         fun getPostsByType(PostType:String) {
@@ -78,7 +79,8 @@ class PostControl  {
                                 var ponme = document.get("postOwnerUserName").toString();
                                 var ptime = document.get("postTime").toString();
                                 var ptype = document.get("postType").toString();
-                                var temp = post(con, pimg, ptime, ptype, ArrayList(), oimg, ponme, col)
+                                var pRate = document.get("postRate").toString().toInt();
+                                var temp = post(con, pimg, ptime, ptype, ArrayList(), oimg, ponme, col,pRate)
                                 temp.editID(document.id)
                                 Posttypemap.get(PostType)!!.add(temp)
 
@@ -140,6 +142,7 @@ class PostControl  {
                                 PostData.put("postImage", NewPost.postImage);
                                 PostData.put("postTime", NewPost.postTime);
                                 PostData.put("postType", NewPost.postType);
+                                PostData.put("postRate",NewPost.postRate)
                                 dataBaseInstance.collection("posts_user_map")
                                         .document(NewPost.postContent).update(PostData);
                             } else {

@@ -12,10 +12,10 @@ class post {
     var postOwnerImage: String = ""
     var postOwnerUserName: String = ""
     var color: Int = -1
-
+    var postRate=0
     constructor()
 
-    constructor(postContent: String, postImage: String, postTime: String, postType: String, comments: ArrayList<String>, postOwnerImage: String = "", postOwnerUserName: String = "", color: Int = -1) {
+    constructor(postContent: String, postImage: String, postTime: String, postType: String, comments: ArrayList<String>, postOwnerImage: String = "", postOwnerUserName: String = "", color: Int = -1,postRate:Int =0) {
         this.comments = comments
         this.postContent = postContent
         this.postImage = postImage
@@ -24,6 +24,7 @@ class post {
         this.color = color
         this.postOwnerImage = postOwnerImage
         this.postOwnerUserName = postOwnerUserName
+        this.postRate=postRate
     }
 
     constructor(Post: post) {
@@ -32,6 +33,7 @@ class post {
         this.postImage = Post.postImage
         this.postTime = Post.postTime
         this.postType = Post.postType
+        this.postRate=postRate
     }
     fun edittype(type:String)
     {
