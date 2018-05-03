@@ -157,15 +157,38 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
         addFeedbackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UserControl userControl = UserControl.Companion.getInstance(null, null, null, null);
                 Calendar calander = Calendar.getInstance();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
                 String timestamp = simpleDateFormat.format(calander.getTime());
                 String message = commentContent.getText().toString();
-                String from = UserControl.Companion.getInstance(null, null, null, null).getUser().get_userName();
+                user User = userControl.getUser();
+                String from = User.get_userName();
                 String userImage = "";
                 Feedback feedback = new Feedback(userImage, from, message, timestamp, false, rate[0]);
                 FeedbackControl.Companion.addFeedback(feedback, ShowFeedbacks.this);
-                user User = UserControl.Companion.getInstance(null, null, null, null).getUser();
+                switch (rate[0]) {
+                    case "0":
+                        userControl.updateBehaviourRate(User.get_behaveRate());
+                        break;
+                    case "1":
+                        userControl.updateBehaviourRate((User.get_behaveRate() + 1) / 2);
+                        break;
+                    case "2":
+                        userControl.updateBehaviourRate((User.get_behaveRate() + 2) / 2);
+                        break;
+                    case "3":
+                        userControl.updateBehaviourRate((User.get_behaveRate() + 3) / 2);
+                        break;
+                    case "4":
+                        userControl.updateBehaviourRate((User.get_behaveRate() + 4) / 2);
+                        break;
+                    case "5":
+                        userControl.updateBehaviourRate((User.get_behaveRate() + 5) / 2);
+                        break;
+                    default:
+                        break;
+                }
                 feedback.setFrom(User.get_firstName() + " " + User.get_midName() + " " + User.get_lastName());
                 feedbacks.add(feedback);
                 mAdapter.notifyDataSetChanged();

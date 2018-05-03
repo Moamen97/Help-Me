@@ -34,6 +34,7 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         holder?.postOwnerUserName?.text = postToBind.postOwnerUserName
         holder?.showCommentsButton?.setOnClickListener {
             mySelf.currentPostId = postList[position].postID
+            mySelf.postOwner = postList[position].postOwnerUserName
             val intent: Intent = Intent(mContext, ShowFeedbacks::class.java)
             mContext.startActivity(intent)
 

@@ -96,8 +96,7 @@ class PostControl  {
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
-                    Posttypemap.get("MyPosts")!!.clear();
-
+                    Posttypemap.get("MyPosts")!!.clear()
                     for (document: QueryDocumentSnapshot in p0.result) {
                         println(document.id + " => " + document.data);
                         try {

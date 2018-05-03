@@ -36,6 +36,12 @@ class UserControl private constructor() {
         }
     } //Singleton
 
+    fun updateBehaviourRate(behav_rate: Int) {
+        dataBaseInstance.collection("user").document(mySelf.postOwner)
+                .update("behav_rate", behav_rate)
+                .addOnSuccessListener { println("behave rate Successfully updated") }
+                .addOnFailureListener { println("Error while updating rate") }
+    }
 
     fun getUserByUserName(userName: String): StringBuilder {
         val s = StringBuilder()

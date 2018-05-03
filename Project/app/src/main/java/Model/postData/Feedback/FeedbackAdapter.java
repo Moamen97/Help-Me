@@ -81,7 +81,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
         // handle comment mood
         //applyImportant(holder, message);
 
-        applyRate(holder, message);
+//        applyRate(holder, message);
         // handle icon animation
         applyIconAnimation(holder, position);
 
@@ -162,12 +162,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
 
     private void applyProfilePicture(FeedbackViewHolder holder, Feedback Comment) {
         if (!TextUtils.isEmpty(Comment.getUserImage())) {
-            Glide.with(mContext).load(Comment.getUserImage())
-                    .thumbnail(0.5f)
-                    .crossFade()
-                    .transform(new CircleTransform(mContext))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.getImgProfile());
+            Glide.with(mContext).load(Comment.getUserImage()).thumbnail(0.5f).crossFade().transform(new CircleTransform(mContext)).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.getImgProfile());
             holder.getImgProfile().setColorFilter(null);
             holder.getIconText().setVisibility(View.GONE);
         } else {
@@ -303,8 +298,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
     }
 
     public List<Integer> getSelectedItems() {
-        List<Integer> items =
-                new ArrayList<>(selectedItems.size());
+        List<Integer> items = new ArrayList<>(selectedItems.size());
         for (int i = 0; i < selectedItems.size(); i++) {
             items.add(selectedItems.keyAt(i));
         }

@@ -15,7 +15,7 @@ import java.io.ByteArrayOutputStream
 
 public object mySelf : Model.user() {
     var currentPostId: String = ""
-
+    var postOwner: String = ""
     fun loadMyself(uName: String): Boolean {
         userName = uName
         var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/$uName").get()
