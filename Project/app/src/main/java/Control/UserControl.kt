@@ -242,7 +242,7 @@ class UserControl private constructor() {
                         , birthDate: String, gender: String, unhashedpass: String) {
         try {
             newUser.CheckSet_userName(userName)
-            newUser.CheckSet_email(eMail)
+            newUser.eMail = eMail
             newUser.CheckSet_password(password
                     , passwordconfirm)
             newUser.CheckSet_firstName(firstName)

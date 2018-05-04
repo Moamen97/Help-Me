@@ -9,7 +9,7 @@ import java.util.*
 open class user() {
     protected var userName: String = ""
     protected var password: String = ""
-    protected var eMail: String = ""
+    var eMail: String = ""
     protected var phoneNum: String = ""
     protected var firstName: String = ""
     protected var midName: String = ""

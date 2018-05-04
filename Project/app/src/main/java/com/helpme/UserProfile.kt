@@ -35,7 +35,7 @@ class UserProfile : AppCompatActivity() {
         wloc.text = "WorkShop Location : "+WorkShopController.WorkShop!!.location
         wname.text = "WorkShop Name : "+WorkShopController.WorkShop!!.workshopName
         wnum.text = "WorkShop Phone : "+WorkShopController.WorkShop!!.workshopPhoneNum
-        wprof.text = "WorkShop Location : "+WorkShopController.WorkShop!!.profession
+        wprof.text = "WorkShop Profession : "+WorkShopController.WorkShop!!.profession
         PostController.getPostOfWS()
 
     }

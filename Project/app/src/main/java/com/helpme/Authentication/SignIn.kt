@@ -54,6 +54,7 @@ class SignIn : AppCompatActivity() {
         //facebook button
         login_button.setOnClickListener {
             faceBookInitialize()
+
         }
     }
 
