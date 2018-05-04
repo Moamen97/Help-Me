@@ -190,6 +190,8 @@ class UserControl private constructor() {
                 })
     }
 
+
+
     ////////////////////////facebook//////////////////////////////////////
     fun signUpFacebook(unhashedpass: String) {
         if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {

@@ -49,12 +49,6 @@ class SignIn : AppCompatActivity() {
         callbackmanager = CallbackManager.Factory.create()
         ///////////////////////////////////////////////////
         setContentView(R.layout.activity_sign_in)
-        PostController.getPostsByType("Doctor")
-        PostController.getPostsByType("Engineer")
-        PostController.getPostsByType("Cooking")
-        PostController.getPostsByType("Carpenter")
-        PostController.getPostsByType("Mechanic")
-        PostController.getPostsByType("Plumber")
         //startMagic()
         /////////////////////////////////////////////////
         //facebook button

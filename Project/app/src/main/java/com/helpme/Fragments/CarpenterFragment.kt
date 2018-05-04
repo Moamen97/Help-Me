@@ -5,6 +5,7 @@ import Control.PostControl
 import Model.postData.post
 import Model.postData.postAdapter
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.helpme.Home.home
 
 
 class CarpenterFragment : android.support.v4.app.Fragment() {
@@ -51,6 +53,8 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         PostController.getPostsByType("Carpenter")
         PostController.getPostsByType("Mechanic")
         PostController.getPostsByType("Plumber")
+        PostController.getMyPosts()
+
         return view
     }
 

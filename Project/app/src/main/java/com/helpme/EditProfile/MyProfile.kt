@@ -38,8 +38,8 @@ class MyProfile : AppCompatActivity() {
 
         // imageAbb.text = firstname[0].toUpperCase().toString()
         personName.text = "Name : " + firstname + " " + midname + " " + lastname
-        personNoOfPosts.text = n_of_posts
-        personRate.text = rate
+        //personNoOfPosts.text = n_of_posts
+        //personRate.text = rate
         var bm = mySelf.get_image()
         if (bm != null)
             userImage.setImageBitmap(bm)

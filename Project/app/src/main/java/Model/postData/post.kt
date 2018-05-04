@@ -16,7 +16,7 @@ class post {
     constructor()
 
     constructor(OwnerFName:String , postType: String, comments: ArrayList<String>, postOwnerImage: String = "", postOwnerUserName: String = "", color: Int = -1,postRate:Int =0,postlocation:String,
-    postname:String) {
+    postname:String,postID:String) {
         this.comments = comments
         this.postType = postType
         this.color = color
@@ -26,6 +26,7 @@ class post {
         this.postRate=postRate
         this.postlocation = postlocation
         this.postname = postname
+        this.postID = postID
     }
 
     constructor(Post: post) {
@@ -36,16 +37,9 @@ class post {
         this.postOwnerUserName = Post.postOwnerUserName
         this.OwnerFName = Post.OwnerFName
         this.postRate=Post.postRate
-        this.postname = postname
-        this.postlocation = postlocation
-    }
-    fun edittype(type:String)
-    {
-        postType = type;
-    }
-    fun editID(ID:String)
-    {
-        this.postID = ID
+        this.postname = Post.postname
+        this.postlocation = Post.postlocation
+        this.postID = Post.postID
     }
 
 

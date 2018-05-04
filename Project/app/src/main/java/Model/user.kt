@@ -5,9 +5,7 @@ import com.google.android.gms.tasks.Task
 import com.helpme.R.id.*
 import java.util.*
 
-/**
- * Created by shehab on 3/29/18.
- */
+
 open class user() {
     protected var userName: String = ""
     protected var password: String = ""
@@ -65,14 +63,13 @@ open class user() {
                 -
                 bDate.split("/")[2].toInt())
                 > 12)
-                ) {"Error:you should at least 12 years old"}
-        birthDate=bDate}
+        ) {"Error:you should at least 12 years old"}
+            birthDate=bDate}
         else birthDate=bDate
     }
     fun CheckSet_gender(g:String){
         /*if(g=="male"|| g=="female")
             gender=g
-
         else
             throw IllegalArgumentException("Error: only male or female accepted")*/
         gender=g
@@ -111,4 +108,3 @@ open class user() {
         val userStorageImageFolder:String ="users_images"
     }
 }
-

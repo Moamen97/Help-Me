@@ -45,7 +45,7 @@ import com.facebook.login.LoginManager
 import com.helpme.*
 import kotlinx.android.synthetic.main.message_list_row.view.*
 
-class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class UserPosts : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     internal var userName: TextView? = null
     internal var recycleMenu: RecyclerView? = null
     internal var layoutManager: RecyclerView.LayoutManager? = null
@@ -53,7 +53,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private val appBarLayout: AppBarLayout? = null
     private var viewPager: ViewPager? = null
     private var dialog: Dialog? = null
-    private val UserController = UserControl.getInstance(null, null, this, null)
+    private val UserController = UserControl.getInstance(null, null, null, null)
     private val PostController = PostControl.getInstance(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,13 +84,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         // adding fragments;
         val adapter = ViewPagerAdapter(supportFragmentManager)
 
-        adapter.addFragments(DoctorFragment(), "Doctor")
-        adapter.addFragments(EngineerFragment(), "Engineer")
-        adapter.addFragments(CarpenterFragment(), "Carpenter")
-        adapter.addFragments(CookingFragment(), "Cooking")
-        adapter.addFragments(PlumberFragment(), "Plumber")
-        adapter.addFragments(MechanicFragment(), "Mechanic")
-        adapter.addFragments(MypostsFragment(), "MyPosts")
+        adapter.addFragments(MypostsFragment(), "Owner Posts")
 
 
 
@@ -106,13 +100,6 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         }
 
-    }
-
-    override fun onBackPressed() {
-        val intent = Intent(Intent.ACTION_MAIN)
-        intent.addCategory(Intent.CATEGORY_HOME)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

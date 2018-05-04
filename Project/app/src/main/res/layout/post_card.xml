@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Home.home"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -79,6 +80,7 @@
                 android:inputType="textMultiLine"
                 android:maxLines="6"
                 android:minLines="3"
+                android:onClick="ShowProfile"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:paddingTop="@dimen/album_title_padding"
@@ -107,7 +109,7 @@
                 android:background="@drawable/rounded_white"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="5dp"
-                android:text="Show Comments ...."
+                android:text="Reviews ...."
                 android:textAlignment="viewStart"
                 android:textColor="@color/md_grey_600"
                 android:textSize="10sp" />

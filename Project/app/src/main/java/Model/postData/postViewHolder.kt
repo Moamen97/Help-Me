@@ -26,5 +26,7 @@ class postViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         postOwnerImage = view.findViewById(R.id.postOwnerImage)
         postOwnerFName = view.findViewById(R.id.postOwner)
         postlocation = view.findViewById(R.id.postlocation)
+
     }
+
 }
