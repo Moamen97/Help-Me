@@ -1,17 +1,19 @@
 package Control
 
+import Common.mySelf
 import Model.Workshop
+import Model.postData.post
 import Utility.Utility
 import com.google.android.gms.tasks.*
 import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.EditProfile.AddWorkShop
 import java.util.*
+import kotlin.collections.ArrayList
 
 class WorkShopControl private constructor() {
     private var AddWShop_View: AddWorkShop? = null
     private var dataBaseInstance = Utility.fireStoreHandler
-    private var toasmsg: String = ""
-
+    private var PostController = PostControl.getInstance()
     companion object {
         private var instance: WorkShopControl? = null
         fun getInstance(AddWShop: AddWorkShop? = null): WorkShopControl {
@@ -35,7 +37,10 @@ class WorkShopControl private constructor() {
         wshopData.put("Profession", NewWS.profession);
         wshopData.put("Phone", NewWS.workshopPhoneNum);
         dataBaseInstance.collection("WorkShop").add(wshopData);
-         }
+        var NewPost = post(mySelf.get_firstName()+" "+mySelf.get_midName()+" "+mySelf.get_lastName(),NewWS.profession, ArrayList(),""
+        ,mySelf.get_userName(),-1)
+        PostController.addPost(NewPost)
+    }
 
 }
 

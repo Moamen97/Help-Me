@@ -61,14 +61,15 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         setSupportActionBar(toolbar)
         toolbar.title = "Posts"
         dialog = Dialog(this)
-        val fab = findViewById<View>(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { showAddPostFragment() }
+        /* val fab = findViewById<View>(R.id.fab) as FloatingActionButton
+         fab.setOnClickListener { showAddPostFragment() }*/
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
+
 
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
@@ -87,7 +88,6 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         adapter.addFragments(CookingFragment(), "Cooking")
         adapter.addFragments(PlumberFragment(), "Plumber")
         adapter.addFragments(MechanicFragment(), "Mechanic")
-        adapter.addFragments(MypostsFragment(), "MyPosts")
 
 
         // viewPager adapter set
@@ -158,7 +158,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     fun ShowToast(toastMsg: String) {
         Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
     }
-
+/*
     fun showAddPostFragment() {
         dialog!!.setContentView(R.layout.add_post)
         val postContent = dialog!!.findViewById<EditText>(R.id.postContent)
@@ -286,6 +286,6 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             }
         }
 
-    }
+    }*/
 
 }

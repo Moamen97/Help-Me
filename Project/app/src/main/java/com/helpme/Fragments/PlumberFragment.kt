@@ -49,7 +49,6 @@ class PlumberFragment : android.support.v4.app.Fragment() {
         PostController.getPostsByType("Carpenter")
         PostController.getPostsByType("Mechanic")
         PostController.getPostsByType("Plumber")
-        PostController.getMyPosts()
 
         return view
     }

@@ -30,9 +30,9 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
 
     override fun onBindViewHolder(holder: postViewHolder, position: Int) {
         var postToBind: post = postList[position];
-        holder?.postContent?.text = postToBind.postContent;
+        holder?.postRate?.text = postToBind.postRate.toString()
         holder?.postType?.setImageResource(postType);
-        holder?.postOwnerUserName?.text = postToBind.postOwnerUserName
+        holder?.postOwnerFName?.text = postToBind.OwnerFName
         holder?.showCommentsButton?.setOnClickListener {
             mySelf.currentPostId = postList[position].postID
             mySelf.postOwner = postList[position].postOwnerUserName
@@ -42,17 +42,17 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         }
         holder?.itemView?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                Snackbar.make(holder.view, postToBind.postContent, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(holder.view, postToBind.postRate, Snackbar.LENGTH_SHORT).show()
             }
         })
         holder?.postImage?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                Snackbar.make(holder.view, postToBind.postContent, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(holder.view, postToBind.postRate, Snackbar.LENGTH_SHORT).show()
             }
         })
         applyProfilePicture(holder!!, postToBind)
         // dh by3mel load ll post cover using Glide library gamed f45
-        Glide.with(mContext).load(postToBind.postImage).into(holder?.postImage);
+        //   Glide.with(mContext).load(postToBind.postImage).into(holder?.postImage);
     }
 
     private fun applyProfilePicture(holder: postViewHolder, Post: post) {
