@@ -57,8 +57,8 @@ class PostControl  {
             PostData.put("postOwnerUserName", NewPost.postOwnerUserName);
             PostData.put("postTime", NewPost.postTime);
             PostData.put("postType", NewPost.postType);
-            PostData.put("postRate",NewPost.postRate);
-            dataBaseInstance.collection("post").add(PostData);
+            PostData.put("postRate",NewPost.postRate)
+            dataBaseInstance.collection("post").add(PostData)
         }
         fun getPostsByType(PostType:String) {
             FirebaseFirestore.getInstance().collection("post").

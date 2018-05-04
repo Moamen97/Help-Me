@@ -27,7 +27,6 @@ class FeedbackControl private constructor() {
             return instance!!
         }
 
-
         fun addFeedback(feedback: Feedback, showFeedbacks: ShowFeedbacks) {
             FeedbackControl.dataBaseInstance.collection("post").document(mySelf.currentPostId).collection("feedbacks")
                     .add(feedback)
@@ -59,6 +58,7 @@ class FeedbackControl private constructor() {
                                                     document.get("firstName") as String,
                                                     document.get("midName") as String,
                                                     document.get("lastName") as String)
+                                            feedback.feedbackId = document.id
                                             getFeedbacksList().add(feedback)
                                             mySelf.hashMap[mySelf.currentPostId]!!.add(feedback)
                                             println("Document whose data => " + document.data.toString())
@@ -108,5 +108,17 @@ class FeedbackControl private constructor() {
             }
         }
     } //Singleton
+
+    fun removeFeedback(feedbackId: String, showFeedbacks: ShowFeedbacks) {
+        FeedbackControl
+                .dataBaseInstance
+                .collection("post")
+                .document(mySelf.currentPostId)
+                .collection("feedbacks")
+                .document(feedbackId)
+                .delete()
+                .addOnSuccessListener { showFeedbacks.toastMessage("feedback/s have been deleted") }
+                .addOnFailureListener { showFeedbacks.toastMessage("error while deleting feedback") }
+    }
 
 }

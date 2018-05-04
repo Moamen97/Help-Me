@@ -213,6 +213,7 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
 
         for (int i = 0; i < tempList.size(); ++i) {
             feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate(), tempList.get(i).getFirstName(), tempList.get(i).getMidName(), tempList.get(i).getLastName()));
+            feedbacks.get(feedbacks.size() - 1).setFeedbackId(tempList.get(i).getFeedbackId());
             mAdapter.notifyDataSetChanged();
         }
         swipeRefreshLayout.setRefreshing(false);

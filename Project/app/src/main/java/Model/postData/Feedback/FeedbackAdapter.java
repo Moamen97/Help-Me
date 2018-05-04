@@ -25,6 +25,7 @@ import java.util.List;
 
 import com.helpme.Comment.ShowFeedbacks;
 
+import Control.FeedbackControl;
 import Model.Magic.CircleTransform;
 import Model.Magic.FlipAnimator;
 
@@ -37,7 +38,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
     // array used to perform multiple animation at once
     private SparseBooleanArray animationItemsIndex = new SparseBooleanArray();
     private boolean reverseAllAnimations = false;
-
+    private FeedbackControl feedbackControl = FeedbackControl.Companion.getInstance(0);
     // index is used to animate only the selected row
     // dirty fix, find a better solution
     private static int currentSelectedIndex = -1;
@@ -310,6 +311,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
     }
 
     public void removeData(int position) {
+        feedbackControl.removeFeedback(comments.get(position).getFeedbackId(), (ShowFeedbacks) mContext);
         comments.remove(position);
         resetCurrentIndex();
     }

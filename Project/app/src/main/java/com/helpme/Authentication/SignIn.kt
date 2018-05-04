@@ -27,25 +27,25 @@ import java.util.*
 
 class SignIn : AppCompatActivity() {
     //facebook info
-    var SfacebookID=""
-    var Sfname=""
-    var Smname=""
-    var Slname=""
-    var Semail=""
-    var Surl=""
-    var Sbirthday=""
+    var SfacebookID = ""
+    var Sfname = ""
+    var Smname = ""
+    var Slname = ""
+    var Semail = ""
+    var Surl = ""
+    var Sbirthday = ""
     //facebook configuration
-    var callbackmanager: CallbackManager?=null
+    var callbackmanager: CallbackManager? = null
     /*
     By Mohamed
     */
     val UserController: UserControl = UserControl.getInstance(this)
-    val PostController:PostControl = PostControl.getInstance()
+    val PostController: PostControl = PostControl.getInstance()
     //////////////////////////////////////add_post////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //facebook Configuration
-        callbackmanager=CallbackManager.Factory.create()
+        callbackmanager = CallbackManager.Factory.create()
         ///////////////////////////////////////////////////
         setContentView(R.layout.activity_sign_in)
         PostController.getPostsByType("Doctor")
@@ -61,8 +61,8 @@ class SignIn : AppCompatActivity() {
             faceBookInitialize()
         }
     }
-    fun faceBookInitialize()
-    {
+
+    fun faceBookInitialize() {
 
         login_button.setReadPermissions("email")
         login_button.setReadPermissions("user_photos")
@@ -102,8 +102,8 @@ class SignIn : AppCompatActivity() {
                         if (`object`.has("birthday")) {
                             Sbirthday = `object`.getString("birthday")
                         }
-                        UserController.CreateNewUserFB("$SfacebookID", "$Semail", Sfname+Smname+Slname+Sfname, Sfname+Smname+Slname+Sfname,
-                                "$Sfname", "$Smname", "$Slname", "", "$Sbirthday", "",Sfname+Smname+Slname+Sfname)
+                        UserController.CreateNewUserFB("$SfacebookID", "$Semail", Sfname + Smname + Slname + Sfname, Sfname + Smname + Slname + Sfname,
+                                "$Sfname", "$Smname", "$Slname", "", "$Sbirthday", "", Sfname + Smname + Slname + Sfname)
                         signInBtn.isEnabled = false
                         signUpBtn.isEnabled = false
                         login_button.isEnabled = false
@@ -111,8 +111,8 @@ class SignIn : AppCompatActivity() {
                         buttonTimer.schedule(object : TimerTask() {
                             override fun run() {
                                 runOnUiThread {
-                                    signInBtn.isEnabled=true
-                                    signUpBtn.isEnabled=true
+                                    signInBtn.isEnabled = true
+                                    signUpBtn.isEnabled = true
                                     login_button.isEnabled = true
                                 }
                             }
@@ -142,6 +142,7 @@ class SignIn : AppCompatActivity() {
             }
         })
     }
+
     fun btnSignUpClick(view: View) {
         val intent = Intent(this@SignIn, SignUp::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -156,8 +157,8 @@ class SignIn : AppCompatActivity() {
         buttonTimer.schedule(object : TimerTask() {
             override fun run() {
                 runOnUiThread {
-                    signInBtn.isEnabled=true
-                    signUpBtn.isEnabled=true
+                    signInBtn.isEnabled = true
+                    signUpBtn.isEnabled = true
                 }
             }
         }, 2000)
@@ -167,11 +168,12 @@ class SignIn : AppCompatActivity() {
         );
 
     }
+
     //added functions by mohamed start here
     fun LogIn() {
         val intent = Intent(this, home::class.java)
-       // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-      //  intent.putExtra("EXIT", true)
+        // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        //  intent.putExtra("EXIT", true)
         startActivity(intent)
     }
 
@@ -183,7 +185,7 @@ class SignIn : AppCompatActivity() {
         val face = Typeface.createFromAsset(assets, "Fonts/Nabila.ttf");
         val linearLayoutPanel = findViewById<LinearLayout>(R.id.singInPanel)
         val logo = findViewById<TextView>(R.id.Logo)
-        logo.typeface = face;
+        logo.typeface = face
         val textViewAnimation: Animation = AnimationUtils.loadAnimation(this.applicationContext, R.anim.sequential)
         val linearLayoutAnimation: Animation = AnimationUtils.loadAnimation(this.applicationContext, R.anim.slide_down)
         linearLayoutPanel.animation = linearLayoutAnimation
@@ -205,6 +207,7 @@ class SignIn : AppCompatActivity() {
         imm!!.hideSoftInputFromWindow(view.windowToken, 0)
         return true
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         callbackmanager?.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
