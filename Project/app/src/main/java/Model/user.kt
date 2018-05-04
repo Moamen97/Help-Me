@@ -61,12 +61,13 @@ open class user() {
         lastName=lName
     }
     fun CheckSet_birthDate(bDate:String){
-        require(((Calendar.getInstance().get(Calendar.YEAR)
+        if (bDate!=""){require(((Calendar.getInstance().get(Calendar.YEAR)
                 -
                 bDate.split("/")[2].toInt())
                 > 12)
                 ) {"Error:you should at least 12 years old"}
-        birthDate=bDate
+        birthDate=bDate}
+        else birthDate=bDate
     }
     fun CheckSet_gender(g:String){
         /*if(g=="male"|| g=="female")
