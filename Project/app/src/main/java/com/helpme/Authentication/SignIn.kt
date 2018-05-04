@@ -3,6 +3,7 @@ package com.helpme.Authentication
 //import Model.Functionalities
 import Control.PostControl
 import Control.UserControl
+import Model.postData.post
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface

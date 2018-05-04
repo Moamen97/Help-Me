@@ -38,7 +38,7 @@ class WorkShopControl private constructor() {
         wshopData.put("Phone", NewWS.workshopPhoneNum);
         dataBaseInstance.collection("WorkShop").add(wshopData);
         var NewPost = post(mySelf.get_firstName()+" "+mySelf.get_midName()+" "+mySelf.get_lastName(),NewWS.profession, ArrayList(),""
-        ,mySelf.get_userName(),-1)
+        ,mySelf.get_userName(),-1,0,NewWS.location,NewWS.workshopName)
         PostController.addPost(NewPost)
     }
 

@@ -1,6 +1,7 @@
 package com.helpme.EditProfile
 
 import Common.mySelf
+import Control.PostControl
 import Control.WorkShopControl
 import Model.Workshop
 import Model.workshopAdapter
@@ -41,6 +42,17 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
             ListOFWorkshops.add(Workshop("", "", "","", ""))
         }
     }
+
+    override fun onBackPressed() {
+        var PostController = PostControl.getInstance()
+        PostController.getPostsByType("Doctor")
+        PostController.getPostsByType("Engineer")
+        PostController.getPostsByType("Cooking")
+        PostController.getPostsByType("Carpenter")
+        PostController.getPostsByType("Mechanic")
+        PostController.getPostsByType("Plumber")
+        super.onBackPressed()
+    }
     fun btnAddWorkShop(view: View)
     {
         var wname:String = (findViewById<(AutoCompleteTextView)>(R.id.WorkShopNameEditText)).text.toString();
@@ -66,6 +78,13 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
         var NewWorkShop = Workshop(wloc,wname,wnum,wprof,oname);
         WorkshopController.AddWorkShop(NewWorkShop);
         Toast.makeText(this,"Done", Toast.LENGTH_LONG).show();
+        var PostController = PostControl.getInstance()
+        PostController.getPostsByType("Doctor")
+        PostController.getPostsByType("Engineer")
+        PostController.getPostsByType("Cooking")
+        PostController.getPostsByType("Carpenter")
+        PostController.getPostsByType("Mechanic")
+        PostController.getPostsByType("Plumber")
     }
 
 }

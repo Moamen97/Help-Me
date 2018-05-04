@@ -9,20 +9,22 @@ import com.helpme.R
 import kotlinx.android.synthetic.main.post_card.view.*
 
 class postViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
-    var postRate: TextView? = null
+    var postname: TextView? = null
     var postImage: ImageView? = null
     var postType: ImageView? = null
     var showCommentsButton: Button? = null
     var postOwnerImage: ImageView? = null
     var postOwnerFName: TextView? = null
+    var postlocation: TextView? = null
 
     // Ta7ya Masr :V
     init {
-        postRate = view.findViewById(R.id.post_content)
+        postname = view.findViewById(R.id.post_content)
         postImage = view.findViewById(R.id.post_image)
         postType = view.findViewById(R.id.post_type)
         showCommentsButton = view.findViewById(R.id.showComments)
         postOwnerImage = view.findViewById(R.id.postOwnerImage)
         postOwnerFName = view.findViewById(R.id.postOwner)
+        postlocation = view.findViewById(R.id.postlocation)
     }
 }

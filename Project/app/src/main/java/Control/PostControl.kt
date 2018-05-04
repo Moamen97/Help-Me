@@ -55,6 +55,10 @@ class PostControl {
         PostData.put("postOwnerUserName", NewPost.postOwnerUserName);
         PostData.put("postOwnerFName", NewPost.OwnerFName);
         PostData.put("postType", NewPost.postType);
+        PostData.put("postLocation", NewPost.postlocation);
+        PostData.put("postName", NewPost.postname);
+
+
         dataBaseInstance.collection("post").add(PostData);
     }
 
@@ -76,7 +80,9 @@ class PostControl {
                             var oimg = document.get("postOwnerImage").toString()
                             var pounme = document.get("postOwnerUserName").toString();
                             var ptype = document.get("postType").toString();
-                            var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate)
+                            var ploc = document.get("postLocation").toString();
+                            var pnme = document.get("postName").toString();
+                            var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme)
                             temp.editID(document.id)
                             Posttypemap.get(PostType)!!.add(temp)
 

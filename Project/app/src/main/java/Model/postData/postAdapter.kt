@@ -30,7 +30,8 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
 
     override fun onBindViewHolder(holder: postViewHolder, position: Int) {
         var postToBind: post = postList[position];
-        holder?.postRate?.text = postToBind.postRate.toString()
+        holder?.postname?.text = postToBind.postname.toString()
+        holder?.postlocation?.text = postToBind.postlocation.toString()
         holder?.postType?.setImageResource(postType);
         holder?.postOwnerFName?.text = postToBind.OwnerFName
         holder?.showCommentsButton?.setOnClickListener {
@@ -42,12 +43,12 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         }
         holder?.itemView?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                Snackbar.make(holder.view, postToBind.postRate, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(holder.view, postToBind.postname, Snackbar.LENGTH_SHORT).show()
             }
         })
         holder?.postImage?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                Snackbar.make(holder.view, postToBind.postRate, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(holder.view, postToBind.postname, Snackbar.LENGTH_SHORT).show()
             }
         })
         applyProfilePicture(holder!!, postToBind)
