@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="450dp"
+    android:layout_height="600dp"
     android:background="@drawable/img2"
     android:layout_margin="@dimen/card_margin"
     android:elevation="3dp">
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingBottom="@dimen/padding_list_row"
@@ -88,7 +87,7 @@
             android:background="@drawable/rounded_white"
             android:drawableLeft="@drawable/ic_date_range_black_24dp"
             android:drawablePadding="5dp"
-            android:hint="Work Shop profession"
+            android:hint="Work Shop ID Unique and Public"
             android:paddingStart="10dp"
             android:textSize="14sp" />
 
@@ -96,10 +95,10 @@
             android:id="@+id/SaveWorkShopInfo"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/WorkshopProfessionEditText"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
+            android:layout_below="@+id/radioGroup2"
+            android:layout_marginTop="17dp"
             android:layout_marginVertical="10dp"
+            android:layout_toStartOf="@+id/linearLayout"
             android:background="@color/md_amber_100"
             android:onClick="btnAddWorkShop"
             android:text="Save"
@@ -107,6 +106,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -125,6 +125,62 @@
                 tools:ignore="VectorDrawableCompat" />
 
         </LinearLayout>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/WorkshopProfessionEditText"
+            android:id="@+id/radioGroup2">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/WorkshopProfessionEditText"
+                android:layout_below="@+id/WorkshopProfessionEditText"
+                android:text="Doctor" />
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/SaveWorkShopInfo"
+                android:layout_toEndOf="@+id/radioButton"
+                android:text="Carpenter" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/WorkshopProfessionEditText"
+                android:layout_centerHorizontal="true"
+                android:text="Engineer" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/SaveWorkShopInfo"
+                android:layout_alignEnd="@+id/radioButton4"
+                android:text="Plumber" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/WorkshopProfessionEditText"
+                android:layout_below="@+id/WorkshopProfessionEditText"
+                android:text="Mechanic" />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/SaveWorkShopInfo"
+                android:layout_alignStart="@+id/radioButton2"
+                android:text="Cooking" />
+        </RadioGroup>
+
     </RelativeLayout>
 
     <!--

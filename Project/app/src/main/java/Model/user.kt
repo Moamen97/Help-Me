@@ -1,14 +1,9 @@
 package Model
-import Common.mySelf
+
 import Control.UserControl
 import Utility.Utility
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.audiofx.Visualizer
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.storage.StorageReference
-import com.helpme.R.id.*
 import java.util.*
 
 /**
@@ -70,13 +65,17 @@ open class user() {
         lastName=lName
     }
     fun CheckSet_birthDate(bDate:String){
-        require(((Calendar.getInstance().get(Calendar.YEAR)
-                -
-                bDate.split("/")[2].toInt())
-                > 12)
-                ) {"Error:you should at least 12 years old"}
-        birthDate=bDate
+        if (bDate!="") {
+            require(((Calendar.getInstance().get(Calendar.YEAR)
+                    -
+                    bDate.split("/")[2].toInt())
+                    > 12)
+            ) { "Error:you should at least 12 years old" }
+        }
+        birthDate = bDate
     }
+
+
     fun CheckSet_isProfistional(b:Boolean){
         isProfessional=b
     }
@@ -151,4 +150,3 @@ open class user() {
         var isProfessionalKey:String="isProfessional"
     }
 }
-

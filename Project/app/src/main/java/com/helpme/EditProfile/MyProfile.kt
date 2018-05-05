@@ -1,33 +1,27 @@
 package com.helpme.EditProfile
 
-import Common.mySelf
-import Control.UserControl
-import Model.user
-import Utility.imageKind
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.content.ContextCompat.startActivity
-import android.text.method.Touch.onTouchEvent
-import java.util.Date
 import android.view.View
 import android.widget.*
 import com.helpme.R
-import com.helpme.UploadImages.UploadImage
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import java.util.*
+import Common.mySelf
+import Control.UserControl
+import Model.user
+import Utility.imageKind
+import android.annotation.SuppressLint
+import java.util.Date
+import com.helpme.UploadImages.UploadImage
 import android.widget.Toast
-import com.helpme.R.id.userImage
 import java.text.SimpleDateFormat
-import android.view.Gravity
 
 
 
@@ -75,8 +69,8 @@ class MyProfile : AppCompatActivity() {
         val rate = mySelf.get_behaveRate().toString()
         // imageAbb.text = firstname[0].toUpperCase().toString()
         personName.text = "Name : " + firstname + " " + midname + " " + lastname
-        personNoOfPosts.text = n_of_posts
-        personRate.text = rate
+        //personNoOfPosts.text = n_of_posts
+        //personRate.text = rate
 
         val editMyProfile = findViewById<FloatingActionButton>(R.id.fab)
         val dialog: Dialog = Dialog(this)
@@ -147,6 +141,7 @@ class MyProfile : AppCompatActivity() {
     fun showMessage(mess:String){
         Toast.makeText(this@MyProfile,mess,Toast.LENGTH_LONG).show()
     }
+
 
 
     fun btnAddWorkShops(view: View) {

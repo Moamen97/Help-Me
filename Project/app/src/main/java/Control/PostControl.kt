@@ -12,12 +12,12 @@ import java.util.ArrayList
 import java.util.HashMap
 
 
-class PostControl  {
+class PostControl {
     private var dataBaseInstance = Utility.fireStoreHandler
     var Posttypemap = HashMap<String, ArrayList<post>>();
     var entered = 0
-    private constructor()
-    {
+
+    private constructor() {
         Posttypemap.put("Doctor", ArrayList())
         getPostsByType("Doctor")
         Posttypemap.put("Engineer", ArrayList())
@@ -31,8 +31,9 @@ class PostControl  {
         Posttypemap.put("Plumber", ArrayList())
         getPostsByType("Plumber")
         Posttypemap.put("MyPosts", ArrayList())
-        getMyPosts()
+
     }
+
     companion object {
         private var instance: PostControl? = null
         fun getInstance(x: Int = 0/*Dummy*/): PostControl {
@@ -43,78 +44,142 @@ class PostControl  {
         }
     }//Singleton
 
-    fun getlist(posttype: String):ArrayList<post>
-    {
+    fun getlist(posttype: String): ArrayList<post> {
         return Posttypemap.get(posttype)!!
     }
-        fun addPost(NewPost: post) {
-            var PostData = HashMap<String, Any>();
-            PostData.put("color", "1");
-            PostData.put("comments", NewPost.comments);
-            PostData.put("postContent", NewPost.postContent);
-            PostData.put("postImage", NewPost.postImage);
-            PostData.put("postOwnerImage", NewPost.postOwnerImage);
-            PostData.put("postOwnerUserName", NewPost.postOwnerUserName);
-            PostData.put("postTime", NewPost.postTime);
-            PostData.put("postType", NewPost.postType);
-            dataBaseInstance.collection("post").add(PostData);
-        }
-        fun getPostsByType(PostType:String) {
-            FirebaseFirestore.getInstance().collection("post").
-                    whereEqualTo("postType", PostType)
-                    .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                override fun onComplete(p0: Task<QuerySnapshot>) {
-                    if (p0.isSuccessful) {
-                        Posttypemap.get(PostType)!!.clear();
 
-                       for (document: QueryDocumentSnapshot in p0.result) {
-                            println(document.id + " => " + document.data);
-                            try {
-                                var col = document.get("color").toString().toInt();
-                                var comm = document.get("comments");
-                                var con = document.get("postContent").toString();
-                                var pimg = document.get("postImage").toString();
-                                var oimg = document.get("postOwnerImage").toString();
-                                var ponme = document.get("postOwnerUserName").toString();
-                                var ptime = document.get("postTime").toString();
-                                var ptype = document.get("postType").toString();
-                                var temp = post(con, pimg, ptime, ptype, ArrayList(), oimg, ponme, col)
-                                temp.editID(document.id)
-                                Posttypemap.get(PostType)!!.add(temp)
-
-                            }catch (e:Exception)
-                            {}
+    fun addPost(NewPost: post) {
+        dataBaseInstance.collection("post")
+                .whereEqualTo("ID", NewPost.postID)
+                .get()
+                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        println("Entered Complete Listener");
+                        if (p0.isSuccessful) {
+                            if (p0.result.isEmpty) {
+                                // getting empty documents ; here we should push our ws to db :V
+                                println("No Document Data");
+                                var PostData = HashMap<String, Any>();
+                                PostData.put("color", "1");
+                                PostData.put("comments", NewPost.comments);
+                                PostData.put("postRate", NewPost.postRate);
+                                PostData.put("postOwnerImage", NewPost.postOwnerImage);
+                                PostData.put("postOwnerUserName", NewPost.postOwnerUserName);
+                                PostData.put("postOwnerFName", NewPost.OwnerFName);
+                                PostData.put("postType", NewPost.postType);
+                                PostData.put("postLocation", NewPost.postlocation);
+                                PostData.put("postName", NewPost.postname);
+                                PostData.put("postID", NewPost.postID);
+                                var task = dataBaseInstance.collection("post").document(NewPost.postID)
+                                        .set(PostData)
+                            } else {
+                                // here i found someone has the same userName :V so i can't add this user
+                                println(p0.result.documents[0].data.toString());
+                            }
                         }
-
                     }
-                }
-            })
-        }
-    fun getMyPosts() {
+                })
+    }
+
+
+
+
+     fun getPostsByType(PostType: String) {
         FirebaseFirestore.getInstance().collection("post").
-                whereEqualTo("postOwnerUserName",mySelf.get_userName())
+                whereEqualTo("postType", PostType)
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
             override fun onComplete(p0: Task<QuerySnapshot>) {
                 if (p0.isSuccessful) {
-                    Posttypemap.get("MyPosts")!!.clear();
+                    Posttypemap.get(PostType)!!.clear();
 
                     for (document: QueryDocumentSnapshot in p0.result) {
                         println(document.id + " => " + document.data);
                         try {
                             var col = document.get("color").toString().toInt();
                             var comm = document.get("comments");
-                            var con = document.get("postContent").toString();
-                            var pimg = document.get("postImage").toString();
-                            var oimg = document.get("postOwnerImage").toString();
-                            var ponme = document.get("postOwnerUserName").toString();
-                            var ptime = document.get("postTime").toString();
+                            var orate = document.get("postRate").toString().toInt();
+                            var pofnme = document.get("postOwnerFName").toString();
+                            var oimg = document.get("postOwnerImage").toString()
+                            var pounme = document.get("postOwnerUserName").toString();
                             var ptype = document.get("postType").toString();
-                            var temp = post(con, pimg, ptime, ptype, ArrayList(), oimg, ponme, col)
-                            temp.editID(document.id)
-                            Posttypemap.get("MyPosts")!!.add(temp)
+                            var ploc = document.get("postLocation").toString();
+                            var pnme = document.get("postName").toString();
+                            var pid = document.get("postID").toString();
+                            var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
+                            Posttypemap.get(PostType)!!.add(temp)
 
-                        }catch (e:Exception)
-                        {}
+                        } catch (e: Exception) {
+                        }
+                    }
+
+                }
+            }
+        })
+    }
+     fun getMyPosts() {
+         FirebaseFirestore.getInstance().collection("post").
+                 whereEqualTo("postOwnerUserName", mySelf.get_userName())
+                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+             override fun onComplete(p0: Task<QuerySnapshot>) {
+                 if (p0.isSuccessful) {
+                     Posttypemap.get("MyPosts")!!.clear();
+
+                     for (document: QueryDocumentSnapshot in p0.result) {
+                         println(document.id + " => " + document.data);
+                         try {
+                             var col = document.get("color").toString().toInt();
+                             var comm = document.get("comments");
+                             var orate = document.get("postRate").toString().toInt();
+                             var pofnme = document.get("postOwnerFName").toString();
+                             var oimg = document.get("postOwnerImage").toString()
+                             var pounme = document.get("postOwnerUserName").toString();
+                             var ptype = document.get("postType").toString();
+                             var ploc = document.get("postLocation").toString();
+                             var pnme = document.get("postName").toString();
+                             var pid = document.get("postID").toString();
+                             var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
+                             Posttypemap.get("MyPosts")!!.add(temp)
+
+                         } catch (e: Exception) {
+                         }
+                     }
+
+                 }
+             }
+         })
+    }
+
+    fun getPostOfWS() {
+        var WorkShopController = WorkShopControl.getInstance(null)
+        FirebaseFirestore.getInstance().collection("post").
+                whereEqualTo("postID", WorkShopController.WorkShop!!.workshopid)
+                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+            override fun onComplete(p0: Task<QuerySnapshot>) {
+                if (p0.isSuccessful) {
+                    try {
+                        Posttypemap.get(WorkShopController.WorkShop!!.workshopid)!!.clear();
+                    }catch (e:Exception)
+                    {
+                        Posttypemap.put(WorkShopController.WorkShop!!.workshopid, ArrayList())
+                    }
+                    for (document: QueryDocumentSnapshot in p0.result) {
+                        println(document.id + " => " + document.data);
+                        try {
+                            var col = document.get("color").toString().toInt();
+                            var comm = document.get("comments");
+                            var orate = document.get("postRate").toString().toInt();
+                            var pofnme = document.get("postOwnerFName").toString();
+                            var oimg = document.get("postOwnerImage").toString()
+                            var pounme = document.get("postOwnerUserName").toString();
+                            var ptype = document.get("postType").toString();
+                            var ploc = document.get("postLocation").toString();
+                            var pnme = document.get("postName").toString();
+                            var pid = document.get("postID").toString();
+                            var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
+                            Posttypemap.get(WorkShopController.WorkShop!!.workshopid)!!.add(temp)
+
+                        } catch (e: Exception) {
+                        }
                     }
 
                 }
@@ -122,9 +187,7 @@ class PostControl  {
         })
     }
 
-
-
-
+/*
     fun editPost(Post:post , NewPost: post) {
             dataBaseInstance.collection("posts_user_map")
                     .whereEqualTo("postContent", Post.postContent).
@@ -140,6 +203,7 @@ class PostControl  {
                                 PostData.put("postImage", NewPost.postImage);
                                 PostData.put("postTime", NewPost.postTime);
                                 PostData.put("postType", NewPost.postType);
+                                PostData.put("postRate",NewPost.postRate)
                                 dataBaseInstance.collection("posts_user_map")
                                         .document(NewPost.postContent).update(PostData);
                             } else {
@@ -170,4 +234,5 @@ class PostControl  {
             })
             return posts
         }
-    }
+    }*/
+}

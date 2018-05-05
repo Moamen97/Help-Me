@@ -1,6 +1,7 @@
 package Common
 
 import Control.UserControl
+import Model.postData.Feedback.Feedback
 import Utility.Utility
 import java.util.*
 import Model.postData.post
@@ -15,6 +16,10 @@ import com.google.android.gms.tasks.OnSuccessListener
 import java.io.ByteArrayOutputStream
 
 object mySelf : Model.user() {
+    var currentPostId: String = ""
+    var postOwner: String = ""
+    var hashMap = HashMap<String, ArrayList<Feedback>>()
+
     fun loadMyself(uName: String): Boolean {
         userName = uName
         var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/$uName").get()

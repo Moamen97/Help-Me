@@ -5,6 +5,7 @@ import Control.PostControl
 import Model.postData.post
 import Model.postData.postAdapter
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
@@ -13,19 +14,23 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.helpme.Home.home
+
 
 class CarpenterFragment : android.support.v4.app.Fragment() {
-    private val POST_TYPE = R.drawable.engineer
+
+    private val POST_TYPE = R.drawable.engineer;
     private var postList = ArrayList<post>()
     private var dialog: Dialog? = null
-    private var PostController:PostControl = PostControl.getInstance()
+    private var PostController:PostControl = PostControl.getInstance();
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.carpenter_fragment, container, false)
+        var view = inflater?.inflate(R.layout.carpenter_fragment, container, false)
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
         var adapter = postAdapter(this.context!!, postList, POST_TYPE)
         var mLayoutManager = GridLayoutManager(this.context, 1)
@@ -38,6 +43,8 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
+        fun selector(p:post): Int = p.postRate
+        postList.sortByDescending { selector(it) }
         adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter;
         PostController.getPostsByType("Doctor")
@@ -47,8 +54,11 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         PostController.getPostsByType("Mechanic")
         PostController.getPostsByType("Plumber")
         PostController.getMyPosts()
+
         return view
     }
+
+
     private fun getRandomMaterialColor(): Int {
         var returnColor = Color.GRAY
         val arrayId = resources.getIdentifier("shuffle", "array", context!!.packageName)
@@ -60,4 +70,5 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         }
         return returnColor
     }
+
 }

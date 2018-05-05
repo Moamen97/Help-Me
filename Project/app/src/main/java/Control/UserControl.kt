@@ -1,21 +1,21 @@
 package Control
 
+
+import com.google.android.gms.tasks.*
 import Common.mySelf
 import Utility.*
 import Model.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.google.android.gms.tasks.*
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.OnProgressListener
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.helpme.Authentication.SignIn
 import com.helpme.Authentication.SignUp
 import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
-import com.helpme.R.id.userName
 import com.helpme.UploadImages.UploadImage
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_upload_image.*
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
@@ -31,7 +31,6 @@ class UserControl private constructor() {
     private var myProfileView: MyProfile? = null
     private var dataBaseInstance = Utility.fireStoreHandler
     private var toasmsg: String = ""
-
 
     companion object {
         private var instance: UserControl? = null
@@ -51,6 +50,31 @@ class UserControl private constructor() {
         }
     } //Singleton
 
+
+    fun updateBehaviourRate(behav_rate: Int) {
+        dataBaseInstance.collection("user").document(mySelf.postOwner)
+                .update("behav_rate", behav_rate)
+                .addOnSuccessListener { println("behave rate Successfully updated") }
+                .addOnFailureListener { println("Error while updating rate") }
+    }
+
+    fun getUserByUserName(userName: String): StringBuilder {
+        val s = StringBuilder()
+
+        var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/$userName").get()
+        while (true) {
+            if (task.isComplete) {
+                if (task.isSuccessful) {
+                    val docSnapshot = task.result
+                    s.append(docSnapshot.getString(user.firstNameKey)!! + " ").append(docSnapshot.getString(user.midNameKey)!! + " ")
+                            .append(docSnapshot.getString(user.lastNameKey)!!)
+                    return s
+                } else
+                    return s
+            }
+        }
+    }
+
     private fun setcurrentview(SignIn_View: SignIn?, SignUp_View: SignUp?, Home_View: home?,
                                myProfileView: MyProfile?) {
         this.SignIn_View = SignIn_View
@@ -59,10 +83,18 @@ class UserControl private constructor() {
         this.myProfileView = myProfileView
     }
 
+    fun getUser(): mySelf? {
+        return this.User_Model
+    }
+
+
     fun Login(userName: String, password: String) {
         if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {
             toasmsg = ("You can't Log In if you offline")
             SignIn_View!!.ShowToast(toasmsg)
+            SignIn_View!!.signInBtn.isEnabled=true
+            SignIn_View!!.signUpBtn.isEnabled=true
+            SignIn_View!!.login_button.isEnabled = true
             return
         }
         dataBaseInstance.collection(user.usersCollectionName)
@@ -85,21 +117,33 @@ class UserControl private constructor() {
                                         SignIn_View!!.LogIn()
                                     } else {
                                         SignIn_View!!.ShowToast("Loginfalied:check your internet connection")
+                                        SignIn_View!!.signInBtn.isEnabled=true
+                                        SignIn_View!!.signUpBtn.isEnabled=true
+                                        SignIn_View!!.login_button.isEnabled = true
                                     }
                                 } else {
                                     toasmsg = "Wrong user name of password"
                                     SignIn_View!!.ShowToast(toasmsg)
+                                    SignIn_View!!.signInBtn.isEnabled=true
+                                    SignIn_View!!.signUpBtn.isEnabled=true
+                                    SignIn_View!!.login_button.isEnabled = true
                                 }
                             } else {
-                                toasmsg = "Wrong user name of password or you are offline"
+                                toasmsg = "Wrong user name of password"
                                 SignIn_View!!.ShowToast(toasmsg)
+                                SignIn_View!!.signInBtn.isEnabled=true
+                                SignIn_View!!.signUpBtn.isEnabled=true
+                                SignIn_View!!.login_button.isEnabled = true
                             }
                         } else {
                             println(p0.exception.toString());
                         }
                     }
                 })
+
+
     }
+
 
     fun signUp() {
         if (!Utility.isNetworkAvailable(SignUp_View!!.baseContext)) {
@@ -133,35 +177,7 @@ class UserControl private constructor() {
                                 SignUp_View!!.Signup()
                                 var task = dataBaseInstance.collection("user").document(newUser.get_userName())
                                         .set(userData)
-                                /*var t = object : Thread() {
-                                    override fun run() {
-                                        try {
-                                            Tasks.await(task,1500, TimeUnit.MILLISECONDS);
-                                            toasmsg = "Your data uploaded you can sign in now and enjoy our service"
-                                            SignUp_View!!.ShowToast(toasmsg)
-                                            SignUp_View!!.Signup()
-                                        }
-                                        catch (e:ExecutionException){
 
-                                            toasmsg = "Error:Your data isn't uploaded correctly please try again"
-                                            SignUp_View!!.ShowToast(toasmsg)
-                                            SignUp_View!!.Signup()
-                                        }
-                                        catch (e:InterruptedException) {
-                                                toasmsg = "Error:Your data isn't uploaded correctly please try again"
-                                                SignUp_View!!.ShowToast(toasmsg)
-                                                SignUp_View!!.Signup()
-
-                                        }
-                                        catch (e:Exception){
-                                            toasmsg = e.message!!+"Your data uploaded you can sign in now and enjoy our service"
-                                            SignUp_View!!.ShowToast(toasmsg)
-                                            SignUp_View!!.Signup()
-                                        }
-                                    }
-                                }
-                                t.run()
-                                */
                                 TimeUnit.SECONDS.sleep(1)
                                 toasmsg = "Your data uploaded you can sign in now and enjoy our service"
                                 SignUp_View!!.ShowToast(toasmsg)
@@ -177,7 +193,6 @@ class UserControl private constructor() {
                 })
     }
 
-    ////////////////////////facebook//////////////////////////////////////
     fun signUpFacebook(unhashedpass: String) {
         if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {
             toasmsg = ("You can't sign up if you offline")
@@ -415,13 +430,43 @@ class UserControl private constructor() {
             con.showMessage("No new image selected")
     }
 
-    fun updateProfileImage(u:user) {
+    fun updateProfileImage(u: user) {
         myProfileView?.updateProfileImage(u)
     }
 
-    fun updateWorksImage(u:user) {
-          myProfileView?.updateWorksImage(u)
+    fun updateWorksImage(u: user) {
+        myProfileView?.updateWorksImage(u)
     }
 
 }
 
+
+/*var t = object : Thread() {
+    override fun run() {
+        try {
+            Tasks.await(task,1500, TimeUnit.MILLISECONDS);
+            toasmsg = "Your data uploaded you can sign in now and enjoy our service"
+            SignUp_View!!.ShowToast(toasmsg)
+            SignUp_View!!.Signup()
+        }
+        catch (e:ExecutionException){
+
+            toasmsg = "Error:Your data isn't uploaded correctly please try again"
+            SignUp_View!!.ShowToast(toasmsg)
+            SignUp_View!!.Signup()
+        }
+        catch (e:InterruptedException) {
+                toasmsg = "Error:Your data isn't uploaded correctly please try again"
+                SignUp_View!!.ShowToast(toasmsg)
+                SignUp_View!!.Signup()
+
+        }
+        catch (e:Exception){
+            toasmsg = e.message!!+"Your data uploaded you can sign in now and enjoy our service"
+            SignUp_View!!.ShowToast(toasmsg)
+            SignUp_View!!.Signup()
+        }
+    }
+}
+t.run()
+*/

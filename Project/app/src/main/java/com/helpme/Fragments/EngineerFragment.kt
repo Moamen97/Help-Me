@@ -15,12 +15,11 @@ import android.view.View
 import android.view.ViewGroup
 import java.util.ArrayList
 
-
 class EngineerFragment : android.support.v4.app.Fragment() {
 
-    private val POST_TYPE = R.drawable.engineer
+    private val POST_TYPE = R.drawable.engineer;
     private var postList = arrayListOf<post>()
-    private var dialog: Dialog? = null
+    private var dialog: Dialog? = null;
     private var PostController: PostControl = PostControl.getInstance();
 
 
@@ -29,7 +28,7 @@ class EngineerFragment : android.support.v4.app.Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.engineer_fragment, container, false)
+        var view = inflater?.inflate(R.layout.engineer_fragment, container, false)
 
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
         var adapter = postAdapter(this.context!!, postList, POST_TYPE)
@@ -43,6 +42,8 @@ class EngineerFragment : android.support.v4.app.Fragment() {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
+        fun selector(p:post): Int = p.postRate
+        postList.sortByDescending { selector(it) }
         adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter;
         PostController.getPostsByType("Doctor")
@@ -55,6 +56,7 @@ class EngineerFragment : android.support.v4.app.Fragment() {
 
         return view
     }
+
 
     private fun getRandomMaterialColor(): Int {
         var returnColor = Color.GRAY

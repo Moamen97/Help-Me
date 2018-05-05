@@ -28,7 +28,7 @@ class DoctorFragment : android.support.v4.app.Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.doctor_fragment, container, false)
+        var view = inflater?.inflate(R.layout.doctor_fragment, container, false)
 
         var recyclerView = view?.findViewById<RecyclerView>(R.id.post_recycler_view)
         var adapter = postAdapter(this.context!!, postList, POST_TYPE)
@@ -42,6 +42,8 @@ class DoctorFragment : android.support.v4.app.Fragment() {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
+        fun selector(p:post): Int = p.postRate
+        postList.sortByDescending { selector(it) }
         recyclerView?.adapter = adapter;
         PostController.getPostsByType("Doctor")
         PostController.getPostsByType("Engineer")
@@ -54,6 +56,9 @@ class DoctorFragment : android.support.v4.app.Fragment() {
         return view
     }
 
+
+
+
     private fun getRandomMaterialColor(): Int {
         var returnColor = Color.GRAY
         val arrayId = resources.getIdentifier("shuffle", "array", context!!.packageName)
@@ -65,4 +70,5 @@ class DoctorFragment : android.support.v4.app.Fragment() {
         }
         return returnColor
     }
+
 }
