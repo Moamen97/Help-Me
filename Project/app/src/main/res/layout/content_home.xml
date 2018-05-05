@@ -13,8 +13,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary"
+            android:id="@+id/SearchLayout">
 
+            <AutoCompleteTextView
+                android:id="@+id/SearchEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/bg_action_mode"
+                android:drawableLeft="@drawable/ic_action_search"
+                android:drawablePadding="5dp"
+                android:hint="Search                                         "
+                android:paddingStart="10dp"
+                android:textSize="14sp" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/SearcButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:onClick="SearchPosts"
+                android:text="Search"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                app:cornerRadius="10dp"
+                app:fButtonColor="@color/fbutton_color_midnight_blue"
+                app:shadowColor="@android:color/black"
+                app:shadowEnabled="true"
+                app:shadowHeight="3dp" />
+        </LinearLayout>
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayoutId"
             android:layout_width="match_parent"
@@ -29,7 +68,6 @@
             android:id="@+id/viewPagerId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
-
     </LinearLayout>
 
 </LinearLayout>

@@ -31,11 +31,11 @@ class UserProfile : AppCompatActivity() {
         val wnum = findViewById<(TextView)>(R.id.Workshopnumber)
         val wprof = findViewById<(TextView)>(R.id.WorkshopProfession)
 
-        pname.text = "Owner Name : "+WorkShopController.WorkShop!!.OwnerFullName
-        wloc.text = "WorkShop Location : "+WorkShopController.WorkShop!!.location
-        wname.text = "WorkShop Name : "+WorkShopController.WorkShop!!.workshopName
-        wnum.text = "WorkShop Phone : "+WorkShopController.WorkShop!!.workshopPhoneNum
-        wprof.text = "WorkShop Profession : "+WorkShopController.WorkShop!!.profession
+        pname.text = "Owner Name : \n"+WorkShopController.WorkShop!!.OwnerFullName
+        wloc.text = "WorkShop Location : \n"+WorkShopController.WorkShop!!.location
+        wname.text = "WorkShop Name : \n"+WorkShopController.WorkShop!!.workshopName
+        wnum.text = "WorkShop Phone : \n"+WorkShopController.WorkShop!!.workshopPhoneNum
+        wprof.text = "WorkShop Profession : \n"+WorkShopController.WorkShop!!.profession
         PostController.getPostOfWS()
 
     }

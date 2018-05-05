@@ -45,7 +45,7 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
     }
 
     override fun onBackPressed() {
-        var PostController = PostControl.getInstance()
+        var PostController:PostControl = PostControl.getInstance()
         PostController.getPostsByType("Doctor")
         PostController.getPostsByType("Engineer")
         PostController.getPostsByType("Cooking")

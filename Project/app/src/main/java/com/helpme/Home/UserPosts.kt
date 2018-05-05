@@ -21,10 +21,6 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import Common.mySelf
 
 import com.helpme.Authentication.SignIn
@@ -40,6 +36,7 @@ import Control.PostControl
 import Control.UserControl
 import Control.WorkShopControl
 import Model.postData.post
+import android.widget.*
 import com.facebook.Profile
 import com.facebook.login.LoginManager
 import com.helpme.*
@@ -59,16 +56,16 @@ class UserPosts : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        toolbar.title = "Posts"
+        //val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+       // setSupportActionBar(toolbar)
+        //toolbar.title = "Posts"
         dialog = Dialog(this)
         /* val fab = findViewById<View>(R.id.fab) as FloatingActionButton
          fab.setOnClickListener { showAddPostFragment() }*/
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -92,13 +89,16 @@ class UserPosts : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         viewPager!!.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)
 
-        val actionBar = supportActionBar
-        actionBar!!.elevation = 0f
+       // val actionBar = supportActionBar
+       // actionBar!!.elevation = 0f
         val profile = Profile.getCurrentProfile()
         if (profile != null) {
             LoginManager.getInstance().logOut()
 
         }
+        findViewById<(LinearLayout)>(R.id.SearchLayout).setVisibility(View.GONE)
+        findViewById<(android.support.design.widget.FloatingActionButton)>(R.id.fab).setVisibility(View.GONE)
+
 
     }
 
@@ -126,13 +126,8 @@ class UserPosts : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
         if (id == R.id.MyProfile) {
             val intent = Intent(this, MyProfile::class.java)
-            startActivity(intent)
-        } else if (id == R.id.MyPosts) {
-
-        } else if (id == R.id.AddProfession) {
-            val intent = Intent(this, AddProfession::class.java)
-            startActivity(intent)
-        } else if (id == R.id.Logout) {
+            startActivity(intent)}
+         else if (id == R.id.Logout) {
             val intent = Intent(applicationContext, SignIn::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)

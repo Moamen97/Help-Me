@@ -1,6 +1,5 @@
 package Control
 
-
 import com.google.android.gms.tasks.*
 import Common.mySelf
 import Utility.*
@@ -34,7 +33,7 @@ class UserControl private constructor() {
 
     companion object {
         private var instance: UserControl? = null
-        fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null // mainly for views to talk with controller
+        fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null
                         , Home_View: home? = null, myProfileView: MyProfile? = null
         ): UserControl {
             if (instance == null)
@@ -42,7 +41,6 @@ class UserControl private constructor() {
             instance!!.setcurrentview(SignIn_View, SignUp_View, Home_View, myProfileView)
             return instance!!
         }
-
         fun getUnChangedInstance(): UserControl { // for data to talk with controller with change view bindings
             if (instance == null)
                 instance = UserControl()
@@ -75,6 +73,10 @@ class UserControl private constructor() {
         }
     }
 
+    fun getUser(): mySelf? {
+        return this.User_Model
+    }
+
     private fun setcurrentview(SignIn_View: SignIn?, SignUp_View: SignUp?, Home_View: home?,
                                myProfileView: MyProfile?) {
         this.SignIn_View = SignIn_View
@@ -83,18 +85,10 @@ class UserControl private constructor() {
         this.myProfileView = myProfileView
     }
 
-    fun getUser(): mySelf? {
-        return this.User_Model
-    }
-
-
     fun Login(userName: String, password: String) {
         if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {
             toasmsg = ("You can't Log In if you offline")
             SignIn_View!!.ShowToast(toasmsg)
-            SignIn_View!!.signInBtn.isEnabled=true
-            SignIn_View!!.signUpBtn.isEnabled=true
-            SignIn_View!!.login_button.isEnabled = true
             return
         }
         dataBaseInstance.collection(user.usersCollectionName)
@@ -117,33 +111,21 @@ class UserControl private constructor() {
                                         SignIn_View!!.LogIn()
                                     } else {
                                         SignIn_View!!.ShowToast("Loginfalied:check your internet connection")
-                                        SignIn_View!!.signInBtn.isEnabled=true
-                                        SignIn_View!!.signUpBtn.isEnabled=true
-                                        SignIn_View!!.login_button.isEnabled = true
                                     }
                                 } else {
                                     toasmsg = "Wrong user name of password"
                                     SignIn_View!!.ShowToast(toasmsg)
-                                    SignIn_View!!.signInBtn.isEnabled=true
-                                    SignIn_View!!.signUpBtn.isEnabled=true
-                                    SignIn_View!!.login_button.isEnabled = true
                                 }
                             } else {
-                                toasmsg = "Wrong user name of password"
+                                toasmsg = "Wrong user name of password or you are offline"
                                 SignIn_View!!.ShowToast(toasmsg)
-                                SignIn_View!!.signInBtn.isEnabled=true
-                                SignIn_View!!.signUpBtn.isEnabled=true
-                                SignIn_View!!.login_button.isEnabled = true
                             }
                         } else {
                             println(p0.exception.toString());
                         }
                     }
                 })
-
-
     }
-
 
     fun signUp() {
         if (!Utility.isNetworkAvailable(SignUp_View!!.baseContext)) {
@@ -177,7 +159,35 @@ class UserControl private constructor() {
                                 SignUp_View!!.Signup()
                                 var task = dataBaseInstance.collection("user").document(newUser.get_userName())
                                         .set(userData)
+                                /*var t = object : Thread() {
+                                    override fun run() {
+                                        try {
+                                            Tasks.await(task,1500, TimeUnit.MILLISECONDS);
+                                            toasmsg = "Your data uploaded you can sign in now and enjoy our service"
+                                            SignUp_View!!.ShowToast(toasmsg)
+                                            SignUp_View!!.Signup()
+                                        }
+                                        catch (e:ExecutionException){
 
+                                            toasmsg = "Error:Your data isn't uploaded correctly please try again"
+                                            SignUp_View!!.ShowToast(toasmsg)
+                                            SignUp_View!!.Signup()
+                                        }
+                                        catch (e:InterruptedException) {
+                                                toasmsg = "Error:Your data isn't uploaded correctly please try again"
+                                                SignUp_View!!.ShowToast(toasmsg)
+                                                SignUp_View!!.Signup()
+
+                                        }
+                                        catch (e:Exception){
+                                            toasmsg = e.message!!+"Your data uploaded you can sign in now and enjoy our service"
+                                            SignUp_View!!.ShowToast(toasmsg)
+                                            SignUp_View!!.Signup()
+                                        }
+                                    }
+                                }
+                                t.run()
+                                */
                                 TimeUnit.SECONDS.sleep(1)
                                 toasmsg = "Your data uploaded you can sign in now and enjoy our service"
                                 SignUp_View!!.ShowToast(toasmsg)
@@ -193,6 +203,9 @@ class UserControl private constructor() {
                 })
     }
 
+
+
+    ////////////////////////facebook//////////////////////////////////////
     fun signUpFacebook(unhashedpass: String) {
         if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {
             toasmsg = ("You can't sign up if you offline")
@@ -242,7 +255,7 @@ class UserControl private constructor() {
                         , birthDate: String, gender: String, unhashedpass: String) {
         try {
             newUser.CheckSet_userName(userName)
-            newUser.CheckSet_email(eMail)
+            newUser.eMail = eMail
             newUser.CheckSet_password(password
                     , passwordconfirm)
             newUser.CheckSet_firstName(firstName)
@@ -294,23 +307,23 @@ class UserControl private constructor() {
         toasmsg = ""
         var newemail: String = NewEmail //To Config.
         /*   if (User_Model!!.get_email() != NewEmail) {
-                   // checks if the new Email exists
-                   dataBaseInstance.collection("user")
-                           .whereEqualTo("eMail", NewEmail)
-                           .get()
-                           .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-                               override fun onComplete(p0: Task<QuerySnapshot>) {
-                                   println("Entered Complete Listener");
-                                   if (p0.isSuccessful) {
-                                       if (!p0.result.isEmpty) {
-                                           toasmsg += "Email Error, "
-                                           newemail = User_Model!!.get_email()
-                                       }
+               // checks if the new Email exists
+               dataBaseInstance.collection("user")
+                       .whereEqualTo("eMail", NewEmail)
+                       .get()
+                       .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                           override fun onComplete(p0: Task<QuerySnapshot>) {
+                               println("Entered Complete Listener");
+                               if (p0.isSuccessful) {
+                                   if (!p0.result.isEmpty) {
+                                       toasmsg += "Email Error, "
+                                       newemail = User_Model!!.get_email()
                                    }
                                }
-                           })
-               }
-        */
+                           }
+                       })
+           }
+    */
         dataBaseInstance.collection("user")
                 .whereEqualTo("userName", User_Model!!.get_userName())
                 .get()
@@ -370,103 +383,76 @@ class UserControl private constructor() {
         }
     }
 
-    fun uploadImage(con: UploadImage, bitmap: Bitmap?) {
-        con.uploadProgressbar.progress = 1
-        if (bitmap != null) {
-            var Images = Utility.storageHandler.reference
-                    .child("images/${mySelf.get_userName()}/${UploadImage.imageInfo.kind}/${UploadImage.imageInfo.name}")
 
-            val baos = ByteArrayOutputStream()
-            bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            var data = baos.toByteArray()
-            var tmp = data.size / (1024.0 * 1024.0)
-            if (tmp > 2.5) {
-                con.showMessage("Image size is too big")
-                con.uploadProgressbar.progress = 0
-                return
-            } else {
-                val b = ByteArrayOutputStream()
-                bitmap!!.compress(Bitmap.CompressFormat.JPEG, minOf((1 / tmp * 100).toInt(), 100), b)
-                data = b.toByteArray()
-            }
 
-            var im = Image(UploadImage.imageInfo.name, BitmapFactory.decodeByteArray(data, 0, data.size))
-            if (UploadImage.imageInfo.kind == imageKind.profile)
-                mySelf.Checkset_image(im)
-            else if (UploadImage.imageInfo.kind == imageKind.works) {
-                mySelf.addWorkImage(im)
-            }
+fun uploadImage(con: UploadImage, bitmap: Bitmap?) {
+    con.uploadProgressbar.progress = 1
+    if (bitmap != null) {
+        var Images = Utility.storageHandler.reference
+                .child("images/${mySelf.get_userName()}/${UploadImage.imageInfo.kind}/${UploadImage.imageInfo.name}")
 
-            val uploadTask = Images.putBytes(data)
-            con.showMessage("Uploading...")
+        val baos = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        var data = baos.toByteArray()
+        var tmp = data.size / (1024.0 * 1024.0)
+        if (tmp > 2.5) {
+            con.showMessage("Image size is too big")
+            con.uploadProgressbar.progress = 0
+            return
+        } else {
+            val b = ByteArrayOutputStream()
+            bitmap!!.compress(Bitmap.CompressFormat.JPEG, minOf((1 / tmp * 100).toInt(), 100), b)
+            data = b.toByteArray()
+        }
+
+        var im = Image(UploadImage.imageInfo.name, BitmapFactory.decodeByteArray(data, 0, data.size))
+        if (UploadImage.imageInfo.kind == imageKind.profile)
+            mySelf.Checkset_image(im)
+        else if (UploadImage.imageInfo.kind == imageKind.works) {
+            mySelf.addWorkImage(im)
+        }
+
+        val uploadTask = Images.putBytes(data)
+        con.showMessage("Uploading...")
 
 // Listen for state changes, errors, and completion of the upload.
-            uploadTask.addOnProgressListener(object : OnProgressListener<UploadTask.TaskSnapshot> {
-                override fun onProgress(taskSnapshot: UploadTask.TaskSnapshot) {
-                    con.selectNewImageBtn.isEnabled = false
-                    con.uploadImageBtn.isEnabled = false
-                    val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                    if (progress.toInt() != 0)
-                        con.uploadProgressbar.progress = progress.toInt()
+        uploadTask.addOnProgressListener(object : OnProgressListener<UploadTask.TaskSnapshot> {
+            override fun onProgress(taskSnapshot: UploadTask.TaskSnapshot) {
+                con.selectNewImageBtn.isEnabled = false
+                con.uploadImageBtn.isEnabled = false
+                val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                if (progress.toInt() != 0)
+                    con.uploadProgressbar.progress = progress.toInt()
 
 
-                }
-            }).addOnFailureListener(OnFailureListener {
-                // Handle unsuccessful uploads
-                con.showMessage("Image Uploading Failed")
-                mySelf.Checkset_image(null)
-                mySelf.lastWorkImageFailed()
+            }
+        }).addOnFailureListener(OnFailureListener {
+            // Handle unsuccessful uploads
+            con.showMessage("Image Uploading Failed")
+            mySelf.Checkset_image(null)
+            mySelf.lastWorkImageFailed()
 
-            }).addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot> {
-                override fun onSuccess(p0: UploadTask.TaskSnapshot) {
-                    con.uploadProgressbar.setProgress(0)
-                    con.selectNewImageBtn.isEnabled = true
-                    con.uploadImageBtn.isEnabled = true
-                    mySelf.uploadMyself()
-                    con.showMessage("Image Uploading Done")
-                }
-            })
-        } else
-            con.showMessage("No new image selected")
-    }
+        }).addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot> {
+            override fun onSuccess(p0: UploadTask.TaskSnapshot) {
+                con.uploadProgressbar.setProgress(0)
+                con.selectNewImageBtn.isEnabled = true
+                con.uploadImageBtn.isEnabled = true
+                mySelf.uploadMyself()
+                con.showMessage("Image Uploading Done")
+            }
+        })
+    } else
+        con.showMessage("No new image selected")
+}
 
-    fun updateProfileImage(u: user) {
-        myProfileView?.updateProfileImage(u)
-    }
+fun updateProfileImage(u: user) {
+    myProfileView?.updateProfileImage(u)
+}
 
-    fun updateWorksImage(u: user) {
-        myProfileView?.updateWorksImage(u)
-    }
+fun updateWorksImage(u: user) {
+    myProfileView?.updateWorksImage(u)
+}
 
 }
 
 
-/*var t = object : Thread() {
-    override fun run() {
-        try {
-            Tasks.await(task,1500, TimeUnit.MILLISECONDS);
-            toasmsg = "Your data uploaded you can sign in now and enjoy our service"
-            SignUp_View!!.ShowToast(toasmsg)
-            SignUp_View!!.Signup()
-        }
-        catch (e:ExecutionException){
-
-            toasmsg = "Error:Your data isn't uploaded correctly please try again"
-            SignUp_View!!.ShowToast(toasmsg)
-            SignUp_View!!.Signup()
-        }
-        catch (e:InterruptedException) {
-                toasmsg = "Error:Your data isn't uploaded correctly please try again"
-                SignUp_View!!.ShowToast(toasmsg)
-                SignUp_View!!.Signup()
-
-        }
-        catch (e:Exception){
-            toasmsg = e.message!!+"Your data uploaded you can sign in now and enjoy our service"
-            SignUp_View!!.ShowToast(toasmsg)
-            SignUp_View!!.Signup()
-        }
-    }
-}
-t.run()
-*/

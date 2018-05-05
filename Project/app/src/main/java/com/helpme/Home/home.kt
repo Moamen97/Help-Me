@@ -21,10 +21,6 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import Common.mySelf
 
 import com.helpme.Authentication.SignIn
@@ -40,6 +36,8 @@ import Control.PostControl
 import Control.UserControl
 import Control.WorkShopControl
 import Model.postData.post
+import Music.MusicPlayer
+import android.widget.*
 import com.facebook.Profile
 import com.facebook.login.LoginManager
 import com.helpme.*
@@ -59,16 +57,18 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
-        toolbar.title = "Posts"
+        //val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        //setSupportActionBar(toolbar)
+        //toolbar.title = "Posts"
+
         dialog = Dialog(this)
-        /* val fab = findViewById<View>(R.id.fab) as FloatingActionButton
-         fab.setOnClickListener { showAddPostFragment() }*/
+         val fab = findViewById<View>(R.id.fab) as FloatingActionButton
+         fab.setOnClickListener {  val intent = Intent(this, MyProfile::class.java)
+             startActivity(intent) }
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer,  R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -91,15 +91,17 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         adapter.addFragments(PlumberFragment(), "Plumber")
         adapter.addFragments(MechanicFragment(), "Mechanic")
         adapter.addFragments(MypostsFragment(), "MyPosts")
-
+        adapter.addFragments(LocationFragment(), "Location")
+        adapter.addFragments(NameFragment(), "WS_Name")
+        adapter.addFragments(OwnerFragment(), "Owner_Name")
 
 
         // viewPager adapter set
         viewPager!!.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)
 
-        val actionBar = supportActionBar
-        actionBar!!.elevation = 0f
+        //val actionBar = supportActionBar
+        //actionBar!!.elevation = 0f
         val profile = Profile.getCurrentProfile()
         if (profile != null) {
             LoginManager.getInstance().logOut()
@@ -109,6 +111,8 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     override fun onBackPressed() {
+        var music: MusicPlayer = MusicPlayer.getInstance()
+        music.stop()
         val intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_HOME)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -140,11 +144,6 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         if (id == R.id.MyProfile) {
             val intent = Intent(this, MyProfile::class.java)
             startActivity(intent)
-        } else if (id == R.id.MyPosts) {
-
-        } else if (id == R.id.AddProfession) {
-            val intent = Intent(this, AddProfession::class.java)
-            startActivity(intent)
         } else if (id == R.id.Logout) {
             val intent = Intent(applicationContext, SignIn::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -168,6 +167,14 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         startActivity(intent)
     }
 
+    fun SearchPosts(view: View)
+    {
+        val searchtext = findViewById<AutoCompleteTextView>(R.id.SearchEditText)
+        PostController.getPostBylocation(searchtext.text.toString())
+        PostController.getPostByOwnerName(searchtext.text.toString())
+        PostController.getPostByWS_Name(searchtext.text.toString())
+        ShowToast("Go To The Required Tab To see Searched Posts")
+    }
     fun ShowToast(toastMsg: String) {
         Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
     }

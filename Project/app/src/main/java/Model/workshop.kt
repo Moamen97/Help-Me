@@ -1,5 +1,7 @@
 package Model
+
 import java.security.acl.Owner
+
 
 class Workshop(location: String, workshopName: String,
                              workshopPhoneNum: String,profession: String,

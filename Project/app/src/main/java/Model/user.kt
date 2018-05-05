@@ -12,7 +12,7 @@ import java.util.*
 open class user() {
     protected var userName: String = ""
     protected var password: String = ""
-    protected var eMail: String = ""
+    var eMail: String = ""
     protected var phoneNum: String = ""
     protected var firstName: String = ""
     protected var midName: String = ""
@@ -115,17 +115,17 @@ open class user() {
     fun downloadWorksImages(list:List<String>){
         var count=list.size
         list.forEach{
-        Utility.storageHandler.reference
-                .child("images/$userName/works/$it").getBytes(Long.MAX_VALUE)
-                .addOnSuccessListener(object : OnSuccessListener<ByteArray> {
-                    override fun onSuccess(p0: ByteArray) {
-                        var im=Image(it,BitmapFactory.decodeByteArray(p0, 0, p0.size))
-                        this@user.addWorkImage(im)
-                        count--
-                        if(count==0)
-                            UserControl.getUnChangedInstance().updateWorksImage(this@user)
-                    }
-                })
+            Utility.storageHandler.reference
+                    .child("images/$userName/works/$it").getBytes(Long.MAX_VALUE)
+                    .addOnSuccessListener(object : OnSuccessListener<ByteArray> {
+                        override fun onSuccess(p0: ByteArray) {
+                            var im=Image(it,BitmapFactory.decodeByteArray(p0, 0, p0.size))
+                            this@user.addWorkImage(im)
+                            count--
+                            if(count==0)
+                                UserControl.getUnChangedInstance().updateWorksImage(this@user)
+                        }
+                    })
         }
 
     }

@@ -16,11 +16,13 @@ import java.util.*
 import Common.mySelf
 import Control.UserControl
 import Model.user
+import Music.MusicPlayer
 import Utility.imageKind
 import android.annotation.SuppressLint
 import java.util.Date
 import com.helpme.UploadImages.UploadImage
 import android.widget.Toast
+import com.helpme.Authentication.SignIn
 import java.text.SimpleDateFormat
 
 
@@ -34,7 +36,9 @@ class MyProfile : AppCompatActivity() {
         // this line will be removed
         mySelf.CheckSet_isProfistional(true)
         /////////////
-
+        var musicplayer = MusicPlayer.getInstance()
+        musicplayer.stop()
+        musicplayer.play(this)
         UserController= UserControl.getInstance(null, null, null, this)
         setContentView(R.layout.activity_my_profile)
         userImage.setOnClickListener(object : View.OnClickListener {
@@ -46,22 +50,22 @@ class MyProfile : AppCompatActivity() {
                 finish()
             }
         })
-            addWorkImages.setOnClickListener(object : View.OnClickListener{
-                @SuppressLint("ShowToast")
-                override fun onClick(p0: View?) {
-                    if (!mySelf.get_isProfessional()) {
-                        showMessage("you must have profession first")
-                    } else {
-                        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-                        val date = Date()
-                        UploadImage.imageInfo.name = dateFormat.format(date).replace('/', '-') + ".jpg"
-                        UploadImage.imageInfo.kind = imageKind.works
-                        val intent = Intent(this@MyProfile, UploadImage::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
+        addWorkImages.setOnClickListener(object : View.OnClickListener{
+            @SuppressLint("ShowToast")
+            override fun onClick(p0: View?) {
+                if (!mySelf.get_isProfessional()) {
+                    showMessage("you must have profession first")
+                } else {
+                    val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                    val date = Date()
+                    UploadImage.imageInfo.name = dateFormat.format(date).replace('/', '-') + ".jpg"
+                    UploadImage.imageInfo.kind = imageKind.works
+                    val intent = Intent(this@MyProfile, UploadImage::class.java)
+                    startActivity(intent)
+                    finish()
                 }
-            })
+            }
+        })
         val firstname = mySelf.get_firstName()
         val midname = mySelf.get_midName()
         val lastname = mySelf.get_lastName()
@@ -127,16 +131,16 @@ class MyProfile : AppCompatActivity() {
         updateWorksImage(mySelf)
 
     }
-      fun updateProfileImage(u: user){
-          if(u.get_ProfileImage()!=null && u.get_ProfileImage()!!.imageData!=null)
+    fun updateProfileImage(u: user){
+        if(u.get_ProfileImage()!=null && u.get_ProfileImage()!!.imageData!=null)
             userImage.setImageBitmap(u.get_ProfileImage()!!.imageData)
     }
-     fun updateWorksImage(u: user) {
-         if(u.get_isProfessional()) {
-             var gva = gridViewAdabpter(this@MyProfile, u.get_worksImages())
-             var gridView: GridView = findViewById(R.id.worksImagesGV)
-             gridView.adapter = gva
-         }
+    fun updateWorksImage(u: user) {
+        if(u.get_isProfessional()) {
+            var gva = gridViewAdabpter(this@MyProfile, u.get_worksImages())
+            var gridView: GridView = findViewById(R.id.worksImagesGV)
+            gridView.adapter = gva
+        }
     }
     fun showMessage(mess:String){
         Toast.makeText(this@MyProfile,mess,Toast.LENGTH_LONG).show()
@@ -181,11 +185,27 @@ class MyProfile : AppCompatActivity() {
         this.finish()
         startActivity(intent)
     }
-
+    fun LogOut (view:View)
+    {
+        var music:MusicPlayer = MusicPlayer.getInstance()
+        music.stop()
+        val intent = Intent(applicationContext, SignIn::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+    }
     fun ShowToast(Msg: String) {
         Toast.makeText(this, Msg, Toast.LENGTH_LONG).show();
     }
-
+    fun music(view: View)
+    {
+        var musicPlayer: MusicPlayer = MusicPlayer.getInstance()
+        if(findViewById<CheckBox>(R.id.musiccheckBox1).isChecked)
+        {
+            musicPlayer.play(this)
+        }
+        else
+            musicPlayer.stop()
+    }
     fun datePicker(dialog: Dialog, view: View? = null) {
         onTouchEvent(null) // remove keypad
         val cal = Calendar.getInstance()

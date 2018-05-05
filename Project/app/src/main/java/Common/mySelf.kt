@@ -1,6 +1,7 @@
 package Common
 
 import Control.UserControl
+import Model.Image
 import Model.postData.Feedback.Feedback
 import Utility.Utility
 import java.util.*
@@ -38,7 +39,7 @@ object mySelf : Model.user() {
                     //this@mySelf.behaveRate = docSnapshot.getLong(user.behaveRateKey) as Int
                     this@mySelf.birthDate = docSnapshot.getString(user.birthDateKey).toString()
                     this@mySelf.downloadProfileImage()
-                    this@mySelf.downloadWorksImages(docSnapshot.data!![user.worksImagesNamesKey]as MutableList<String>)
+                   // this@mySelf.downloadWorksImages(docSnapshot.data!![user.worksImagesNamesKey]as MutableList<String>)
                     return true
                 } else
                     return false
@@ -78,4 +79,3 @@ object mySelf : Model.user() {
 
     var myPosts: MutableList<post> = mutableListOf<post>()
 }
-

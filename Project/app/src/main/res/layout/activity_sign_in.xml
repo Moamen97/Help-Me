@@ -157,4 +157,15 @@
         </ScrollView>
 
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/musiccheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Music"
+        android:onClick="music"
+        android:textColor="@color/cardview_light_background"
+        android:checked="true"/>
 </RelativeLayout>
