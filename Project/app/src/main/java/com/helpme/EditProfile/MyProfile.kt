@@ -19,6 +19,7 @@ import Model.user
 import Utility.imageKind
 import android.annotation.SuppressLint
 import android.os.Build
+import android.view.Gravity
 import android.view.MenuItem
 import com.helpme.UploadImages.UploadImage
 import android.widget.Toast
@@ -62,7 +63,11 @@ class MyProfile : AppCompatActivity() {
         worksImagesGV.onItemClickListener = object:AdapterView.OnItemClickListener{
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 var popupMenu= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    PopupMenu(applicationContext,parent,position)
+                    if(position%2==1)
+                        PopupMenu(applicationContext,parent,Gravity.RIGHT)
+                    else
+                        PopupMenu(applicationContext,parent,Gravity.LEFT)
+
                 } else {
                     PopupMenu(applicationContext,parent)
                 }
