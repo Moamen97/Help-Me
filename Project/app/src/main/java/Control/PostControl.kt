@@ -82,109 +82,104 @@ class PostControl {
     }
 
 
-
-
-     fun getPostsByType(PostType: String) {
-        FirebaseFirestore.getInstance().collection("post").
-                whereEqualTo("postType", PostType)
+    fun getPostsByType(PostType: String) {
+        FirebaseFirestore.getInstance().collection("post").whereEqualTo("postType", PostType)
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    Posttypemap.get(PostType)!!.clear();
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        if (p0.isSuccessful) {
+                            Posttypemap.get(PostType)!!.clear();
 
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        try {
-                            var col = document.get("color").toString().toInt();
-                            var comm = document.get("comments");
-                            var orate = document.get("postRate").toString().toInt();
-                            var pofnme = document.get("postOwnerFName").toString();
-                            var oimg = document.get("postOwnerImage").toString()
-                            var pounme = document.get("postOwnerUserName").toString();
-                            var ptype = document.get("postType").toString();
-                            var ploc = document.get("postLocation").toString();
-                            var pnme = document.get("postName").toString();
-                            var pid = document.get("postID").toString();
-                            var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
-                            Posttypemap.get(PostType)!!.add(temp)
+                            for (document: QueryDocumentSnapshot in p0.result) {
+                                println(document.id + " => " + document.data);
+                                try {
+                                    var col = document.get("color").toString().toInt();
+                                    var comm = document.get("comments");
+                                    var orate = document.get("postRate").toString().toInt();
+                                    var pofnme = document.get("postOwnerFName").toString();
+                                    var oimg = document.get("postOwnerImage").toString()
+                                    var pounme = document.get("postOwnerUserName").toString();
+                                    var ptype = document.get("postType").toString();
+                                    var ploc = document.get("postLocation").toString();
+                                    var pnme = document.get("postName").toString();
+                                    var pid = document.get("postID").toString();
+                                    var temp = post(pofnme, ptype, ArrayList(), oimg, pounme, col, orate, ploc, pnme, pid)
+                                    Posttypemap.get(PostType)!!.add(temp)
 
-                        } catch (e: Exception) {
+                                } catch (e: Exception) {
+                                }
+                            }
+
                         }
                     }
-
-                }
-            }
-        })
+                })
     }
-     fun getMyPosts() {
-         FirebaseFirestore.getInstance().collection("post").
-                 whereEqualTo("postOwnerUserName", mySelf.get_userName())
-                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-             override fun onComplete(p0: Task<QuerySnapshot>) {
-                 if (p0.isSuccessful) {
-                     Posttypemap.get("MyPosts")!!.clear();
 
-                     for (document: QueryDocumentSnapshot in p0.result) {
-                         println(document.id + " => " + document.data);
-                         try {
-                             var col = document.get("color").toString().toInt();
-                             var comm = document.get("comments");
-                             var orate = document.get("postRate").toString().toInt();
-                             var pofnme = document.get("postOwnerFName").toString();
-                             var oimg = document.get("postOwnerImage").toString()
-                             var pounme = document.get("postOwnerUserName").toString();
-                             var ptype = document.get("postType").toString();
-                             var ploc = document.get("postLocation").toString();
-                             var pnme = document.get("postName").toString();
-                             var pid = document.get("postID").toString();
-                             var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
-                             Posttypemap.get("MyPosts")!!.add(temp)
+    fun getMyPosts() {
+        FirebaseFirestore.getInstance().collection("post").whereEqualTo("postOwnerUserName", mySelf.get_userName())
+                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        if (p0.isSuccessful) {
+                            Posttypemap.get("MyPosts")!!.clear();
 
-                         } catch (e: Exception) {
-                         }
-                     }
+                            for (document: QueryDocumentSnapshot in p0.result) {
+                                println(document.id + " => " + document.data);
+                                try {
+                                    var col = document.get("color").toString().toInt();
+                                    var comm = document.get("comments");
+                                    var orate = document.get("postRate").toString().toInt();
+                                    var pofnme = document.get("postOwnerFName").toString();
+                                    var oimg = document.get("postOwnerImage").toString()
+                                    var pounme = document.get("postOwnerUserName").toString();
+                                    var ptype = document.get("postType").toString();
+                                    var ploc = document.get("postLocation").toString();
+                                    var pnme = document.get("postName").toString();
+                                    var pid = document.get("postID").toString();
+                                    var temp = post(pofnme, ptype, ArrayList(), oimg, pounme, col, orate, ploc, pnme, pid)
+                                    Posttypemap.get("MyPosts")!!.add(temp)
 
-                 }
-             }
-         })
+                                } catch (e: Exception) {
+                                }
+                            }
+
+                        }
+                    }
+                })
     }
 
     fun getPostOfWS() {
         var WorkShopController = WorkShopControl.getInstance(null)
-        FirebaseFirestore.getInstance().collection("post").
-                whereEqualTo("postID", WorkShopController.WorkShop!!.workshopid)
+        FirebaseFirestore.getInstance().collection("post").whereEqualTo("postID", WorkShopController.WorkShop!!.workshopid)
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
-            override fun onComplete(p0: Task<QuerySnapshot>) {
-                if (p0.isSuccessful) {
-                    try {
-                        Posttypemap.get(WorkShopController.WorkShop!!.workshopid)!!.clear();
-                    }catch (e:Exception)
-                    {
-                        Posttypemap.put(WorkShopController.WorkShop!!.workshopid, ArrayList())
-                    }
-                    for (document: QueryDocumentSnapshot in p0.result) {
-                        println(document.id + " => " + document.data);
-                        try {
-                            var col = document.get("color").toString().toInt();
-                            var comm = document.get("comments");
-                            var orate = document.get("postRate").toString().toInt();
-                            var pofnme = document.get("postOwnerFName").toString();
-                            var oimg = document.get("postOwnerImage").toString()
-                            var pounme = document.get("postOwnerUserName").toString();
-                            var ptype = document.get("postType").toString();
-                            var ploc = document.get("postLocation").toString();
-                            var pnme = document.get("postName").toString();
-                            var pid = document.get("postID").toString();
-                            var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
-                            Posttypemap.get(WorkShopController.WorkShop!!.workshopid)!!.add(temp)
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        if (p0.isSuccessful) {
+                            try {
+                                Posttypemap.get(WorkShopController.WorkShop!!.workshopid)!!.clear();
+                            } catch (e: Exception) {
+                                Posttypemap.put(WorkShopController.WorkShop!!.workshopid, ArrayList())
+                            }
+                            for (document: QueryDocumentSnapshot in p0.result) {
+                                println(document.id + " => " + document.data);
+                                try {
+                                    var col = document.get("color").toString().toInt();
+                                    var comm = document.get("comments");
+                                    var orate = document.get("postRate").toString().toInt();
+                                    var pofnme = document.get("postOwnerFName").toString();
+                                    var oimg = document.get("postOwnerImage").toString()
+                                    var pounme = document.get("postOwnerUserName").toString();
+                                    var ptype = document.get("postType").toString();
+                                    var ploc = document.get("postLocation").toString();
+                                    var pnme = document.get("postName").toString();
+                                    var pid = document.get("postID").toString();
+                                    var temp = post(pofnme, ptype, ArrayList(), oimg, pounme, col, orate, ploc, pnme, pid)
+                                    Posttypemap.get(WorkShopController.WorkShop!!.workshopid)!!.add(temp)
 
-                        } catch (e: Exception) {
+                                } catch (e: Exception) {
+                                }
+                            }
+
                         }
                     }
-
-                }
-            }
-        })
+                })
     }
 
 /*

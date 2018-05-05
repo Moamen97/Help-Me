@@ -12,29 +12,34 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import com.helpme.R
 
-class gridViewAdabpter(con:Context,imgs:List<Image?>): BaseAdapter() {
-    var imgesList:List<Image?> = emptyList()
-    lateinit var con:Context
-    lateinit var inflator:LayoutInflater
+class gridViewAdabpter(con: Context, imgs: List<Image?>) : BaseAdapter() {
+    var imgesList: List<Image?> = emptyList()
+    lateinit var con: Context
+    lateinit var inflator: LayoutInflater
+
     init {
-        imgesList=imgs
-        this.con=con
-        inflator=(con as Activity).layoutInflater
+        imgesList = imgs
+        this.con = con
+        inflator = (con as Activity).layoutInflater
     }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var view=inflator.inflate(R.layout.row_layout_gridview,null)
-        var imageView:ImageView=view.findViewById(R.id.workImage)
-        if(imgesList[position]!=null && imgesList[position]?.imageData!=null) {
+        var view = inflator.inflate(R.layout.row_layout_gridview, null)
+        var imageView: ImageView = view.findViewById(R.id.workImage)
+        if (imgesList[position] != null && imgesList[position]?.imageData != null) {
             imageView.setImageBitmap(imgesList[position]!!.imageData)
         }
         return view
     }
+
     override fun getItem(position: Int): Any? {
         return imgesList[position]
     }
+
     override fun getItemId(position: Int): Long {
-      return 0
+        return 0
     }
+
     override fun getCount(): Int {
         return imgesList.size
     }

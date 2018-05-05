@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/viewbg"
-    tools:context="com.helpme.UploadImages.UploadImage"
-    >
+    tools:context="com.helpme.UploadImages.UploadImage">
 
     <ImageView
         android:id="@+id/CurrentImage"

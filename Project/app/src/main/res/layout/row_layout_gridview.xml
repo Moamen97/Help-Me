@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/viewbg"
-    >
+    android:background="@color/viewbg">
 
     <ImageView
         android:id="@+id/workImage"
@@ -15,6 +14,6 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:scaleType="centerCrop"
-        android:background="@color/viewbg"/>
+        android:background="@color/viewbg" />
 
 </LinearLayout>

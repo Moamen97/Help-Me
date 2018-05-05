@@ -38,7 +38,7 @@ object mySelf : Model.user() {
                     //this@mySelf.behaveRate = docSnapshot.getLong(user.behaveRateKey) as Int
                     this@mySelf.birthDate = docSnapshot.getString(user.birthDateKey).toString()
                     this@mySelf.downloadProfileImage()
-                    this@mySelf.downloadWorksImages(docSnapshot.data!![user.worksImagesNamesKey]as MutableList<String>)
+                    this@mySelf.downloadWorksImages(docSnapshot.data!![user.worksImagesNamesKey] as MutableList<String>?)
                     return true
                 } else
                     return false
@@ -59,15 +59,20 @@ object mySelf : Model.user() {
         userData.put(user.behaveRateKey, behaveRate)
         userData.put(user.birthDateKey, birthDate)
         userData.put(user.isProfessionalKey, isProfessional)
-        var list= mutableListOf<String>()
-        worksImages.forEach{
+        var list = mutableListOf<String>()
+        worksImages.forEach {
             list.add(it!!.imageName)
         }
         userData.put(user.worksImagesNamesKey, list)
         Utility.fireStoreHandler.collection("user").document(userName).update(userData);
     }
 
-    fun lastWorkImageFailed(){
+    fun rmWorkImage(pos:Int) {
+        if(pos<worksImages.size)
+            worksImages.removeAt(pos)
+    }
+
+    fun lastWorkImageFailed() {
         worksImages.removeAt(worksImages.lastIndex)
     }
 

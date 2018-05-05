@@ -20,8 +20,7 @@ class UserProfile : AppCompatActivity() {
         findViewById<(Button)>(R.id.ShowWorkShops).setVisibility(View.GONE)
     }
 
-    fun ShowInfo(view:View)
-    {
+    fun ShowInfo(view: View) {
         findViewById<(Button)>(R.id.ShowWorkShops).setVisibility(View.VISIBLE)
         findViewById<(Button)>(R.id.Showinfo).setVisibility(View.GONE)
 
@@ -31,16 +30,16 @@ class UserProfile : AppCompatActivity() {
         val wnum = findViewById<(TextView)>(R.id.Workshopnumber)
         val wprof = findViewById<(TextView)>(R.id.WorkshopProfession)
 
-        pname.text = "Owner Name : "+WorkShopController.WorkShop!!.OwnerFullName
-        wloc.text = "WorkShop Location : "+WorkShopController.WorkShop!!.location
-        wname.text = "WorkShop Name : "+WorkShopController.WorkShop!!.workshopName
-        wnum.text = "WorkShop Phone : "+WorkShopController.WorkShop!!.workshopPhoneNum
-        wprof.text = "WorkShop Profession : "+WorkShopController.WorkShop!!.profession
+        pname.text = "Owner Name : " + WorkShopController.WorkShop!!.OwnerFullName
+        wloc.text = "WorkShop Location : " + WorkShopController.WorkShop!!.location
+        wname.text = "WorkShop Name : " + WorkShopController.WorkShop!!.workshopName
+        wnum.text = "WorkShop Phone : " + WorkShopController.WorkShop!!.workshopPhoneNum
+        wprof.text = "WorkShop Profession : " + WorkShopController.WorkShop!!.profession
         PostController.getPostOfWS()
 
     }
-    fun ShowWS(view: View)
-    {
+
+    fun ShowWS(view: View) {
         val intent = Intent(this, UserPosts::class.java)
         startActivity(intent)
     }

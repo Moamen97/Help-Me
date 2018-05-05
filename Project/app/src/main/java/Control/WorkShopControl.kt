@@ -45,7 +45,7 @@ class WorkShopControl private constructor() {
                                 println("No Document Data");
                                 var wshopData = HashMap<String, Any>();
                                 wshopData.put("Owner", NewWS.OwnerName);
-                                wshopData.put("OwnerFullName",NewWS.OwnerFullName)
+                                wshopData.put("OwnerFullName", NewWS.OwnerFullName)
                                 wshopData.put("Name", NewWS.workshopName);
                                 wshopData.put("Location", NewWS.location);
                                 wshopData.put("Profession", NewWS.profession);
@@ -56,7 +56,7 @@ class WorkShopControl private constructor() {
                                 AddWShop_View!!.ShowToast("Done")
                                 var NewPost = post(mySelf.get_firstName() + " " + mySelf.get_midName() + " " + mySelf.get_lastName(), NewWS.profession, ArrayList(), ""
                                         , mySelf.get_userName(), -1, 0, NewWS.location, NewWS.workshopid + "\n" + NewWS.workshopName
-                                        ,NewWS.workshopid)
+                                        , NewWS.workshopid)
                                 PostController.addPost(NewPost)
                             } else {
                                 // here i found someone has the same userName :V so i can't add this user
@@ -68,7 +68,7 @@ class WorkShopControl private constructor() {
                 })
     }
 
-    fun GetWorkShopByID(ID: String){
+    fun GetWorkShopByID(ID: String) {
         dataBaseInstance.collection("WorkShop")
                 .whereEqualTo("ID", ID)
                 .get()

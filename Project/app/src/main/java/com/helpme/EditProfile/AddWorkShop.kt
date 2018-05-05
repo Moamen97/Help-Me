@@ -18,7 +18,7 @@ import com.helpme.R
 import kotlinx.android.synthetic.main.activity_edit_workshop.*
 
 class AddWorkShop : AppCompatActivity(), workshopListener {
-    var WorkshopController:WorkShopControl = WorkShopControl.getInstance(this)
+    var WorkshopController: WorkShopControl = WorkShopControl.getInstance(this)
     lateinit var Adapter: workshopAdapter
     var ListOFWorkshops = ArrayList<Workshop>()
     lateinit var recyclerView: RecyclerView
@@ -38,9 +38,10 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
     override fun onClicK(position: Int) {
         count++;
     }
+
     private fun loadWorkshopsEditForms() {
         for (i in 1..count) {
-            ListOFWorkshops.add(Workshop("", "", "","", "","",""))
+            ListOFWorkshops.add(Workshop("", "", "", "", "", "", ""))
         }
     }
 
@@ -56,52 +57,38 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
     }
 
 
-    fun btnAddWorkShop(view: View)
-    {
-        var wname:String = (findViewById<(AutoCompleteTextView)>(R.id.WorkShopNameEditText)).text.toString();
-        var wloc:String = (findViewById<(AutoCompleteTextView)>(R.id.WorkshopLocationEditText)).text.toString();
-        var wnum:String = (findViewById<(AutoCompleteTextView)>(R.id.WorkshopPhoneNumberEditText)).text.toString();
-        var wid:String = (findViewById<(AutoCompleteTextView)>(R.id.WorkshopProfessionEditText)).text.toString();
+    fun btnAddWorkShop(view: View) {
+        var wname: String = (findViewById<(AutoCompleteTextView)>(R.id.WorkShopNameEditText)).text.toString();
+        var wloc: String = (findViewById<(AutoCompleteTextView)>(R.id.WorkshopLocationEditText)).text.toString();
+        var wnum: String = (findViewById<(AutoCompleteTextView)>(R.id.WorkshopPhoneNumberEditText)).text.toString();
+        var wid: String = (findViewById<(AutoCompleteTextView)>(R.id.WorkshopProfessionEditText)).text.toString();
         var oname = mySelf.get_userName()
-        var ofname = mySelf.get_firstName()+" "+mySelf.get_midName()+" "+mySelf.get_lastName()
-        var wprof:String?
-        if ((findViewById<(RadioButton)>(R.id.radioButton)).isChecked)
-        {
+        var ofname = mySelf.get_firstName() + " " + mySelf.get_midName() + " " + mySelf.get_lastName()
+        var wprof: String?
+        if ((findViewById<(RadioButton)>(R.id.radioButton)).isChecked) {
             wprof = (findViewById<(RadioButton)>(R.id.radioButton)).text.toString()
-        }
-        else if ((findViewById<(RadioButton)>(R.id.radioButton2)).isChecked)
-        {
+        } else if ((findViewById<(RadioButton)>(R.id.radioButton2)).isChecked) {
             wprof = (findViewById<(RadioButton)>(R.id.radioButton2)).text.toString()
-        }
-        else if ((findViewById<(RadioButton)>(R.id.radioButton3)).isChecked)
-        {
+        } else if ((findViewById<(RadioButton)>(R.id.radioButton3)).isChecked) {
             wprof = (findViewById<(RadioButton)>(R.id.radioButton3)).text.toString()
-        }
-        else if ((findViewById<(RadioButton)>(R.id.radioButton4)).isChecked)
-        {
+        } else if ((findViewById<(RadioButton)>(R.id.radioButton4)).isChecked) {
             wprof = (findViewById<(RadioButton)>(R.id.radioButton4)).text.toString()
-        }
-        else if ((findViewById<(RadioButton)>(R.id.radioButton5)).isChecked)
-        {
+        } else if ((findViewById<(RadioButton)>(R.id.radioButton5)).isChecked) {
             wprof = (findViewById<(RadioButton)>(R.id.radioButton5)).text.toString()
-        }
-        else if ((findViewById<(RadioButton)>(R.id.radioButton6)).isChecked)
-        {
+        } else if ((findViewById<(RadioButton)>(R.id.radioButton6)).isChecked) {
             wprof = (findViewById<(RadioButton)>(R.id.radioButton6)).text.toString()
-        }
-        else {
-            Toast.makeText(this,"UnSupported Profession", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "UnSupported Profession", Toast.LENGTH_LONG).show();
             return
         }
         try {
             val regex = Regex("01[0-2][0-9]{8}")
             require(wnum.matches(regex)) { "Error:wrong phone number format" }
-        }catch (e:Exception)
-        {
-            Toast.makeText(this,"Error:wrong phone number format", Toast.LENGTH_LONG).show();
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error:wrong phone number format", Toast.LENGTH_LONG).show();
             return
         }
-        var NewWorkShop = Workshop(wloc,wname,wnum,wprof,oname,wid,ofname);
+        var NewWorkShop = Workshop(wloc, wname, wnum, wprof, oname, wid, ofname);
         WorkshopController.AddWorkShop(NewWorkShop);
         var PostController = PostControl.getInstance()
         PostController.getPostsByType("Doctor")

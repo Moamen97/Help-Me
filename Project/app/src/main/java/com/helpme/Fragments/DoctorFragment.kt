@@ -21,7 +21,7 @@ class DoctorFragment : android.support.v4.app.Fragment() {
     private val POST_TYPE = R.drawable.engineer;
     private var postList = arrayListOf<post>()
     private var dialog: Dialog? = null;
-    private var PostController:PostControl = PostControl.getInstance();
+    private var PostController: PostControl = PostControl.getInstance();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +37,11 @@ class DoctorFragment : android.support.v4.app.Fragment() {
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
         var templist = PostController.getlist("Doctor")
         postList.clear()
-        for (temp in templist)
-        {
+        for (temp in templist) {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
-        fun selector(p:post): Int = p.postRate
+        fun selector(p: post): Int = p.postRate
         postList.sortByDescending { selector(it) }
         recyclerView?.adapter = adapter;
         PostController.getPostsByType("Doctor")
@@ -55,8 +54,6 @@ class DoctorFragment : android.support.v4.app.Fragment() {
 
         return view
     }
-
-
 
 
     private fun getRandomMaterialColor(): Int {

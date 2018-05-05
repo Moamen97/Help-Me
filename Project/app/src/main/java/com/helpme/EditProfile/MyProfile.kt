@@ -18,16 +18,15 @@ import Control.UserControl
 import Model.user
 import Utility.imageKind
 import android.annotation.SuppressLint
-import java.util.Date
+import android.os.Build
+import android.view.MenuItem
 import com.helpme.UploadImages.UploadImage
 import android.widget.Toast
-import java.text.SimpleDateFormat
-
 
 
 
 class MyProfile : AppCompatActivity() {
-    private lateinit var UserController:UserControl
+    private lateinit var UserController: UserControl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ///////////////////////////////////
@@ -35,33 +34,50 @@ class MyProfile : AppCompatActivity() {
         mySelf.CheckSet_isProfistional(true)
         /////////////
 
-        UserController= UserControl.getInstance(null, null, null, this)
+        UserController = UserControl.getInstance(null, null, null, this)
         setContentView(R.layout.activity_my_profile)
         userImage.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                UploadImage.imageInfo.name = "${mySelf.get_userName()}.jpg"
-                UploadImage.imageInfo.kind=imageKind.profile
+                UploadImage.imageInfo.kind = imageKind.profile
                 val intent = Intent(this@MyProfile, UploadImage::class.java)
                 startActivity(intent)
                 finish()
             }
         })
-            addWorkImages.setOnClickListener(object : View.OnClickListener{
-                @SuppressLint("ShowToast")
-                override fun onClick(p0: View?) {
-                    if (!mySelf.get_isProfessional()) {
-                        showMessage("you must have profession first")
-                    } else {
-                        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-                        val date = Date()
-                        UploadImage.imageInfo.name = dateFormat.format(date).replace('/', '-') + ".jpg"
-                        UploadImage.imageInfo.kind = imageKind.works
-                        val intent = Intent(this@MyProfile, UploadImage::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
+        addWorkImages.setOnClickListener(object : View.OnClickListener {
+            @SuppressLint("ShowToast")
+            override fun onClick(p0: View?) {
+                if (!mySelf.get_isProfessional()) {
+                    ShowToast("you must have profession first")
+                } else {
+
+                    UploadImage.imageInfo.kind = imageKind.works
+                    val intent = Intent(this@MyProfile, UploadImage::class.java)
+                    startActivity(intent)
+                    finish()
                 }
-            })
+            }
+        })
+
+        worksImagesGV.onItemClickListener = object:AdapterView.OnItemClickListener{
+            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                var popupMenu= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    PopupMenu(applicationContext,parent,position)
+                } else {
+                    PopupMenu(applicationContext,parent)
+                }
+                popupMenu.menuInflater.inflate(R.menu.popdeleteworksimage,popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener (object: PopupMenu.OnMenuItemClickListener{
+                    override fun onMenuItemClick(item: MenuItem?): Boolean {
+                        worksImagesGV.isClickable=false
+                        UserController.deleteImage(position)
+                        return false
+                    }
+                })
+                popupMenu.show()
+            }
+        }
+
         val firstname = mySelf.get_firstName()
         val midname = mySelf.get_midName()
         val lastname = mySelf.get_lastName()
@@ -127,21 +143,19 @@ class MyProfile : AppCompatActivity() {
         updateWorksImage(mySelf)
 
     }
-      fun updateProfileImage(u: user){
-          if(u.get_ProfileImage()!=null && u.get_ProfileImage()!!.imageData!=null)
+
+    fun updateProfileImage(u: user) {
+        if (u.get_ProfileImage() != null && u.get_ProfileImage()!!.imageData != null)
             userImage.setImageBitmap(u.get_ProfileImage()!!.imageData)
     }
-     fun updateWorksImage(u: user) {
-         if(u.get_isProfessional()) {
-             var gva = gridViewAdabpter(this@MyProfile, u.get_worksImages())
-             var gridView: GridView = findViewById(R.id.worksImagesGV)
-             gridView.adapter = gva
-         }
-    }
-    fun showMessage(mess:String){
-        Toast.makeText(this@MyProfile,mess,Toast.LENGTH_LONG).show()
-    }
 
+    fun updateWorksImage(u: user) {
+        if (u.get_isProfessional()) {
+            var gva = gridViewAdabpter(this@MyProfile, u.get_worksImages())
+            var gridView: GridView = findViewById(R.id.worksImagesGV)
+            gridView.adapter = gva
+        }
+    }
 
 
     fun btnAddWorkShops(view: View) {
@@ -183,7 +197,7 @@ class MyProfile : AppCompatActivity() {
     }
 
     fun ShowToast(Msg: String) {
-        Toast.makeText(this, Msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, Msg, Toast.LENGTH_LONG).show()
     }
 
     fun datePicker(dialog: Dialog, view: View? = null) {

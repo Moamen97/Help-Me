@@ -38,12 +38,11 @@ class MechanicFragment : android.support.v4.app.Fragment() {
         recyclerView?.itemAnimator = object : DefaultItemAnimator() {}
         var templist = PostController.getlist("Mechanic")
         postList.clear()
-        for (temp in templist)
-        {
+        for (temp in templist) {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
-        fun selector(p:post): Int = p.postRate
+        fun selector(p: post): Int = p.postRate
         postList.sortByDescending { selector(it) }
         adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter;

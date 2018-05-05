@@ -21,7 +21,7 @@ class UserPostsFragment : android.support.v4.app.Fragment() {
     private val POST_TYPE = R.drawable.engineer;
     private var postList = ArrayList<post>()
     private var dialog: Dialog? = null;
-    private var PostController:PostControl = PostControl.getInstance();
+    private var PostController: PostControl = PostControl.getInstance();
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +39,11 @@ class UserPostsFragment : android.support.v4.app.Fragment() {
         var WorkShopController = WorkShopControl.getInstance(null)
         var templist = PostController.getlist(WorkShopController.WorkShop!!.workshopid)
         postList.clear()
-        for (temp in templist)
-        {
+        for (temp in templist) {
             temp.color = getRandomMaterialColor()
             postList.add(temp)
         }
-        fun selector(p:post): Int = p.postRate
+        fun selector(p: post): Int = p.postRate
         postList.sortByDescending { selector(it) }
         adapter.notifyDataSetChanged()
         recyclerView?.adapter = adapter;

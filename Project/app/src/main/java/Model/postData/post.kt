@@ -12,18 +12,19 @@ class post {
     var postlocation: String = ""
     var postname: String = ""
     var color: Int = -1
-    var postRate=0
+    var postRate = 0
+
     constructor()
 
-    constructor(OwnerFName:String , postType: String, comments: ArrayList<String>, postOwnerImage: String = "", postOwnerUserName: String = "", color: Int = -1,postRate:Int =0,postlocation:String,
-    postname:String,postID:String) {
+    constructor(OwnerFName: String, postType: String, comments: ArrayList<String>, postOwnerImage: String = "", postOwnerUserName: String = "", color: Int = -1, postRate: Int = 0, postlocation: String,
+                postname: String, postID: String) {
         this.comments = comments
         this.postType = postType
         this.color = color
         this.postOwnerImage = postOwnerImage
         this.postOwnerUserName = postOwnerUserName
         this.OwnerFName = OwnerFName
-        this.postRate=postRate
+        this.postRate = postRate
         this.postlocation = postlocation
         this.postname = postname
         this.postID = postID
@@ -36,7 +37,7 @@ class post {
         this.postOwnerImage = Post.postOwnerImage
         this.postOwnerUserName = Post.postOwnerUserName
         this.OwnerFName = Post.OwnerFName
-        this.postRate=Post.postRate
+        this.postRate = Post.postRate
         this.postname = Post.postname
         this.postlocation = Post.postlocation
         this.postID = Post.postID

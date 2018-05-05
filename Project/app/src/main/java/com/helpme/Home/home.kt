@@ -93,7 +93,6 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         adapter.addFragments(MypostsFragment(), "MyPosts")
 
 
-
         // viewPager adapter set
         viewPager!!.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)
@@ -133,6 +132,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         } else super.onOptionsItemSelected(item)
 
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         val id = item.itemId
@@ -158,11 +158,11 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
-    fun  ShowProfile(view: View)
-    {
+
+    fun ShowProfile(view: View) {
         var workshopinfo = (view as TextView).text.toString()
         val workshopid = workshopinfo.substring(0, workshopinfo.indexOf("\n"))
-        var WorkShopController:WorkShopControl = WorkShopControl.getInstance(null)
+        var WorkShopController: WorkShopControl = WorkShopControl.getInstance(null)
         WorkShopController.GetWorkShopByID(workshopid)
         val intent = Intent(this, UserProfile::class.java)
         startActivity(intent)

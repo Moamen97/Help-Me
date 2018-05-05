@@ -3,7 +3,7 @@ package Model;
 import java.util.List;
 
 public class notification {
-     private String notificationData="",notificationTime="";
+    private String notificationData = "", notificationTime = "";
 
     public String getNotificationData() {
         return notificationData;

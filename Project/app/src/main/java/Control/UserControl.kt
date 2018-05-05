@@ -15,10 +15,12 @@ import com.helpme.Authentication.SignUp
 import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
 import com.helpme.UploadImages.UploadImage
+import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_upload_image.*
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -92,8 +94,8 @@ class UserControl private constructor() {
         if (!Utility.isNetworkAvailable(SignIn_View!!.baseContext)) {
             toasmsg = ("You can't Log In if you offline")
             SignIn_View!!.ShowToast(toasmsg)
-            SignIn_View!!.signInBtn.isEnabled=true
-            SignIn_View!!.signUpBtn.isEnabled=true
+            SignIn_View!!.signInBtn.isEnabled = true
+            SignIn_View!!.signUpBtn.isEnabled = true
             SignIn_View!!.login_button.isEnabled = true
             return
         }
@@ -117,22 +119,22 @@ class UserControl private constructor() {
                                         SignIn_View!!.LogIn()
                                     } else {
                                         SignIn_View!!.ShowToast("Loginfalied:check your internet connection")
-                                        SignIn_View!!.signInBtn.isEnabled=true
-                                        SignIn_View!!.signUpBtn.isEnabled=true
+                                        SignIn_View!!.signInBtn.isEnabled = true
+                                        SignIn_View!!.signUpBtn.isEnabled = true
                                         SignIn_View!!.login_button.isEnabled = true
                                     }
                                 } else {
                                     toasmsg = "Wrong user name of password"
                                     SignIn_View!!.ShowToast(toasmsg)
-                                    SignIn_View!!.signInBtn.isEnabled=true
-                                    SignIn_View!!.signUpBtn.isEnabled=true
+                                    SignIn_View!!.signInBtn.isEnabled = true
+                                    SignIn_View!!.signUpBtn.isEnabled = true
                                     SignIn_View!!.login_button.isEnabled = true
                                 }
                             } else {
                                 toasmsg = "Wrong user name of password"
                                 SignIn_View!!.ShowToast(toasmsg)
-                                SignIn_View!!.signInBtn.isEnabled=true
-                                SignIn_View!!.signUpBtn.isEnabled=true
+                                SignIn_View!!.signInBtn.isEnabled = true
+                                SignIn_View!!.signUpBtn.isEnabled = true
                                 SignIn_View!!.login_button.isEnabled = true
                             }
                         } else {
@@ -372,9 +374,20 @@ class UserControl private constructor() {
 
     fun uploadImage(con: UploadImage, bitmap: Bitmap?) {
         con.uploadProgressbar.progress = 1
+
+        lateinit var imageName:String
+        if(UploadImage.imageInfo.kind==imageKind.profile)
+            imageName=mySelf.get_userName()
+        else {
+            val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS")
+            val date = Date()
+            imageName = dateFormat.format(date).replace('/', '-') + ".jpg"
+        }
+
+
         if (bitmap != null) {
             var Images = Utility.storageHandler.reference
-                    .child("images/${mySelf.get_userName()}/${UploadImage.imageInfo.kind}/${UploadImage.imageInfo.name}")
+                    .child("images/${mySelf.get_userName()}/${UploadImage.imageInfo.kind}/$imageName")
 
             val baos = ByteArrayOutputStream()
             bitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -383,6 +396,8 @@ class UserControl private constructor() {
             if (tmp > 2.5) {
                 con.showMessage("Image size is too big")
                 con.uploadProgressbar.progress = 0
+                con.selectNewImageBtn.isEnabled = true
+                con.uploadImageBtn.isEnabled = true
                 return
             } else {
                 val b = ByteArrayOutputStream()
@@ -390,12 +405,12 @@ class UserControl private constructor() {
                 data = b.toByteArray()
             }
 
-            var im = Image(UploadImage.imageInfo.name, BitmapFactory.decodeByteArray(data, 0, data.size))
+            var im = Image(imageName, BitmapFactory.decodeByteArray(data, 0, data.size))
             if (UploadImage.imageInfo.kind == imageKind.profile)
                 mySelf.Checkset_image(im)
-            else if (UploadImage.imageInfo.kind == imageKind.works) {
+            else if (UploadImage.imageInfo.kind == imageKind.works)
                 mySelf.addWorkImage(im)
-            }
+
 
             val uploadTask = Images.putBytes(data)
             con.showMessage("Uploading...")
@@ -403,19 +418,17 @@ class UserControl private constructor() {
 // Listen for state changes, errors, and completion of the upload.
             uploadTask.addOnProgressListener(object : OnProgressListener<UploadTask.TaskSnapshot> {
                 override fun onProgress(taskSnapshot: UploadTask.TaskSnapshot) {
-                    con.selectNewImageBtn.isEnabled = false
-                    con.uploadImageBtn.isEnabled = false
                     val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
                     if (progress.toInt() != 0)
                         con.uploadProgressbar.progress = progress.toInt()
-
-
                 }
             }).addOnFailureListener(OnFailureListener {
                 // Handle unsuccessful uploads
                 con.showMessage("Image Uploading Failed")
                 mySelf.Checkset_image(null)
                 mySelf.lastWorkImageFailed()
+                con.selectNewImageBtn.isEnabled = true
+                con.uploadImageBtn.isEnabled = true
 
             }).addOnSuccessListener(object : OnSuccessListener<UploadTask.TaskSnapshot> {
                 override fun onSuccess(p0: UploadTask.TaskSnapshot) {
@@ -428,6 +441,27 @@ class UserControl private constructor() {
             })
         } else
             con.showMessage("No new image selected")
+    }
+
+    fun deleteImage(pos:Int) {
+         Utility.storageHandler.reference
+                 .child("images/${mySelf.get_userName()}/works/${mySelf.get_worksImages()[pos]!!.imageName}")
+                 .delete().addOnSuccessListener(object:OnSuccessListener<Void>{
+                     override fun onSuccess(p0: Void?) {
+                         mySelf.rmWorkImage(pos)
+                         mySelf.uploadMyself()
+                         if(myProfileView!=null) {
+                             myProfileView!!.updateWorksImage(mySelf)
+                             myProfileView!!.ShowToast("Image Deleted")
+                             myProfileView!!.worksImagesGV.isClickable=true
+                         }
+                     }
+                 }).addOnFailureListener(object:OnFailureListener{
+                     override fun onFailure(p0: Exception) {
+                         myProfileView!!.ShowToast("Failed to Delete Image Please Try again Later")
+                         myProfileView!!.worksImagesGV.isClickable=true
+                     }
+                 })
     }
 
     fun updateProfileImage(u: user) {

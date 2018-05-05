@@ -15,17 +15,20 @@ import com.helpme.EditProfile.MyProfile
 
 class UploadImage : AppCompatActivity() {
     var bitmap: Bitmap? = null
-    object imageInfo{
-        var name = ""
-        var kind:imageKind=imageKind.profile
+
+    object imageInfo {
+        var kind: imageKind = imageKind.profile
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_image)
-        uploadImageBtn.setOnClickListener(object :View.OnClickListener{
+        uploadImageBtn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                if(bitmap!=null)
-                    UserControl.getInstance().uploadImage(this@UploadImage,bitmap)
+                uploadImageBtn.isEnabled=false
+                selectNewImageBtn.isEnabled = false
+                if (bitmap != null)
+                    UserControl.getInstance().uploadImage(this@UploadImage, bitmap)
             }
         })
     }
