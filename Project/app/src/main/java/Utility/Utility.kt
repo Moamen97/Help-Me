@@ -30,3 +30,7 @@ object Utility {
         return result.toString()
     }
 }
+
+enum class imageKind{
+    profile,works,comment
+}

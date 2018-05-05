@@ -1,7 +1,13 @@
 package Model
+import Common.mySelf
+import Control.UserControl
 import Utility.Utility
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.audiofx.Visualizer
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.storage.StorageReference
 import com.helpme.R.id.*
 import java.util.*
 
@@ -18,7 +24,9 @@ open class user() {
     protected var lastName: String = ""
     protected var birthDate: String = ""
     protected var gender: String = ""
-    protected var image: Bitmap? = null
+    protected var profileimage: Image? = null
+    protected var worksImages:MutableList<Image?> = mutableListOf()
+    protected var isProfessional: Boolean = false
     protected var behaveRate: Int = 5
         set(value) {
             field = when {
@@ -27,6 +35,7 @@ open class user() {
                 else -> value
             }
         }
+
 
     fun CheckSet_userName(uname:String){
         require(uname.length>=3){"Error: username is too short 3 chars minimum"}
@@ -68,16 +77,17 @@ open class user() {
                 ) {"Error:you should at least 12 years old"}
         birthDate=bDate
     }
+    fun CheckSet_isProfistional(b:Boolean){
+        isProfessional=b
+    }
     fun CheckSet_gender(g:String){
-        /*if(g=="male"|| g=="female")
-            gender=g
-
-        else
-            throw IllegalArgumentException("Error: only male or female accepted")*/
         gender=g
     }
-    fun Checkset_image(bm:Bitmap?){
-        image=bm
+    fun Checkset_image(im:Image?){
+        profileimage=im
+    }
+    fun addWorkImage(im:Image?){
+        worksImages.add(im)
     }
     fun get_userName()=userName
     fun get_password()=password
@@ -88,9 +98,38 @@ open class user() {
     fun get_lastName()=lastName
     fun get_birthDate()=birthDate
     fun get_gender()=gender
-    fun get_image()=image
+    fun get_ProfileImage()=profileimage
     fun get_imageID()="" // this func will be removed later
     fun get_behaveRate()=behaveRate
+    fun get_worksImages()=worksImages
+    fun get_isProfessional()=isProfessional
+    fun downloadProfileImage() {
+        Utility.storageHandler.reference.child("images/$userName/profile/$userName.jpg").getBytes(Long.MAX_VALUE)
+                .addOnSuccessListener(object : OnSuccessListener<ByteArray> {
+                    override fun onSuccess(p0: ByteArray) {
+                        var im=Image("$userName.jpg",BitmapFactory.decodeByteArray(p0, 0, p0.size))
+                        this@user.Checkset_image(im)
+                        UserControl.getUnChangedInstance().updateProfileImage(this@user)
+                    }
+                })
+    }
+    fun downloadWorksImages(list:List<String>){
+        var count=list.size
+        list.forEach{
+        Utility.storageHandler.reference
+                .child("images/$userName/works/$it").getBytes(Long.MAX_VALUE)
+                .addOnSuccessListener(object : OnSuccessListener<ByteArray> {
+                    override fun onSuccess(p0: ByteArray) {
+                        var im=Image(it,BitmapFactory.decodeByteArray(p0, 0, p0.size))
+                        this@user.addWorkImage(im)
+                        count--
+                        if(count==0)
+                            UserControl.getUnChangedInstance().updateWorksImage(this@user)
+                    }
+                })
+        }
+
+    }
     companion object {
         val userNameKey: String = "userName"
         val passwordKey: String = "password"
@@ -108,6 +147,8 @@ open class user() {
         val postsCollectionKey: String = "posts"
         val usersCollectionName: String = "user"
         val userStorageImageFolder:String ="users_images"
+        val worksImagesNamesKey:String="worksImagesNames"
+        var isProfessionalKey:String="isProfessional"
     }
 }
 

@@ -35,7 +35,7 @@
             android:label=""
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
-            android:name=".UploadImages.UploadProfileImage"
+            android:name=".UploadImages.UploadImage"
             android:label="@string/title_activity_upload_profile_image"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>

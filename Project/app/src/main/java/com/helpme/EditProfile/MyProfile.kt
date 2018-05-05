@@ -2,47 +2,81 @@ package com.helpme.EditProfile
 
 import Common.mySelf
 import Control.UserControl
+import Model.user
+import Utility.imageKind
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.content.ContextCompat.startActivity
+import android.text.method.Touch.onTouchEvent
+import java.util.Date
 import android.view.View
 import android.widget.*
 import com.helpme.R
-import com.helpme.UploadImages.UploadProfileImage
+import com.helpme.UploadImages.UploadImage
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import java.util.*
+import android.widget.Toast
+import com.helpme.R.id.userImage
+import java.text.SimpleDateFormat
+import android.view.Gravity
+
+
+
 
 class MyProfile : AppCompatActivity() {
-    val UserController: UserControl = UserControl.getInstance(null, null, null, this)
+    private lateinit var UserController:UserControl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ///////////////////////////////////
+        // this line will be removed
+        mySelf.CheckSet_isProfistional(true)
+        /////////////
+
+        UserController= UserControl.getInstance(null, null, null, this)
         setContentView(R.layout.activity_my_profile)
         userImage.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val intent = Intent(this@MyProfile, UploadProfileImage::class.java)
+                UploadImage.imageInfo.name = "${mySelf.get_userName()}.jpg"
+                UploadImage.imageInfo.kind=imageKind.profile
+                val intent = Intent(this@MyProfile, UploadImage::class.java)
                 startActivity(intent)
                 finish()
             }
         })
-
+            addWorkImages.setOnClickListener(object : View.OnClickListener{
+                @SuppressLint("ShowToast")
+                override fun onClick(p0: View?) {
+                    if (!mySelf.get_isProfessional()) {
+                        showMessage("you must have profession first")
+                    } else {
+                        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                        val date = Date()
+                        UploadImage.imageInfo.name = dateFormat.format(date).replace('/', '-') + ".jpg"
+                        UploadImage.imageInfo.kind = imageKind.works
+                        val intent = Intent(this@MyProfile, UploadImage::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            })
         val firstname = mySelf.get_firstName()
         val midname = mySelf.get_midName()
         val lastname = mySelf.get_lastName()
         val n_of_posts = mySelf.myPosts.size.toString()
         val rate = mySelf.get_behaveRate().toString()
-
         // imageAbb.text = firstname[0].toUpperCase().toString()
         personName.text = "Name : " + firstname + " " + midname + " " + lastname
         personNoOfPosts.text = n_of_posts
         personRate.text = rate
-        var bm = mySelf.get_image()
-        if (bm != null)
-            userImage.setImageBitmap(bm)
 
         val editMyProfile = findViewById<FloatingActionButton>(R.id.fab)
         val dialog: Dialog = Dialog(this)
@@ -95,17 +129,36 @@ class MyProfile : AppCompatActivity() {
                 editMyProfile(dialog)
             }
         }
+        updateProfileImage(mySelf)
+        updateWorksImage(mySelf)
 
     }
+      fun updateProfileImage(u: user){
+          if(u.get_ProfileImage()!=null && u.get_ProfileImage()!!.imageData!=null)
+            userImage.setImageBitmap(u.get_ProfileImage()!!.imageData)
+    }
+     fun updateWorksImage(u: user) {
+         if(u.get_isProfessional()) {
+             var gva = gridViewAdabpter(this@MyProfile, u.get_worksImages())
+             var gridView: GridView = findViewById(R.id.worksImagesGV)
+             gridView.adapter = gva
+         }
+    }
+    fun showMessage(mess:String){
+        Toast.makeText(this@MyProfile,mess,Toast.LENGTH_LONG).show()
+    }
+
 
     fun btnAddWorkShops(view: View) {
         var intent = Intent(this, AddWorkShop::class.java)
         startActivity(intent)
     }
+
     fun getmyposts(view: View) {
         var intent = Intent(this, AddWorkShop::class.java)
         startActivity(intent)
     }
+
     fun editMyProfile(dialog: Dialog) {
         var newFirstName: String = (dialog.findViewById<(EditText)>(R.id.editFirstNametextbox)).text.toString();
         var newMidName: String = (dialog.findViewById<(EditText)>(R.id.editMidNametextbox)).text.toString();

@@ -25,12 +25,12 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         return postList.size;
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): postViewHolder {
-        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.post_card, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): postViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.post_card, parent, false)
         return postViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: postViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: postViewHolder, position: Int) {
         var postToBind: post = postList[position];
         holder?.postContent?.text = postToBind.postContent;
         holder?.postType?.setImageResource(postType);
@@ -54,7 +54,7 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
         })
         applyProfilePicture(holder!!, postToBind)
         // dh by3mel load ll post cover using Glide library gamed f45
-        Glide.with(mContext).load(postToBind.postImage).into(holder?.postImage);
+        Glide.with(mContext).load(postToBind.postImage).into(holder.postImage);
     }
 
     private fun applyProfilePicture(holder: postViewHolder, Post: post) {
