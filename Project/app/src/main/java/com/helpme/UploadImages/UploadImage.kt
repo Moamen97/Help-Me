@@ -29,12 +29,17 @@ class UploadImage : AppCompatActivity() {
                 selectNewImageBtn.isEnabled = false
                 if (bitmap != null)
                     UserControl.getInstance().uploadImage(this@UploadImage, bitmap)
+                else {
+                    showMessage("Image not Selected yet",Toast.LENGTH_SHORT)
+                    uploadImageBtn.isEnabled = true
+                    selectNewImageBtn.isEnabled = true
+                }
             }
         })
     }
 
-    fun showMessage(m: String) {
-        Toast.makeText(this, m, Toast.LENGTH_LONG).show()
+    fun showMessage(m: String,period:Int= Toast.LENGTH_LONG) {
+        Toast.makeText(this, m,period).show()
     }
 
     var PICK_IMAGE = 0

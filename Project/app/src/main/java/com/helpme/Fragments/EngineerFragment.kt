@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import java.util.ArrayList
 
+
 class EngineerFragment : android.support.v4.app.Fragment() {
 
     private val POST_TYPE = R.drawable.engineer;

@@ -3,6 +3,7 @@ package com.helpme.Authentication
 import Control.PostControl
 import Control.UserControl
 import Model.postData.post
+import Music.MusicPlayer
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
@@ -13,10 +14,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.AutoCompleteTextView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -44,6 +42,8 @@ class SignIn : AppCompatActivity() {
     //////////////////////////////////////add_post////////////////////////////////////////////////////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var musicPlayer: MusicPlayer = MusicPlayer.getInstance()
+            musicPlayer.play(this)
         //facebook Configuration
         callbackmanager = CallbackManager.Factory.create()
         ///////////////////////////////////////////////////
@@ -154,7 +154,11 @@ class SignIn : AppCompatActivity() {
         )
 
     }
-
+    override fun onBackPressed() {
+        var music: MusicPlayer = MusicPlayer.getInstance()
+        music.stop()
+        super.onBackPressed()
+    }
     //added functions by mohamed start here
     fun LogIn() {
         val intent = Intent(this, home::class.java)
@@ -163,6 +167,16 @@ class SignIn : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun music(view: View)
+    {
+        var musicPlayer:MusicPlayer = MusicPlayer.getInstance()
+        if(findViewById<CheckBox>(R.id.musiccheckBox).isChecked)
+        {
+            musicPlayer.play(this)
+        }
+        else
+            musicPlayer.stop()
+    }
     fun ShowToast(Msg: String) {
         Toast.makeText(this, Msg, Toast.LENGTH_LONG).show();
     }

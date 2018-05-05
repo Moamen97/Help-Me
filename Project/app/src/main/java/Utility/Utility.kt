@@ -7,7 +7,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.security.MessageDigest
 
-
 object Utility {
     val fireStoreHandler = FirebaseFirestore.getInstance()
     val storageHandler = FirebaseStorage.getInstance()
@@ -16,7 +15,6 @@ object Utility {
         var activeNetwork: NetworkInfo? = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
-
     fun hashString(input: String): String {
         val HEX_CHARS = "0123456789ABCDEF"
         val bytes = MessageDigest

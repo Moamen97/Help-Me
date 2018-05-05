@@ -8,15 +8,10 @@
             android:id="@+id/MyProfile"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="My Profile" />
-
         <item
-            android:id="@+id/MyPosts"
-            android:icon="@drawable/ic_insert_comment_black_24dp"
-            android:title="My Posts" />
-        <item
-            android:id="@+id/AddProfession"
-            android:icon="@drawable/ic_person_add_black_24dp"
-            android:title="Add Profession" />
+            android:id="@+id/SearcBu"
+            android:icon="@drawable/ic_search_white_24dp"
+            android:title="Search" />
         <item
             android:id="@+id/Logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"

@@ -31,7 +31,9 @@ class PostControl {
         Posttypemap.put("Plumber", ArrayList())
         getPostsByType("Plumber")
         Posttypemap.put("MyPosts", ArrayList())
-
+        Posttypemap.put("Location", ArrayList())
+        Posttypemap.put("WS_Name", ArrayList())
+        Posttypemap.put("Owner_Name", ArrayList())
     }
 
     companion object {
@@ -109,6 +111,7 @@ class PostControl {
                                 }
                             }
 
+
                         }
                     }
                 })
@@ -144,6 +147,7 @@ class PostControl {
                         }
                     }
                 })
+
     }
 
     fun getPostOfWS() {
@@ -180,6 +184,117 @@ class PostControl {
                         }
                     }
                 })
+    }
+    fun getPostBylocation(Location:String) {
+        FirebaseFirestore.getInstance().collection("post")
+                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+            override fun onComplete(p0: Task<QuerySnapshot>) {
+                if (p0.isSuccessful) {
+                    try {
+                        Posttypemap.get("Location")!!.clear();
+                    }catch (e:Exception)
+                    {
+                        Posttypemap.put("Location", ArrayList())
+                    }
+                    for (document: QueryDocumentSnapshot in p0.result) {
+                        println(document.id + " => " + document.data);
+                        try {
+                            var col = document.get("color").toString().toInt();
+                            var comm = document.get("comments");
+                            var orate = document.get("postRate").toString().toInt();
+                            var pofnme = document.get("postOwnerFName").toString();
+                            var oimg = document.get("postOwnerImage").toString()
+                            var pounme = document.get("postOwnerUserName").toString();
+                            var ptype = document.get("postType").toString();
+                            var ploc = document.get("postLocation").toString();
+                            var pnme = document.get("postName").toString();
+                            var pid = document.get("postID").toString();
+                            if (ploc.contains(Location)||Location.contains(ploc))
+                            {
+                                var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
+                                Posttypemap.get("Location")!!.add(temp)
+                            }
+                        } catch (e: Exception) {
+                        }
+                    }
+
+                }
+            }
+        })
+    }
+    fun getPostByOwnerName(Owner_Name:String)  {
+        FirebaseFirestore.getInstance().collection("post")
+                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+            override fun onComplete(p0: Task<QuerySnapshot>) {
+                if (p0.isSuccessful) {
+                    try {
+                        Posttypemap.get("Owner_Name")!!.clear();
+                    }catch (e:Exception)
+                    {
+                        Posttypemap.put("Owner_Name", ArrayList())
+                    }
+                    for (document: QueryDocumentSnapshot in p0.result) {
+                        println(document.id + " => " + document.data);
+                        try {
+                            var col = document.get("color").toString().toInt();
+                            var comm = document.get("comments");
+                            var orate = document.get("postRate").toString().toInt();
+                            var pofnme = document.get("postOwnerFName").toString();
+                            var oimg = document.get("postOwnerImage").toString()
+                            var pounme = document.get("postOwnerUserName").toString();
+                            var ptype = document.get("postType").toString();
+                            var ploc = document.get("postLocation").toString();
+                            var pnme = document.get("postName").toString();
+                            var pid = document.get("postID").toString();
+                            if (pofnme.contains(Owner_Name)||Owner_Name.contains(pofnme))
+                            {
+                                var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
+                                Posttypemap.get("Owner_Name")!!.add(temp)
+                            }
+                        } catch (e: Exception) {
+                        }
+                    }
+
+                }
+            }
+        })
+    }
+    fun getPostByWS_Name(WS_Name:String)  {
+        FirebaseFirestore.getInstance().collection("post")
+                .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+            override fun onComplete(p0: Task<QuerySnapshot>) {
+                if (p0.isSuccessful) {
+                    try {
+                        Posttypemap.get("WS_Name")!!.clear();
+                    }catch (e:Exception)
+                    {
+                        Posttypemap.put("WS_Name", ArrayList())
+                    }
+                    for (document: QueryDocumentSnapshot in p0.result) {
+                        println(document.id + " => " + document.data);
+                        try {
+                            var col = document.get("color").toString().toInt();
+                            var comm = document.get("comments");
+                            var orate = document.get("postRate").toString().toInt();
+                            var pofnme = document.get("postOwnerFName").toString();
+                            var oimg = document.get("postOwnerImage").toString()
+                            var pounme = document.get("postOwnerUserName").toString();
+                            var ptype = document.get("postType").toString();
+                            var ploc = document.get("postLocation").toString();
+                            var pnme = document.get("postName").toString();
+                            var pid = document.get("postID").toString();
+                            if (pnme.contains(WS_Name))
+                            {
+                                var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
+                                Posttypemap.get("WS_Name")!!.add(temp)
+                            }
+                        } catch (e: Exception) {
+                        }
+                    }
+
+                }
+            }
+        })
     }
 
 /*

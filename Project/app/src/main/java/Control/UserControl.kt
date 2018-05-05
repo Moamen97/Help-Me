@@ -52,7 +52,6 @@ class UserControl private constructor() {
         }
     } //Singleton
 
-
     fun updateBehaviourRate(behav_rate: Int) {
         dataBaseInstance.collection("user").document(mySelf.postOwner)
                 .update("behav_rate", behav_rate)
