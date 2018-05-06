@@ -145,6 +145,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             val intent = Intent(this, MyProfile::class.java)
             startActivity(intent)
         } else if (id == R.id.Logout) {
+
             val intent = Intent(applicationContext, SignIn::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)

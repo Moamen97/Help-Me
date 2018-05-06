@@ -25,7 +25,6 @@ import com.helpme.UploadImages.UploadImage
 import android.widget.Toast
 
 
-
 class MyProfile : AppCompatActivity() {
     private lateinit var UserController: UserControl
     override fun onCreate(savedInstanceState: Bundle?) {

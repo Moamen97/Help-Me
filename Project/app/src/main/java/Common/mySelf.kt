@@ -38,6 +38,8 @@ object mySelf : Model.user() {
                     //this@mySelf.isProfessional = docSnapshot.getBoolean(user.isProfessionalKey)!!
                     //this@mySelf.behaveRate = docSnapshot.getLong(user.behaveRateKey) as Int
                     this@mySelf.birthDate = docSnapshot.getString(user.birthDateKey).toString()
+                    profileimage=null
+                    worksImages.clear()
                     this@mySelf.downloadProfileImage()
                     this@mySelf.downloadWorksImages(docSnapshot.data!![user.worksImagesNamesKey] as MutableList<String>?)
 
@@ -84,4 +86,5 @@ object mySelf : Model.user() {
     }
 
     var myPosts: MutableList<post> = mutableListOf<post>()
+
 }
