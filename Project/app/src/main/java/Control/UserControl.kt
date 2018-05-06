@@ -376,7 +376,7 @@ class UserControl private constructor() {
 
         lateinit var imageName:String
         if(UploadImage.imageInfo.kind==imageKind.profile)
-            imageName=mySelf.get_userName()
+            imageName=mySelf.get_userName()+".jpg"
         else {
             val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS")
             val date = Date()
