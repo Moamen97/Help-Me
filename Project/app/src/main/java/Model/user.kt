@@ -5,6 +5,7 @@ import Utility.Utility
 import android.graphics.BitmapFactory
 import com.google.android.gms.tasks.OnSuccessListener
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by shehab on 3/29/18.
@@ -23,6 +24,7 @@ open class user() {
     protected var worksImages: MutableList<Image?> = mutableListOf()
     protected var isProfessional: Boolean = false
     protected var behaveRate: Int = 5
+
         set(value) {
             field = when {
                 value > 10 -> 10

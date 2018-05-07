@@ -3,6 +3,8 @@ package Control
 import Common.mySelf
 import Utility.Utility
 import Model.postData.post
+import Model.user
+import android.graphics.Bitmap
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,6 +17,8 @@ import java.util.HashMap
 class PostControl {
     private var dataBaseInstance = Utility.fireStoreHandler
     var Posttypemap = HashMap<String, ArrayList<post>>();
+    var Users = HashMap<String, user>();
+
     var entered = 0
 
     private constructor() {
@@ -65,7 +69,7 @@ class PostControl {
                                 PostData.put("color", "1");
                                 PostData.put("comments", NewPost.comments);
                                 PostData.put("postRate", NewPost.postRate);
-                                PostData.put("postOwnerImage", NewPost.postOwnerImage);
+                                PostData.put("postOwnerImage", "");
                                 PostData.put("postOwnerUserName", NewPost.postOwnerUserName);
                                 PostData.put("postOwnerFName", NewPost.OwnerFName);
                                 PostData.put("postType", NewPost.postType);
@@ -98,14 +102,23 @@ class PostControl {
                                     var comm = document.get("comments");
                                     var orate = document.get("postRate").toString().toInt();
                                     var pofnme = document.get("postOwnerFName").toString();
-                                    var oimg = document.get("postOwnerImage").toString()
                                     var pounme = document.get("postOwnerUserName").toString();
                                     var ptype = document.get("postType").toString();
                                     var ploc = document.get("postLocation").toString();
                                     var pnme = document.get("postName").toString();
                                     var pid = document.get("postID").toString();
-                                    var temp = post(pofnme, ptype, ArrayList(), oimg, pounme, col, orate, ploc, pnme, pid)
-                                    Posttypemap.get(PostType)!!.add(temp)
+                                    var User = user()
+                                    User.CheckSet_userName(pounme)
+                                    try {
+                                        User.downloadProfileImage()
+                                        var oimg =  User.get_ProfileImage()!!.imageData
+                                        var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                        Users.put(temp.postID,User)
+                                        Posttypemap.get(PostType)!!.add(temp)
+                                    }catch (e:Exception){var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                        Posttypemap.get(PostType)!!.add(temp)
+                                        Users.put(temp.postID,User)
+                                    }
 
                                 } catch (e: Exception) {
                                 }
@@ -131,14 +144,23 @@ class PostControl {
                                     var comm = document.get("comments");
                                     var orate = document.get("postRate").toString().toInt();
                                     var pofnme = document.get("postOwnerFName").toString();
-                                    var oimg = document.get("postOwnerImage").toString()
                                     var pounme = document.get("postOwnerUserName").toString();
                                     var ptype = document.get("postType").toString();
                                     var ploc = document.get("postLocation").toString();
                                     var pnme = document.get("postName").toString();
                                     var pid = document.get("postID").toString();
-                                    var temp = post(pofnme, ptype, ArrayList(), oimg, pounme, col, orate, ploc, pnme, pid)
-                                    Posttypemap.get("MyPosts")!!.add(temp)
+                                    var User = user()
+                                    User.CheckSet_userName(pounme)
+                                    try {
+                                        var oimg =  User.get_ProfileImage()!!.imageData
+
+                                        var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                        Users.put(temp.postID,User)
+                                        Posttypemap.get("MyPosts")!!.add(temp)
+                                    }catch (e:Exception){var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                        Users.put(temp.postID,User)
+                                        Posttypemap.get("MyPosts")!!.add(temp)}
+
 
                                 } catch (e: Exception) {
                                 }
@@ -149,7 +171,7 @@ class PostControl {
                 })
 
     }
-
+/*
     fun getPostOfWS() {
         var WorkShopController = WorkShopControl.getInstance(null)
         FirebaseFirestore.getInstance().collection("post").whereEqualTo("postID", WorkShopController.WorkShop!!.workshopid)
@@ -184,7 +206,7 @@ class PostControl {
                         }
                     }
                 })
-    }
+    }*/
     fun getPostBylocation(Location:String) {
         FirebaseFirestore.getInstance().collection("post")
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
@@ -211,8 +233,16 @@ class PostControl {
                             var pid = document.get("postID").toString();
                             if (ploc.contains(Location)||Location.contains(ploc))
                             {
-                                var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
-                                Posttypemap.get("Location")!!.add(temp)
+                                var User = user()
+                                User.CheckSet_userName(pounme)
+                                try {
+                                    var oimg =  User.get_ProfileImage()!!.imageData
+                                    var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                    Users.put(temp.postID,User)
+                                    Posttypemap.get("Location")!!.add(temp)
+                                }catch (e:Exception){var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                    Users.put(temp.postID,User)
+                                    Posttypemap.get("Location")!!.add(temp)}
                             }
                         } catch (e: Exception) {
                         }
@@ -248,8 +278,16 @@ class PostControl {
                             var pid = document.get("postID").toString();
                             if (pofnme.contains(Owner_Name)||Owner_Name.contains(pofnme))
                             {
-                                var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
-                                Posttypemap.get("Owner_Name")!!.add(temp)
+                                var User = user()
+                                User.CheckSet_userName(pounme)
+                                try {
+                                    var oimg =  User.get_ProfileImage()!!.imageData
+                                    var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                    Users.put(temp.postID,User)
+                                    Posttypemap.get("Owner_Name")!!.add(temp)
+                                }catch (e:Exception){var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                    Users.put(temp.postID,User)
+                                    Posttypemap.get("Owner_Name")!!.add(temp)}
                             }
                         } catch (e: Exception) {
                         }
@@ -285,8 +323,16 @@ class PostControl {
                             var pid = document.get("postID").toString();
                             if (pnme.contains(WS_Name))
                             {
-                                var temp = post(pofnme,ptype, ArrayList(),oimg,pounme,col,orate,ploc,pnme,pid)
-                                Posttypemap.get("WS_Name")!!.add(temp)
+                                var User = user()
+                                User.CheckSet_userName(pounme)
+                                try {
+                                    var oimg =  User.get_ProfileImage()!!.imageData
+                                    var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                    Users.put(temp.postID,User)
+                                    Posttypemap.get("WS_Name")!!.add(temp)
+                                }catch (e:Exception){var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
+                                    Users.put(temp.postID,User)
+                                    Posttypemap.get("WS_Name")!!.add(temp)}
                             }
                         } catch (e: Exception) {
                         }

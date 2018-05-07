@@ -29,11 +29,15 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
     }
 
     override fun onBindViewHolder(holder: postViewHolder, position: Int) {
+
+       try {
+
         var postToBind: post = postList[position];
         holder?.postname?.text = postToBind.postname.toString()
         holder?.postlocation?.text = postToBind.postlocation.toString()
         holder?.postType?.setImageResource(postType);
         holder?.postOwnerFName?.text = postToBind.OwnerFName
+        holder?.postOwnerImage?.setImageBitmap(postToBind.postOwnerImage)
         holder?.showCommentsButton?.setOnClickListener {
             mySelf.currentPostId = postList[position].postID
             mySelf.postOwner = postList[position].postOwnerUserName
@@ -51,13 +55,14 @@ class postAdapter(var mContext: Context, var postList: ArrayList<post>, var post
                 Snackbar.make(holder.view, postToBind.postname, Snackbar.LENGTH_SHORT).show()
             }
         })
-        applyProfilePicture(holder!!, postToBind)
+        //applyProfilePicture(holder!!, postToBind)
         // dh by3mel load ll post cover using Glide library gamed f45
         //   Glide.with(mContext).load(postToBind.postImage).into(holder?.postImage);
+           }catch (e:Exception){}
     }
 
     private fun applyProfilePicture(holder: postViewHolder, Post: post) {
-        if (!TextUtils.isEmpty(Post.postOwnerImage)) {
+        if (!TextUtils.isEmpty(Post.postOwnerImage.toString())) {
             Glide.with(mContext).load(Post.postOwnerImage)
                     .thumbnail(0.5f)
                     .crossFade()

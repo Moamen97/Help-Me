@@ -7,9 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
-import com.helpme.Home.UserPosts
 
 class UserProfile : AppCompatActivity() {
     var WorkShopController = WorkShopControl.getInstance(null)
@@ -18,10 +17,11 @@ class UserProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
         findViewById<(Button)>(R.id.ShowWorkShops).setVisibility(View.GONE)
+
     }
 
     fun ShowInfo(view: View) {
-        findViewById<(Button)>(R.id.ShowWorkShops).setVisibility(View.VISIBLE)
+        findViewById<(Button)>(R.id.ShowWorkShops).setVisibility(View.GONE)
         findViewById<(Button)>(R.id.Showinfo).setVisibility(View.GONE)
 
         val pname = findViewById<(TextView)>(R.id.personName)
@@ -30,18 +30,18 @@ class UserProfile : AppCompatActivity() {
         val wnum = findViewById<(TextView)>(R.id.Workshopnumber)
         val wprof = findViewById<(TextView)>(R.id.WorkshopProfession)
 
-        pname.text = "Owner Name : \n"+WorkShopController.WorkShop!!.OwnerFullName
-        wloc.text = "WorkShop Location : \n"+WorkShopController.WorkShop!!.location
-        wname.text = "WorkShop Name : \n"+WorkShopController.WorkShop!!.workshopName
-        wnum.text = "WorkShop Phone : \n"+WorkShopController.WorkShop!!.workshopPhoneNum
-        wprof.text = "WorkShop Profession : \n"+WorkShopController.WorkShop!!.profession
+        pname.text = "Owner Name : \n"+WorkShopController.UWorkShop!!.OwnerFullName
+        wloc.text = "WorkShop Location : \n"+WorkShopController.UWorkShop!!.location
+        wname.text = "WorkShop Name : \n"+WorkShopController.UWorkShop!!.workshopName
+        wnum.text = "WorkShop Phone : \n"+WorkShopController.UWorkShop!!.workshopPhoneNum
+        wprof.text = "WorkShop Profession : \n"+WorkShopController.UWorkShop!!.profession
 
-        PostController.getPostOfWS()
+      //  PostController.getPostOfWS()
 
     }
 
-    fun ShowWS(view: View) {
+  /*  fun ShowWS(view: View) {
         val intent = Intent(this, UserPosts::class.java)
         startActivity(intent)
-    }
+    }*/
 }

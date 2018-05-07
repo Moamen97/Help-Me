@@ -39,6 +39,16 @@ class DoctorFragment : android.support.v4.app.Fragment() {
         postList.clear()
         for (temp in templist) {
             temp.color = getRandomMaterialColor()
+            try {
+                temp.postOwnerImage = null
+                for(u in PostController.Users)
+                {
+                    if (temp.postID ==u.key)
+                    {temp.postOwnerImage = u.value.get_ProfileImage()!!.imageData
+                        PostController.Users.remove(u.key)
+                    }                     }
+            }catch (e:Exception){}
+
             postList.add(temp)
         }
         fun selector(p: post): Int = p.postRate

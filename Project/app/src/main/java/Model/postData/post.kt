@@ -1,5 +1,6 @@
 package Model.postData
 
+import android.graphics.Bitmap
 import java.lang.reflect.Type
 
 class post {
@@ -7,7 +8,7 @@ class post {
     var OwnerFName: String = ""
     var postID: String = ""
     var postType: String = ""
-    var postOwnerImage: String = ""
+    var postOwnerImage: Bitmap? = null
     var postOwnerUserName: String = ""
     var postlocation: String = ""
     var postname: String = ""
@@ -16,7 +17,7 @@ class post {
 
     constructor()
 
-    constructor(OwnerFName: String, postType: String, comments: ArrayList<String>, postOwnerImage: String = "", postOwnerUserName: String = "", color: Int = -1, postRate: Int = 0, postlocation: String,
+    constructor(OwnerFName: String, postType: String, comments: ArrayList<String>, postOwnerImage: Bitmap? , postOwnerUserName: String = "", color: Int = -1, postRate: Int = 0, postlocation: String,
                 postname: String, postID: String) {
         this.comments = comments
         this.postType = postType

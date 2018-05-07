@@ -9,10 +9,6 @@
             android:icon="@drawable/ic_person_black_24dp"
             android:title="My Profile" />
         <item
-            android:id="@+id/SearcBu"
-            android:icon="@drawable/ic_search_white_24dp"
-            android:title="Search" />
-        <item
             android:id="@+id/Logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="Logout" />

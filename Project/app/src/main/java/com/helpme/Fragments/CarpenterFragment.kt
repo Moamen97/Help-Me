@@ -2,8 +2,10 @@ package com.helpme
 
 import Common.mySelf
 import Control.PostControl
+import Control.UserControl
 import Model.postData.post
 import Model.postData.postAdapter
+import Model.user
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -40,6 +42,17 @@ class CarpenterFragment : android.support.v4.app.Fragment() {
         postList.clear()
         for (temp in templist) {
             temp.color = getRandomMaterialColor()
+            try {
+                temp.postOwnerImage = null
+                for(u in PostController.Users)
+                {
+                    if (temp.postID ==u.key)
+                    {temp.postOwnerImage = u.value.get_ProfileImage()!!.imageData
+                        PostController.Users.remove(u.key)
+                    }
+                }
+            }catch (e:Exception){}
+
             postList.add(temp)
         }
         fun selector(p: post): Int = p.postRate

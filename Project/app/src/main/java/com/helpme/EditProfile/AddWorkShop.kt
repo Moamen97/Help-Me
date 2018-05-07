@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
 import com.helpme.R
@@ -33,6 +34,7 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
         Adapter = workshopAdapter(this, ListOFWorkshops, this)
         recyclerView.adapter = Adapter
         loadWorkshopsEditForms();
+
     }
 
     override fun onClicK(position: Int) {
@@ -101,6 +103,10 @@ class AddWorkShop : AppCompatActivity(), workshopListener {
 
     fun ShowToast(Msg: String) {
         Toast.makeText(this, Msg, Toast.LENGTH_LONG).show();
+        if(Msg == "Done")
+        {
+            super.onBackPressed()
+        }
     }
 
 }

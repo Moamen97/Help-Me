@@ -1,6 +1,7 @@
 package com.helpme.Authentication
 
 import Control.UserControl
+import Music.MusicPlayer
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface

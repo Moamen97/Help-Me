@@ -15,7 +15,9 @@ import kotlinx.android.synthetic.main.activity_my_profile.*
 import java.util.*
 import Common.mySelf
 import Control.UserControl
+import Control.WorkShopControl
 import Model.user
+import Music.MusicPlayer
 import Utility.imageKind
 import android.annotation.SuppressLint
 import android.os.Build
@@ -27,12 +29,16 @@ import android.widget.Toast
 
 class MyProfile : AppCompatActivity() {
     private lateinit var UserController: UserControl
+    var WorkShopController = WorkShopControl.getInstance(null,this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ///////////////////////////////////
         // this line will be removed
         mySelf.CheckSet_isProfistional(true)
         /////////////
+        var musicPlayer: MusicPlayer = MusicPlayer.getInstance()
+        musicPlayer.play(this)
 
         UserController = UserControl.getInstance(null, null, null, this)
         setContentView(R.layout.activity_my_profile)
@@ -145,7 +151,10 @@ class MyProfile : AppCompatActivity() {
         }
         updateProfileImage(mySelf)
         updateWorksImage(mySelf)
-
+        if(WorkShopController.MyWorkShop != null)
+        {
+            findViewById<(Button)>(R.id.AddWorkShops).setVisibility(View.GONE)
+        }
     }
 
     fun updateProfileImage(u: user) {
@@ -153,6 +162,10 @@ class MyProfile : AppCompatActivity() {
             userImage.setImageBitmap(u.get_ProfileImage()!!.imageData)
     }
 
+    fun hidebu()
+    {
+        findViewById<(Button)>(R.id.AddWorkShops).setVisibility(View.GONE)
+    }
     fun updateWorksImage(u: user) {
         if (u.get_isProfessional()) {
             var gva = gridViewAdabpter(this@MyProfile, u.get_worksImages())
@@ -165,6 +178,7 @@ class MyProfile : AppCompatActivity() {
     fun btnAddWorkShops(view: View) {
         var intent = Intent(this, AddWorkShop::class.java)
         startActivity(intent)
+        var WorkShopController = WorkShopControl.getInstance(null)
     }
 
     fun getmyposts(view: View) {
@@ -204,6 +218,29 @@ class MyProfile : AppCompatActivity() {
         Toast.makeText(this, Msg, Toast.LENGTH_LONG).show()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.onRestart()
+        this.finish()
+    }
+
+    fun music(view: View)
+    {
+        var musicPlayer: MusicPlayer = MusicPlayer.getInstance()
+        if(findViewById<CheckBox>(R.id.musiccheckBox).isChecked)
+        {
+            musicPlayer.play(this)
+        }
+        else
+            musicPlayer.stop()
+    }
+    override fun onRestart() {
+        if(WorkShopController.MyWorkShop != null)
+        {
+            findViewById<(Button)>(R.id.AddWorkShops).setVisibility(View.GONE)
+        }
+        super.onRestart()
+    }
     fun datePicker(dialog: Dialog, view: View? = null) {
         onTouchEvent(null) // remove keypad
         val cal = Calendar.getInstance()

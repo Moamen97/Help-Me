@@ -61,6 +61,8 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         //setSupportActionBar(toolbar)
         //toolbar.title = "Posts"
 
+        var WorkShopController = WorkShopControl.getInstance(null)
+        WorkShopController.GetWorkShopByusername(mySelf.get_userName())
         dialog = Dialog(this)
          val fab = findViewById<View>(R.id.fab) as FloatingActionButton
          fab.setOnClickListener {  val intent = Intent(this, MyProfile::class.java)
@@ -149,6 +151,10 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             val intent = Intent(applicationContext, SignIn::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            this.finish()
+            var WorkShopController = WorkShopControl.getInstance(null)
+            WorkShopController.MyWorkShop = null
+            WorkShopController.UWorkShop = null
             //finish();
             //Intent intent2 = new Intent(this, SignIn.class);
             //startActivity(intent2);

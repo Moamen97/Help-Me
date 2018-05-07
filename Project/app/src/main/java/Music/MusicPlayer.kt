@@ -23,17 +23,19 @@ class MusicPlayer
     fun play(context: Context)
     {
         try {
+            mediaplayer!!.stop()
             mediaplayer = MediaPlayer.create(context,com.helpme.R.raw.songa)
             mediaplayer!!.start()
-            isplaying = true
-        }catch (e:Exception){}
+        }catch (e:Exception){
+            mediaplayer = MediaPlayer.create(context,com.helpme.R.raw.songa)
+            mediaplayer!!.start()
+        }
 
     }
     fun stop()
     {
         try {
             mediaplayer!!.stop()
-            isplaying = false
         }catch (e:Exception){}
     }
 }
