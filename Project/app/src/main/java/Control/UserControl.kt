@@ -59,6 +59,25 @@ class UserControl private constructor() {
                 .addOnFailureListener { println("Error while updating rate") }
     }
 
+    fun loadUser(u: user): Boolean {
+        var task = Utility.fireStoreHandler.document("${user.usersCollectionName}/${u.get_userName()}").get()
+        while (true) {
+            if (task.isComplete) {
+                if (task.isSuccessful) {
+                    var docSnapshot = task.result
+
+
+                    u.Checkset_image(null)
+                    u.downloadProfileImage()
+                    u.downloadWorksImages(docSnapshot.data!![user.worksImagesNamesKey] as MutableList<String>?)
+
+                    return true
+                } else
+                    return false
+            }
+        }
+    }
+
     fun getUserByUserName(userName: String): StringBuilder {
         val s = StringBuilder()
 

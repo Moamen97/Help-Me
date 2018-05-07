@@ -86,8 +86,6 @@ class PostControl {
                     }
                 })
     }
-
-
     fun getPostsByType(PostType: String) {
         FirebaseFirestore.getInstance().collection("post").whereEqualTo("postType", PostType)
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {

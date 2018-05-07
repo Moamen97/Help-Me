@@ -3,6 +3,7 @@ package Control
 import Common.mySelf
 import Model.Workshop
 import Model.postData.post
+import Model.user
 import Utility.Utility
 import com.google.android.gms.tasks.*
 import com.google.firebase.firestore.QuerySnapshot
@@ -19,6 +20,7 @@ class WorkShopControl private constructor() {
     private var PostController = PostControl.getInstance()
     var MyWorkShop: Workshop? = null
     var UWorkShop: Workshop? = null
+    var USER:user? = null
 
 
     companion object {
@@ -126,7 +128,12 @@ class WorkShopControl private constructor() {
                                         p0.result.documents[0].get("Owner").toString(),
                                         p0.result.documents[0].get("ID").toString(),
                                         p0.result.documents[0].get("OwnerFullName").toString());
-
+                                USER = user()
+                                try {
+                                    USER!!.CheckSet_userName(p0.result.documents[0].get("Owner").toString())
+                                }catch (e:Exception){}
+                                var UserController:UserControl = UserControl.getInstance()
+                                UserController.loadUser(USER!!)
                             } else {
                                 println("No Document Data");
 
