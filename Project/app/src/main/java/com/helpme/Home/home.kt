@@ -37,6 +37,7 @@ import Control.UserControl
 import Control.WorkShopControl
 import Model.postData.post
 import Music.MusicPlayer
+import android.os.Handler
 import android.widget.*
 import com.facebook.Profile
 import com.facebook.login.LoginManager
@@ -44,6 +45,7 @@ import com.helpme.*
 import kotlinx.android.synthetic.main.message_list_row.view.*
 
 class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     internal var userName: TextView? = null
     internal var recycleMenu: RecyclerView? = null
     internal var layoutManager: RecyclerView.LayoutManager? = null
@@ -55,6 +57,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     private val PostController = PostControl.getInstance(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         //val toolbar = findViewById<View>(R.id.toolbar) as Toolbar

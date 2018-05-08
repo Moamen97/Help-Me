@@ -65,6 +65,7 @@ class WorkShopControl private constructor() {
                                         .set(wshopData)
                                 AddWShop_View!!.ShowToast("Done")
                                 mySelf.CheckSet_isProfistional(true)
+                                mySelf.uploadMyself()
                                 MyWorkShop = NewWS
                                 try {
                                     myprofile!!.hidebu()
@@ -74,6 +75,7 @@ class WorkShopControl private constructor() {
                                 var NewPost = post(mySelf.get_firstName() + " " + mySelf.get_midName() + " " + mySelf.get_lastName(), NewWS.profession, ArrayList(), null
                                         , mySelf.get_userName(), -1, 0, NewWS.location, NewWS.workshopid + "\n" + NewWS.workshopName
                                         , NewWS.workshopid)
+
                                 PostController.addPost(NewPost)
                             } else {
                                 // here i found someone has the same userName :V so i can't add this user

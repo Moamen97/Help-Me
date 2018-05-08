@@ -33,10 +33,6 @@ class MyProfile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ///////////////////////////////////
-        // this line will be removed
-        mySelf.CheckSet_isProfistional(true)
-        /////////////
         var musicPlayer: MusicPlayer = MusicPlayer.getInstance()
         musicPlayer.play(this)
 
@@ -151,7 +147,7 @@ class MyProfile : AppCompatActivity() {
         }
         updateProfileImage(mySelf)
         updateWorksImage(mySelf)
-        if(WorkShopController.MyWorkShop != null)
+        if(mySelf.get_isProfessional())
         {
             findViewById<(Button)>(R.id.AddWorkShops).setVisibility(View.GONE)
         }

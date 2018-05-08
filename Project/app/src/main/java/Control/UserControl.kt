@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.*
 import Common.mySelf
 import Utility.*
 import Model.*
+import Model.postData.post
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.google.firebase.firestore.QuerySnapshot
@@ -23,6 +24,7 @@ import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class UserControl private constructor() {
     private var User_Model: mySelf? = null
@@ -33,7 +35,6 @@ class UserControl private constructor() {
     private var myProfileView: MyProfile? = null
     private var dataBaseInstance = Utility.fireStoreHandler
     private var toasmsg: String = ""
-
     companion object {
         private var instance: UserControl? = null
         fun getInstance(SignIn_View: SignIn? = null, SignUp_View: SignUp? = null // mainly for views to talk with controller
@@ -57,6 +58,27 @@ class UserControl private constructor() {
                 .update("behav_rate", behav_rate)
                 .addOnSuccessListener { println("behave rate Successfully updated") }
                 .addOnFailureListener { println("Error while updating rate") }
+    }
+
+
+    fun GetUserRate(Post: post) {
+        dataBaseInstance.collection(user.usersCollectionName)
+                .whereEqualTo(user.userNameKey, Post.postOwnerUserName)
+                .get()
+                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        if (p0.isSuccessful) {
+                            if (!p0.result.isEmpty) {
+                                println(p0.result.documents[0].data.toString())
+                                Post?.postRate = p0.result.documents[0].get("behav_rate").toString().toInt()
+                            }
+                        } else {
+                            println(p0.exception.toString());
+                        }
+                    }
+                })
+
+
     }
 
     fun loadUser(u: user): Boolean {
@@ -190,8 +212,9 @@ class UserControl private constructor() {
                                 userData.put(user.lastNameKey, newUser.get_lastName());
                                 userData.put(user.genderKey, newUser.get_gender());
                                 userData.put(user.phoneNumKey, newUser.get_phoneNum());
-                                userData.put(user.behaveRateKey, newUser.get_behaveRate());
+                                userData.put(user.behaveRateKey, 0);
                                 userData.put(user.birthDateKey, newUser.get_birthDate());
+                                userData.put(user.isProfessionalKey, false);
                                 toasmsg = "data will be uploaded in seconds please wait"
                                 SignUp_View!!.ShowToast(toasmsg)
                                 SignUp_View!!.Signup()
@@ -239,8 +262,9 @@ class UserControl private constructor() {
                                 userData.put(user.lastNameKey, newUser.get_lastName());
                                 userData.put(user.genderKey, newUser.get_gender());
                                 userData.put(user.phoneNumKey, newUser.get_phoneNum());
-                                userData.put(user.behaveRateKey, newUser.get_behaveRate());
+                                userData.put(user.behaveRateKey, 0);
                                 userData.put(user.birthDateKey, newUser.get_birthDate());
+                                userData.put(user.isProfessionalKey, false);
                                 toasmsg = "data will be uploaded in seconds please wait"
                                 SignIn_View!!.ShowToast(toasmsg)
                                 //SignIn_View!!.Signup()
@@ -262,7 +286,7 @@ class UserControl private constructor() {
                         , birthDate: String, gender: String, unhashedpass: String) {
         try {
             newUser.CheckSet_userName(userName)
-            newUser.CheckSet_email(eMail)
+            newUser.eMail = eMail
             newUser.CheckSet_password(password
                     , passwordconfirm)
             newUser.CheckSet_firstName(firstName)

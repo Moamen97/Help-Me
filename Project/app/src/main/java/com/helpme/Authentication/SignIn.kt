@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
 import android.view.View
@@ -52,6 +53,7 @@ class SignIn : AppCompatActivity() {
         /////////////////////////////////////////////////
         //facebook button
         login_button.setOnClickListener {
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "user_photos", "public_profile","user_birthday"))
             faceBookInitialize()
 
         }
@@ -161,6 +163,9 @@ class SignIn : AppCompatActivity() {
     }
     //added functions by mohamed start here
     fun LogIn() {
+        Handler().postDelayed({
+            //doSomethingHere()
+        }, 1000)
         val intent = Intent(this, home::class.java)
         // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         //  intent.putExtra("EXIT", true)

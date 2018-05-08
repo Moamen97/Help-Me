@@ -35,7 +35,7 @@ object mySelf : Model.user() {
                     this@mySelf.midName = docSnapshot.getString(user.midNameKey)!!
                     this@mySelf.gender = docSnapshot.getString(user.genderKey)!!
                     this@mySelf.phoneNum = docSnapshot.getString(user.phoneNumKey)!!
-                    //this@mySelf.isProfessional = docSnapshot.getBoolean(user.isProfessionalKey)!!
+                    this@mySelf.isProfessional = docSnapshot.getBoolean(user.isProfessionalKey)!!
                     //this@mySelf.behaveRate = docSnapshot.getLong(user.behaveRateKey) as Int
                     this@mySelf.birthDate = docSnapshot.getString(user.birthDateKey).toString()
                     profileimage=null

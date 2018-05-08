@@ -1,5 +1,6 @@
 package Model
 
+import Common.mySelf
 import Control.UserControl
 import Utility.Utility
 import android.graphics.BitmapFactory
@@ -13,7 +14,7 @@ import kotlin.collections.ArrayList
 open class user() {
     protected var userName: String = ""
     protected var password: String = ""
-    protected var eMail: String = ""
+    var eMail: String = ""
     protected var phoneNum: String = ""
     protected var firstName: String = ""
     protected var midName: String = ""
@@ -123,7 +124,7 @@ open class user() {
                         var im = Image("$userName.jpg", BitmapFactory.decodeByteArray(p0, 0, p0.size))
                         this@user.Checkset_image(im)
                         if(this@user == mySelf as user)
-                             UserControl.getUnChangedInstance().updateProfileImage(mySelf)
+                            UserControl.getUnChangedInstance().updateProfileImage(mySelf)
                     }
                 })
     }

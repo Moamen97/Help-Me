@@ -35,6 +35,7 @@ import com.helpme.R;
 
 import Common.mySelf;
 import Control.FeedbackControl;
+import Control.PostControl;
 import Control.UserControl;
 import Model.postData.Feedback.*;
 import Model.user;
@@ -166,24 +167,31 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
                 String userImage = "";
                 Feedback feedback = new Feedback(userImage, from, message, timestamp, false, rate[0], User.get_firstName(), User.get_midName(), User.get_lastName());
                 FeedbackControl.Companion.addFeedback(feedback, ShowFeedbacks.this);
+                PostControl PostController = PostControl.Companion.getInstance(0);
                 switch (rate[0]) {
                     case "0":
                         userControl.updateBehaviourRate(User.get_behaveRate());
+                        PostController.updateBehaviourRate(User.get_behaveRate());
                         break;
                     case "1":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 1) / 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate()+1)/ 2);
                         break;
                     case "2":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 2) / 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate()+2)/ 2);
                         break;
                     case "3":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 3) / 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate()+3)/ 2);
                         break;
                     case "4":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 4) / 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate()+4)/ 2);
                         break;
                     case "5":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 5) / 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate()+5)/ 2);
                         break;
                     default:
                         break;

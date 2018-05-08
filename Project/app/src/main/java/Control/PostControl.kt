@@ -86,13 +86,42 @@ class PostControl {
                     }
                 })
     }
+    fun updateBehaviourRate(behav_rate: Int) {
+        dataBaseInstance.collection("post")
+                .get()
+                .addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
+                    override fun onComplete(p0: Task<QuerySnapshot>) {
+                        println("Entered Complete Listener");
+                        if (p0.isSuccessful) {
+                            for (document: QueryDocumentSnapshot in p0.result) {
+                                if (document.get("postOwnerUserName").toString() == mySelf.postOwner) {
+                                    // getting empty documents ; here we should push our ws to db :V
+                                    var PostData = HashMap<String, Any>();
+                                    PostData.put("color", "1");
+                                    PostData.put("comments", document.get("comments").toString());
+                                    PostData.put("postRate", behav_rate);
+                                    PostData.put("postOwnerImage", "");
+                                    PostData.put("postOwnerUserName", document.get("postOwnerUserName").toString());
+                                    PostData.put("postOwnerFName",document.get("postOwnerFName").toString());
+                                    PostData.put("postType", document.get("postType").toString());
+                                    PostData.put("postLocation", document.get("postLocation").toString());
+                                    PostData.put("postName", document.get("postName").toString());
+                                    PostData.put("postID", document.get("postID").toString());
+                                    var task = dataBaseInstance.collection("post").document(document
+                                            .get("postID").toString())
+                                            .set(PostData)
+                                }
+                        }
+                        }
+                    }
+                })
+    }
     fun getPostsByType(PostType: String) {
         FirebaseFirestore.getInstance().collection("post").whereEqualTo("postType", PostType)
                 .get().addOnCompleteListener(object : OnCompleteListener<QuerySnapshot> {
                     override fun onComplete(p0: Task<QuerySnapshot>) {
                         if (p0.isSuccessful) {
                             Posttypemap.get(PostType)!!.clear();
-
                             for (document: QueryDocumentSnapshot in p0.result) {
                                 println(document.id + " => " + document.data);
                                 try {
@@ -113,6 +142,7 @@ class PostControl {
                                         var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
                                         Users.put(temp.postID,User)
                                         Posttypemap.get(PostType)!!.add(temp)
+
                                     }catch (e:Exception){var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
                                         Posttypemap.get(PostType)!!.add(temp)
                                         Users.put(temp.postID,User)
@@ -134,7 +164,6 @@ class PostControl {
                     override fun onComplete(p0: Task<QuerySnapshot>) {
                         if (p0.isSuccessful) {
                             Posttypemap.get("MyPosts")!!.clear();
-
                             for (document: QueryDocumentSnapshot in p0.result) {
                                 println(document.id + " => " + document.data);
                                 try {
@@ -158,8 +187,6 @@ class PostControl {
                                     }catch (e:Exception){var temp = post(pofnme, ptype, ArrayList(), null, pounme, col, orate, ploc, pnme, pid)
                                         Users.put(temp.postID,User)
                                         Posttypemap.get("MyPosts")!!.add(temp)}
-
-
                                 } catch (e: Exception) {
                                 }
                             }
