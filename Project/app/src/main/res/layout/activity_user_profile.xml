@@ -44,7 +44,6 @@
                         android:textColor="@color/fbutton_color_midnight_blue"
                         android:textStyle="bold" />
 
-                     />
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -148,10 +147,8 @@
                         android:horizontalSpacing="10dp"
                         android:numColumns="2"
                         android:padding="20dp"
-                        android:verticalSpacing="10dp" /><![CDATA[
-
-                    />
-                ]]>
+                        android:verticalSpacing="10dp"
+                        />
                 </LinearLayout>
 
             </RelativeLayout>

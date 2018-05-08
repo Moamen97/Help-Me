@@ -123,15 +123,12 @@ open class user() {
                     override fun onSuccess(p0: ByteArray) {
                         var im = Image("$userName.jpg", BitmapFactory.decodeByteArray(p0, 0, p0.size))
                         this@user.Checkset_image(im)
-                        if(this@user == mySelf as user)
-                            UserControl.getUnChangedInstance().updateProfileImage(mySelf)
                     }
                 })
     }
 
     fun downloadWorksImages(list: List<String>?) {
         if(list!=null) {
-            var count = list.size
             list.forEach {
                 Utility.storageHandler.reference
                         .child("images/$userName/works/$it").getBytes(Long.MAX_VALUE)
@@ -139,9 +136,6 @@ open class user() {
                             override fun onSuccess(p0: ByteArray) {
                                 var im = Image(it, BitmapFactory.decodeByteArray(p0, 0, p0.size))
                                 this@user.addWorkImage(im)
-                                count--
-                                if (count == 0)
-                                    UserControl.getUnChangedInstance().updateWorksImage(this@user)
                             }
                         })
             }

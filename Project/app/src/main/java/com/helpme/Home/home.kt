@@ -171,10 +171,11 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     fun ShowProfile(view: View) {
         var workshopinfo = (view as TextView).text.toString()
         val workshopid = workshopinfo.substring(0, workshopinfo.indexOf("\n"))
-        var WorkShopController: WorkShopControl = WorkShopControl.getInstance(null)
-        WorkShopController.GetWorkShopByID(workshopid)
-        val intent = Intent(this, UserProfile::class.java)
+        var WorkShopController: WorkShopControl = WorkShopControl.getInstance(null,hv=this)
+        val intent = Intent(this, LoadingActivity::class.java)
         startActivity(intent)
+        WorkShopController.GetWorkShopByID(workshopid)
+
     }
 
     fun SearchPosts(view: View)

@@ -21,6 +21,7 @@ import Music.MusicPlayer
 import Utility.imageKind
 import android.annotation.SuppressLint
 import android.os.Build
+import android.os.Handler
 import android.view.Gravity
 import android.view.MenuItem
 import com.helpme.UploadImages.UploadImage
@@ -145,17 +146,32 @@ class MyProfile : AppCompatActivity() {
                 editMyProfile(dialog)
             }
         }
-        updateProfileImage(mySelf)
-        updateWorksImage(mySelf)
+
+
+        var handler = Handler()
+        val r = object : Runnable {
+            var done: Boolean = false
+            var lastsize: Int = 0
+            override fun run() {
+                if (!done) {
+                    if (mySelf.get_ProfileImage() != null && mySelf.get_ProfileImage()?.imageData != null) {
+                        userImage.setImageBitmap(mySelf.get_ProfileImage()!!.imageData)
+                        done = true
+                    }
+                }
+                if (mySelf!!.get_worksImages().size > lastsize) {
+                    updateWorksImage(mySelf)
+                    lastsize = mySelf!!.get_worksImages().size
+                }
+                handler.postDelayed(this, 500)
+            }
+        }
+        handler.postDelayed(r, 500)
+
         if(mySelf.get_isProfessional())
         {
             findViewById<(Button)>(R.id.AddWorkShops).setVisibility(View.GONE)
         }
-    }
-
-    fun updateProfileImage(u: user) {
-        if (u.get_ProfileImage() != null && u.get_ProfileImage()!!.imageData != null)
-            userImage.setImageBitmap(u.get_ProfileImage()!!.imageData)
     }
 
     fun hidebu()

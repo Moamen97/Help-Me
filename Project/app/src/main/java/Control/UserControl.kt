@@ -46,11 +46,6 @@ class UserControl private constructor() {
             return instance!!
         }
 
-        fun getUnChangedInstance(): UserControl { // for data to talk with controller with change view bindings
-            if (instance == null)
-                instance = UserControl()
-            return instance!!
-        }
     } //Singleton
 
     fun updateBehaviourRate(behav_rate: Int) {
@@ -504,14 +499,6 @@ class UserControl private constructor() {
                          myProfileView!!.worksImagesGV.isClickable=true
                      }
                  })
-    }
-
-    fun updateProfileImage(u: user) {
-        myProfileView?.updateProfileImage(u)
-    }
-
-    fun updateWorksImage(u: user) {
-        myProfileView?.updateWorksImage(u)
     }
 
 }

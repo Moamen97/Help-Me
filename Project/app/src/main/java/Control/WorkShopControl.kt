@@ -5,16 +5,21 @@ import Model.Workshop
 import Model.postData.post
 import Model.user
 import Utility.Utility
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import com.google.android.gms.tasks.*
 import com.google.firebase.firestore.QuerySnapshot
 import com.helpme.EditProfile.AddWorkShop
 import com.helpme.EditProfile.MyProfile
 import com.helpme.Home.home
+import com.helpme.LoadingActivity
+import com.helpme.UserProfile
 import java.util.*
 import kotlin.collections.ArrayList
 
 class WorkShopControl private constructor() {
     private var AddWShop_View: AddWorkShop? = null
+    private var home_View: home? = null
     private var myprofile:MyProfile?=null
     private var dataBaseInstance = Utility.fireStoreHandler
     private var PostController = PostControl.getInstance()
@@ -25,16 +30,17 @@ class WorkShopControl private constructor() {
 
     companion object {
         private var instance: WorkShopControl? = null
-        fun getInstance(AddWShop: AddWorkShop?,myProfile: MyProfile?=null): WorkShopControl {
+        fun getInstance(AddWShop: AddWorkShop?,myProfile: MyProfile?=null,hv:home?=null): WorkShopControl {
             if (instance == null)
                 instance = WorkShopControl()
-            instance!!.setcurrentview(AddWShop,myProfile)
+            instance!!.setcurrentview(AddWShop,myProfile,hv)
             return instance!!
         }
     } //Singleton
 
-    private fun setcurrentview(AddWShop: AddWorkShop?,myProfile: MyProfile?) {
+    private fun setcurrentview(AddWShop: AddWorkShop?,myProfile: MyProfile?,hv:home?=null) {
         this.AddWShop_View = AddWShop
+        this.home_View=hv
         if(myProfile!=null)
         {
             this.myprofile = myProfile
@@ -122,6 +128,11 @@ class WorkShopControl private constructor() {
                         println("Entered Complete Listener");
                         if (p0.isSuccessful) {
                             if (!p0.result.isEmpty) {
+                                USER = user()
+                                try {
+                                    USER!!.CheckSet_userName(p0.result.documents[0].get("Owner").toString())
+                                    USER!!.downloadProfileImage()
+                                }catch (e:Exception){}
                                 println(p0.result.documents[0].data.toString());
                                 UWorkShop = Workshop(p0.result.documents[0].get("Location").toString(),
                                         p0.result.documents[0].get("Name").toString(),
@@ -130,12 +141,12 @@ class WorkShopControl private constructor() {
                                         p0.result.documents[0].get("Owner").toString(),
                                         p0.result.documents[0].get("ID").toString(),
                                         p0.result.documents[0].get("OwnerFullName").toString());
-                                USER = user()
-                                try {
-                                    USER!!.CheckSet_userName(p0.result.documents[0].get("Owner").toString())
-                                }catch (e:Exception){}
+
                                 var UserController:UserControl = UserControl.getInstance()
                                 UserController.loadUser(USER!!)
+                                LoadingActivity.progress.p=100.0
+                                val intent = Intent(home_View, UserProfile::class.java)
+                                home_View?.startActivity(intent)
                             } else {
                                 println("No Document Data");
 
