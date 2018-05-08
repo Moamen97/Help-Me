@@ -42,13 +42,14 @@ class CookingFragment : android.support.v4.app.Fragment() {
             temp.color = getRandomMaterialColor()
             try {
                 temp.postOwnerImage = null
-                for(u in PostController.Users)
-                {
-                    if (temp.postID ==u.key)
-                    {temp.postOwnerImage = u.value.get_ProfileImage()!!.imageData
+                for (u in PostController.Users) {
+                    if (temp.postID == u.key) {
+                        temp.postOwnerImage = u.value.get_ProfileImage()!!.imageData
                         PostController.Users.remove(u.key)
-                    }                     }
-            }catch (e:Exception){}
+                    }
+                }
+            } catch (e: Exception) {
+            }
 
             postList.add(temp)
         }

@@ -26,6 +26,7 @@ import java.util.List;
 import com.helpme.Comment.ShowFeedbacks;
 
 import Control.FeedbackControl;
+import Control.UserControl;
 import Model.Magic.CircleTransform;
 import Model.Magic.FlipAnimator;
 
@@ -140,15 +141,11 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackViewHolder> {
     }
 
     private void applyProfilePicture(FeedbackViewHolder holder, Feedback Comment) {
-        if (!TextUtils.isEmpty(Comment.getUserImage())) {
-            Glide.with(mContext).load(Comment.getUserImage()).thumbnail(0.5f).crossFade().transform(new CircleTransform(mContext)).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.getImgProfile());
-            holder.getImgProfile().setColorFilter(null);
-            holder.getIconText().setVisibility(View.GONE);
-        } else {
-            holder.getImgProfile().setImageResource(R.drawable.bg_circle);
-            holder.getImgProfile().setColorFilter(getRandomMaterialColor());
-            holder.getIconText().setVisibility(View.VISIBLE);
-        }
+        String userName = Comment.getFrom();
+        String userImage = "https://firebasestorage.googleapis.com/v0/b/helpme-4d220.appspot.com/o/images%2Flulu%2Fprofile%2Flulu.jpg?alt=media&token=8fd4f096-005e-41a8-b652-45c7737daaae".replace("lulu", userName);
+        Glide.with(mContext).load(userImage).thumbnail(0.5f).crossFade().transform(new CircleTransform(mContext)).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.getImgProfile());
+        holder.getImgProfile().setColorFilter(null);
+        holder.getIconText().setVisibility(View.GONE);
     }
 
     private void applyIconAnimation(FeedbackViewHolder holder, int position) {

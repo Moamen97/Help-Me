@@ -175,29 +175,27 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
                         break;
                     case "1":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 1) / 2);
-                        PostController.updateBehaviourRate((User.get_behaveRate()+1)/ 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate() + 1) / 2);
                         break;
                     case "2":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 2) / 2);
-                        PostController.updateBehaviourRate((User.get_behaveRate()+2)/ 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate() + 2) / 2);
                         break;
                     case "3":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 3) / 2);
-                        PostController.updateBehaviourRate((User.get_behaveRate()+3)/ 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate() + 3) / 2);
                         break;
                     case "4":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 4) / 2);
-                        PostController.updateBehaviourRate((User.get_behaveRate()+4)/ 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate() + 4) / 2);
                         break;
                     case "5":
                         userControl.updateBehaviourRate((User.get_behaveRate() + 5) / 2);
-                        PostController.updateBehaviourRate((User.get_behaveRate()+5)/ 2);
+                        PostController.updateBehaviourRate((User.get_behaveRate() + 5) / 2);
                         break;
                     default:
                         break;
                 }
-                feedback.setFrom(User.get_firstName() + " " + User.get_midName() + " " + User.get_lastName());
-                feedbacks.add(feedback);
                 mAdapter.notifyDataSetChanged();
                 addCommentDialog.dismiss();
             }
@@ -211,21 +209,8 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     private void prepareMessages() {
         String link = "https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/fr/cp0/e15/q65/21317730_1777007029006285_7633832584887544173_n.jpg?_nc_cat=0&efg=eyJpIjoidCJ9&oh=f6e3d8c614edc9f2e2a671043270be56&oe=5B29CBCF";
         swipeRefreshLayout.setRefreshing(true);
-        feedbacks.clear();
-        FeedbackControl.Companion.prepareFeedback();
-        ArrayList<Feedback> tempList = FeedbackControl.Companion.getSortedFeedbacksList();
-
-        if (tempList.size() == 0) {
-            toastMessage("Nothing to show here");
-        }
-
-        for (int i = 0; i < tempList.size(); ++i) {
-            feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate(), tempList.get(i).getFirstName(), tempList.get(i).getMidName(), tempList.get(i).getLastName()));
-            feedbacks.get(feedbacks.size() - 1).setFeedbackId(tempList.get(i).getFeedbackId());
-            mAdapter.notifyDataSetChanged();
-        }
+        FeedbackControl.Companion.prepareFeedback(ShowFeedbacks.this);
         swipeRefreshLayout.setRefreshing(false);
-        mAdapter.notifyDataSetChanged();
     }
 
 
@@ -266,8 +251,41 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     @Override
     public void onRefresh() {
         // swipe refresh is performed, fetch the messages again
-        mAdapter.refresh(feedbacks);
         prepareMessages();
+    }
+
+    public void refreshYBasha() {
+        ArrayList<Feedback> tempList = FeedbackControl.Companion.getSortedFeedbacksList();
+        if (tempList.size() == 0) {
+            toastMessage("Nothing to show here");
+        }
+        filterFeedbacks(tempList);
+        for (int i = 0; i < tempList.size(); ++i) {
+            if (checkArrayContains(tempList.get(i))) continue;
+            feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate(), tempList.get(i).getFirstName(), tempList.get(i).getMidName(), tempList.get(i).getLastName()));
+            feedbacks.get(feedbacks.size() - 1).setFeedbackId(tempList.get(i).getFeedbackId());
+            mAdapter.notifyDataSetChanged();
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private Boolean checkArrayContains(Feedback feedback) {
+        for (int i = 0; i < feedbacks.size(); ++i) {
+            if (feedbacks.get(i) == feedback) return true;
+        }
+        return false;
+    }
+
+    private void filterFeedbacks(ArrayList<Feedback> TempList) {
+        for (int i = 0; i < feedbacks.size(); ++i) {
+            boolean found = false;
+            for (int j = 0; j < TempList.size(); ++j)
+                if (TempList.get(i) == feedbacks.get(i)) {
+                    found = true;
+                    break;
+                }
+            if (!found) feedbacks.remove(feedbacks.get(i));
+        }
     }
 
     @Override
@@ -309,7 +327,6 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     private void toggleSelection(int position) {
         mAdapter.toggleSelection(position);
         int count = mAdapter.getSelectedItems().size();
-
         if (count == 0) {
             actionMode.finish();
         } else {
