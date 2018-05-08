@@ -11,12 +11,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/uploadProgressbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
+        android:layout_centerVertical="true"
         android:text="LOADING..."
-        android:textSize="30sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
     <ProgressBar
         android:id="@+id/loadingProgressbar"
