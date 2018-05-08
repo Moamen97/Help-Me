@@ -122,7 +122,8 @@ open class user() {
                     override fun onSuccess(p0: ByteArray) {
                         var im = Image("$userName.jpg", BitmapFactory.decodeByteArray(p0, 0, p0.size))
                         this@user.Checkset_image(im)
-                        UserControl.getUnChangedInstance().updateProfileImage(this@user)
+                        if(this@user == mySelf as user)
+                             UserControl.getUnChangedInstance().updateProfileImage()
                     }
                 })
     }
