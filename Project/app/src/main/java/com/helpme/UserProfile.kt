@@ -68,6 +68,7 @@ class UserProfile : AppCompatActivity() {
             }
         }
         handler.postDelayed(r, 500)
+
     }
 
 

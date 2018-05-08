@@ -438,7 +438,7 @@ class UserControl private constructor() {
                 return
             } else {
                 val b = ByteArrayOutputStream()
-                bitmap!!.compress(Bitmap.CompressFormat.JPEG, minOf((1 / tmp * 100).toInt(), 100), b)
+                bitmap!!.compress(Bitmap.CompressFormat.JPEG, minOf((1 / tmp * 100).toInt(), 80), b)
                 data = b.toByteArray()
             }
 
