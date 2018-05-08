@@ -33,11 +33,12 @@ class FeedbackControl private constructor() {
                     .addOnSuccessListener {
                         print("Success")
                         showFeedbacks.toastMessage("feedback has been added successfully")
+                        prepareFeedback(showFeedbacks)
                     }.addOnFailureListener { print("Failure") }
         }
 
 
-        fun prepareFeedback() {
+        fun prepareFeedback(showFeedbacks: ShowFeedbacks) {
             flag[0] = false
             FeedbackControl.dataBaseInstance.collection("post").document(mySelf.currentPostId).collection("feedbacks")
                     .get()
@@ -60,12 +61,13 @@ class FeedbackControl private constructor() {
                                                     document.get("lastName") as String)
                                             feedback.feedbackId = document.id
                                             getFeedbacksList().add(feedback)
-                                            mySelf.hashMap[mySelf.currentPostId]!!.add(feedback)
                                             println("Document whose data => " + document.data.toString())
                                             flag[0] = true
                                         } catch (e: Exception) {
+                                            println(e.toString())
                                         }
                                     }
+                                    showFeedbacks.refreshYBasha()
                                 }
                             } else {
                                 println(p0.exception.toString())
@@ -80,11 +82,9 @@ class FeedbackControl private constructor() {
         }
 
         fun getSortedFeedbacksList(): ArrayList<Feedback> {
-            var sortedList = feedbacks.sortedWith(compareBy({ it.timestamp }))
+            val sortedList = feedbacks.sortedWith(compareBy({ it.timestamp }))
             feedbacks.clear()
-            for (i in (0..sortedList.size - 1)) {
-                feedbacks.add(sortedList[i])
-            }
+            for (i in (0..sortedList.size - 1)) feedbacks.add(sortedList[i])
             return feedbacks
         }
 
@@ -117,8 +117,9 @@ class FeedbackControl private constructor() {
                 .collection("feedbacks")
                 .document(feedbackId)
                 .delete()
-                .addOnSuccessListener { showFeedbacks.toastMessage("feedback/s have been deleted") }
+                .addOnSuccessListener {
+                    showFeedbacks.toastMessage("feedback/s have been deleted")
+                }
                 .addOnFailureListener { showFeedbacks.toastMessage("error while deleting feedback") }
     }
-
 }
