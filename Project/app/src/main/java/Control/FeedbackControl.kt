@@ -37,7 +37,6 @@ class FeedbackControl private constructor() {
                     }.addOnFailureListener { print("Failure") }
         }
 
-
         fun prepareFeedback(showFeedbacks: ShowFeedbacks) {
             flag[0] = false
             FeedbackControl.dataBaseInstance.collection("post").document(mySelf.currentPostId).collection("feedbacks")
