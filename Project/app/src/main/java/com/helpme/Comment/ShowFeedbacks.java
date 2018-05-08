@@ -257,24 +257,15 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
     }
 
     public void refreshYBasha() {
+        feedbacks.clear();
         ArrayList<Feedback> tempList = FeedbackControl.Companion.getSortedFeedbacksList();
-        Set<Feedback> set = new HashSet<>();
-
         if (tempList.size() == 0) {
             toastMessage("Nothing to show here");
         }
-        filterFeedbacks(tempList);
         for (int i = 0; i < tempList.size(); ++i) {
-            if (checkArrayContains(tempList.get(i))) continue;
             feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate(), tempList.get(i).getFirstName(), tempList.get(i).getMidName(), tempList.get(i).getLastName()));
             feedbacks.get(feedbacks.size() - 1).setFeedbackId(tempList.get(i).getFeedbackId());
         }
-        set.addAll(feedbacks);
-        feedbacks.clear();
-        Object[] array = set.toArray();
-        for (int i = 0; i < array.length; ++i)
-            feedbacks.add((Feedback) array[i]);
-
         mAdapter.notifyDataSetChanged();
     }
 
