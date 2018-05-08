@@ -31,6 +31,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.helpme.R;
 
 import Common.mySelf;
@@ -244,7 +247,6 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
             Toast.makeText(getApplicationContext(), "Search...", Toast.LENGTH_SHORT).show();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -256,6 +258,8 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
 
     public void refreshYBasha() {
         ArrayList<Feedback> tempList = FeedbackControl.Companion.getSortedFeedbacksList();
+        Set<Feedback> set = new HashSet<>();
+
         if (tempList.size() == 0) {
             toastMessage("Nothing to show here");
         }
@@ -264,8 +268,13 @@ public class ShowFeedbacks extends AppCompatActivity implements android.support.
             if (checkArrayContains(tempList.get(i))) continue;
             feedbacks.add(new Feedback(tempList.get(i).getUserImage(), tempList.get(i).getFrom(), tempList.get(i).getMessage(), tempList.get(i).getTimestamp(), tempList.get(i).getDeleteIt(), tempList.get(i).getRate(), tempList.get(i).getFirstName(), tempList.get(i).getMidName(), tempList.get(i).getLastName()));
             feedbacks.get(feedbacks.size() - 1).setFeedbackId(tempList.get(i).getFeedbackId());
-            mAdapter.notifyDataSetChanged();
         }
+        set.addAll(feedbacks);
+        feedbacks.clear();
+        Object[] array = set.toArray();
+        for (int i = 0; i < array.length; ++i)
+            feedbacks.add((Feedback) array[i]);
+
         mAdapter.notifyDataSetChanged();
     }
 
