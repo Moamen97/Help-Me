@@ -123,7 +123,7 @@ open class user() {
                         var im = Image("$userName.jpg", BitmapFactory.decodeByteArray(p0, 0, p0.size))
                         this@user.Checkset_image(im)
                         if(this@user == mySelf as user)
-                             UserControl.getUnChangedInstance().updateProfileImage()
+                             UserControl.getUnChangedInstance().updateProfileImage(mySelf)
                     }
                 })
     }
