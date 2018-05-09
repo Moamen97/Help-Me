@@ -77,29 +77,14 @@
             android:paddingStart="10dp"
             android:textSize="14sp" />
 
-        <AutoCompleteTextView
-            android:id="@+id/WorkshopProfessionEditText"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/WorkshopPhoneNumberEditText"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/rounded_white"
-            android:drawableLeft="@drawable/ic_date_range_black_24dp"
-            android:drawablePadding="5dp"
-            android:hint="Work Shop ID Unique and Public"
-            android:paddingStart="10dp"
-            android:textSize="14sp" />
-
         <Button
             android:id="@+id/SaveWorkShopInfo"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioGroup2"
-            android:layout_marginTop="17dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
             android:layout_marginVertical="10dp"
-            android:layout_toStartOf="@+id/linearLayout"
             android:background="@color/md_amber_100"
             android:onClick="btnAddWorkShop"
             android:text="Save"
@@ -115,29 +100,19 @@
             android:layout_below="@+id/SaveWorkShopInfo"
             android:orientation="vertical">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                app:backgroundTint="@color/md_blue_400"
-                app:srcCompat="@drawable/ic_add_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
-
         </LinearLayout>
 
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/WorkshopProfessionEditText"
+            android:layout_below="@+id/WorkshopPhoneNumberEditText"
             android:id="@+id/radioGroup2">
 
             <RadioButton
                 android:id="@+id/radioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/WorkshopProfessionEditText"
+                android:layout_alignStart="@+id/WorkshopPhoneNumberEditText"
                 android:layout_below="@+id/WorkshopProfessionEditText"
                 android:text="Doctor" />
 
