@@ -41,13 +41,14 @@ class UserProfile : AppCompatActivity() {
         val wname = findViewById<(TextView)>(R.id.WorkshopName)
         val wnum = findViewById<(TextView)>(R.id.Workshopnumber)
         val wprof = findViewById<(TextView)>(R.id.WorkshopProfession)
+        val behavrate = findViewById<(TextView)>(R.id.behavrate)
 
         pname.text = "Owner Name : \n" + WorkShopController.UWorkShop!!.OwnerFullName
         wloc.text = "WorkShop Location : \n" + WorkShopController.UWorkShop!!.location
         wname.text = "WorkShop Name : \n" + WorkShopController.UWorkShop!!.workshopName
         wnum.text = "WorkShop Phone : \n" + WorkShopController.UWorkShop!!.workshopPhoneNum
         wprof.text = "WorkShop Profession : \n" + WorkShopController.UWorkShop!!.profession
-
+        behavrate.text="Behavior Rate : \n"+ User.get_behaveRate().toString()
 
         var handler = Handler()
         val r = object : Runnable {

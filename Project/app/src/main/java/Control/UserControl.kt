@@ -83,7 +83,7 @@ class UserControl private constructor() {
                 if (task.isSuccessful) {
                     var docSnapshot = task.result
 
-
+                    u.behaveRate = docSnapshot.getLong(user.behaveRateKey)?.toInt()!!
                     u.Checkset_image(null)
                     u.downloadProfileImage()
                     u.downloadWorksImages(docSnapshot.data!![user.worksImagesNamesKey] as MutableList<String>?)

@@ -120,6 +120,17 @@
                         android:textColor="@color/fbutton_color_midnight_blue"
                         android:textSize="21sp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/behavrate"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/fbutton_color_midnight_blue"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/ShowWorkShops"

@@ -24,7 +24,7 @@ open class user() {
     protected var profileimage: Image? = null
     protected var worksImages: MutableList<Image?> = mutableListOf()
     protected var isProfessional: Boolean = false
-    protected var behaveRate: Int = 5
+    var behaveRate: Int = 5
 
         set(value) {
             field = when {

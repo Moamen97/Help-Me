@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Project.iml" filepath="$PROJECT_DIR$/Project.iml" />
       <module fileurl="file://C:\Users\Mohamed Aaziz\Desktop\Help-Me-master\Project\Project.iml" filepath="C:\Users\Mohamed Aaziz\Desktop\Help-Me-master\Project\Project.iml" />
+      <module fileurl="file://E:\2nd Year\Software\Project\cascode\Help-Me\Project\Project.iml" filepath="E:\2nd Year\Software\Project\cascode\Help-Me\Project\Project.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Mohamed Aaziz\Desktop\Help-Me-master\Project\app\app.iml" filepath="C:\Users\Mohamed Aaziz\Desktop\Help-Me-master\Project\app\app.iml" />
+      <module fileurl="file://E:\2nd Year\Software\Project\cascode\Help-Me\Project\app\app.iml" filepath="E:\2nd Year\Software\Project\cascode\Help-Me\Project\app\app.iml" />
     </modules>
   </component>
 </project>
